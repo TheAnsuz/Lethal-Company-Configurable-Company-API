@@ -4,6 +4,7 @@ _The guide assumes you already know the basics of programming, c# and the basic 
 
 [Creation](##Creating-a-configuration)  
 [Parameters](##Parameters)  
+[Configuration Types](##Configuration-types)  
 [Usage](##Using-a-configuration)
 
 ## Creating a configuration
@@ -53,6 +54,17 @@ _This is a description on what does every parameter actually mean._
 `Build()` Will create the configuration. It will not be created until the method is called (However as mentioned above, the method will called automatically if you assign the creation to a configuration).
 
 Once the `Build()` is called, you will **not** be able to modify the configuration any further.
+
+## Configuration types
+
+You can choose to create a configuration of your own type however it will take you less time to use one of the existing ones:
+
+-   `String`: Allows any text (up to 32 characters)
+-   `SmallString`: Allows a short text (up to 10 characters)
+-   `Boolean`: Allows true or false
+-   `Percent`: Allows a float value that goes from **0** to **100**
+-   `Float`: Allows any float or whole number value
+-   `Integer`: Allows any whole number value
 
 ## Using a configuration
 
