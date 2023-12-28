@@ -25,3 +25,7 @@ For example you can have a x10 enemy spawn multiplier for your first game slot a
 Ingame menu (filled with random data)
 
 ![Menu image](https://imgur.com/6Egvdfw.png)
+
+## Contact
+
+_Right now there is no github for the project nor issue page so I can only ask to contact using discord to `the_ansuz`_.
