@@ -122,6 +122,7 @@ namespace Amrv.ConfigurableCompany.content.display
                 HeaderTitle_Text.overflowMode = TextOverflowModes.Truncate;
             }
 
+            // Body
             {
                 Body = UnityObject.Create("Body")
                       .SetParent(Container_Rect)
@@ -207,6 +208,8 @@ namespace Amrv.ConfigurableCompany.content.display
                 Tag_Synchronized = CreateTag("Client synchronize", Color.cyan, FooterArea_Rect, out _);
                 Tag_Type = CreateTag("Type", Color.yellow, FooterArea_Rect, out Tag_Type_Text);
             }
+
+            DisplayConfig(null);
         }
 
         public virtual void DisplayConfig(Configuration Config)

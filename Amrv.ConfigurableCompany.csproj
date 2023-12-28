@@ -8,7 +8,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly> 
     <Title>Configurable company</Title>
     <Authors>Adrian MRV</Authors>
     <Company>AMRV</Company>

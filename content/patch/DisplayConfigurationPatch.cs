@@ -19,6 +19,9 @@ namespace Amrv.ConfigurableCompany.content.patch
                 return;
 
             ConfigurationIO.ReadAll(FileUtils.GetCurrentConfigFileName());
+#if DEBUG
+            Console.WriteLine("DisplayConfigurationPatch::HostButtonClick");
+#endif  
 
             if (ConfigDisplay == null)
             {

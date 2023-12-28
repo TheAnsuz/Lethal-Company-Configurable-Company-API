@@ -26,7 +26,6 @@ namespace Amrv.ConfigurableCompany.content.model
         public readonly bool HasTooltip;
         public object Value { get; private set; }
         public readonly object Default;
-        private readonly bool HasDefault;
         public readonly string Name;
         public readonly bool Synchronized;
         public readonly bool Experimental;
@@ -71,29 +70,12 @@ namespace Amrv.ConfigurableCompany.content.model
 
             Type = builder.Type;
 
-            if (Type.IsValidValue(builder.DefaultValue))
-            {
-                Default = builder.DefaultValue;
-                HasDefault = true;
-            }
-            else if (Type.TryConvert(builder.DefaultValue, out object result))
-            {
-                Default = result;
-                HasDefault = true;
-            }
-            else if (Type.TryConvert(Type.DefaultValue, out object typeResult))
-            {
-                Default = typeResult;
-                HasDefault = true;
-            }
-
             if (!TrySet(builder.Value, ChangeReason.CONFIGURATION_CREATED))
             {
-                if (HasDefault)
-                    Value = Default;
-                else
-                    throw new ArgumentException($"Tried to create config {ID} with an invalid value {builder.Value} and no valid default value");
+                if (!TrySet(Type.DefaultValue, ChangeReason.CONFIGURATION_CREATED))
+                    throw new ArgumentException($"Tried to create config {ID} with an invalid value {builder.Value}/{Type.DefaultValue}");
             }
+            Default = Value;
 
             _configurations.Add(ID, this);
         }
@@ -147,7 +129,7 @@ namespace Amrv.ConfigurableCompany.content.model
         internal void Reset(ChangeReason reason)
         {
             object old = Value;
-            Value = HasDefault ? Default : Type.DefaultValue;
+            Value = Default;
             Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS));
         }
 

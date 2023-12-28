@@ -30,12 +30,6 @@ namespace Amrv.ConfigurableCompany.content.model
         /// </summary>
         public object Value { get => _value; set { if (Editable) _value = value; } }
 
-        private object _defaultValue;
-        /// <summary>
-        /// The default value to be used when this configuration is reset or first generated. It must be valid according to the provided Type
-        /// </summary>
-        public object DefaultValue { get => _defaultValue; set { if (Editable) _defaultValue = value; } }
-
         private bool _synchronized;
         /// <summary>
         /// Whenever this configuration should be synchronized with the clients when they join the game
@@ -144,12 +138,6 @@ namespace Amrv.ConfigurableCompany.content.model
         public ConfigurationBuilder SetValue(object value)
         {
             Value = value;
-            return this;
-        }
-
-        public ConfigurationBuilder SetDefault(object defaultValue)
-        {
-            DefaultValue = defaultValue;
             return this;
         }
 

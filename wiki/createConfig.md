@@ -29,7 +29,6 @@ LethalConfiguration.CreateConfig()
                 .SetCategory(category) // Optional
                 .SetType(ConfigurationTypes.String)
                 .SetValue("Random value")
-                .SetDefault("") // Optional
                 .SetExperimental(false) // Optional
                 .SetSynchronized(false) // Optional
                 .Build(); // Optional
@@ -46,8 +45,7 @@ _This is a description on what does every parameter actually mean._
 -   **Tooltip**/`SetTooltip(string array)`: Each line of the configuration tooltip. Keep it short and informative. _**OPTIONAL**_
 -   **Category**/`SetCategory(string/ConfigurationCategory)`: Wich category will hold this configuration. There must be always a category, however a default one will be used as failsafe. _**OPTIONAL**_
 -   **Type**/`SetType(ConfigurationType)`: The type of values that this configuration accepts. You can choose one from the alredy existing types `ConfigurationTypes.` or create your own.
--   **Value**/`SetValue(object)`: The value that will contain upon creation. Might be changed instantly if read from file or reset.
--   **DefaultValue**/`SetDefault(object)`: The value that will be set when the configuration is reset. _**OPTIONAL**_
+-   **Value**/`SetValue(object)`: The value that will contain upon creation. Might be changed instantly if read from file.
 -   **Experimental**/`SetExperimental(bool)`: If this configuration is not guaranteed to work. This is only visual notification for the users. _**OPTIONAL**_
 -   **Synchronized**/`SetSynchronized(bool)`: Marks the configuration to be synchronized with other clients when they join the game. Useful if a configuration might only change client-side.
 
