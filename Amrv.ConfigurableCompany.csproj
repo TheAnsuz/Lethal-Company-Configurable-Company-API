@@ -12,6 +12,7 @@
     <Title>Configurable company</Title>
     <Authors>Adrian MRV</Authors>
     <Company>AMRV</Company>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,12 +22,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="utils\**" />
-    <EmbeddedResource Remove="utils\**" />
-    <None Remove="utils\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
