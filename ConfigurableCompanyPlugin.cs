@@ -112,7 +112,6 @@ namespace Amrv.ConfigurableCompany
                 .SetCategory(category)
                 .SetType(ConfigurationTypes.String)
                 .SetValue("Random value")
-                .SetDefault("")
                 .SetExperimental(false)
                 .SetSynchronized(false)
                 .Build();
