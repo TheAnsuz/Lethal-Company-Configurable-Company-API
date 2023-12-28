@@ -1,0 +1,45 @@
+# Developing with ConfigurableCompany
+
+_The guide assumes you already know the basics of programming, c# and the basic usage of visual studio._
+
+[Creation](##Creating-a-category)  
+[Parameters](##Parameters)  
+[Usage](##Using-a-category)
+
+## Creating a category
+
+Categories are used to organize your configuration in a folder-like structure so the final user can easily navigate the menu. These are symbolic and do not change the behavior of the configurations at all.
+
+To create a category is as simple as calling `LethalConfiguration.CreateCategory`. You can choose to provide an ID right from the start or later, however, all categories must contain an unique ID.
+
+**IDs** must be lowercase, contain only letters, numbers, hypens ( **-** ) and underscores ( **\_** ). I'd recommend to make your IDs look something like `author_category-name` or `author_mod_category-name`.
+
+Here is an example on how you can create a category:
+
+```csharp
+ConfigurationCategory category3 = LethalConfiguration.CreateCategory()
+                .SetID("amrv_configurable-company_category-3")
+                .SetName("Category 3")
+                .SetColorRGB(255, 0, 0) // Optional
+                .HideIfEmpty(false) // Optional
+                .Build(); // Optional
+```
+
+It's not necesary to call `Build()` if you are assigning the creation to a `ConfigurationCategory` as it will implicitly call the build method to create the category.
+
+## Parameters
+
+_This is a description on what does every parameter actually mean._
+
+-   **ID**/`SetID(string)`: The unique ID of the category.
+-   **Name**/`SetName(string)`: The name that will be displayed on the in-game menu.
+-   **Color**/`SetColor(Color)`: (There are multiples methods to set the color. choose the prefered one based on your preferences) Sets the color of the category panel in the in-game menu. _**OPTIONAL**_
+-   **HidesIfEmpty**/`HideIfEmpty(bool[true])`: Marks the category to not be displayed at all if there are no configurations inside this category. _**OPTIONAL**_
+
+`Build()` Will create the category. It will not be created until the method is called (However as mentioned above, the method will called automatically if you assign the creation to a category).
+
+Once the `Build()` is called, you will **not** be able to modify the category any further.
+
+## Using a category
+
+To use a defined category, just store the variable with the `ConfigurationCategory` and assign your configurations to it.
