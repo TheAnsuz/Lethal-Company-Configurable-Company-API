@@ -1,5 +1,4 @@
-﻿using Amrv.ConfigurableCompany;
-using Amrv.ConfigurableCompany.content.display;
+﻿using Amrv.ConfigurableCompany.content.display;
 
 namespace Amrv.ConfigurableCompany.content.model
 {

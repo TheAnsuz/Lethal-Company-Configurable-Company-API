@@ -1,5 +1,4 @@
-﻿using Amrv.ConfigurableCompany;
-using Amrv.ConfigurableCompany.content.model.data;
+﻿using Amrv.ConfigurableCompany.content.model.data;
 using Amrv.ConfigurableCompany.content.utils;
 using System;
 using System.Collections.Generic;

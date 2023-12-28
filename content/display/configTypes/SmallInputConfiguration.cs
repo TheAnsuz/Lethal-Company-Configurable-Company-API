@@ -1,17 +1,9 @@
 ﻿using Amrv.ConfigurableCompany.content.display.customObject;
 using Amrv.ConfigurableCompany.content.model;
-using Amrv.ConfigurableCompany.content.model.events;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
 {

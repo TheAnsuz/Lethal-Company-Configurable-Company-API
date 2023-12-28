@@ -3,10 +3,6 @@ using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +43,9 @@ namespace Amrv.ConfigurableCompany.content.display
 
         protected virtual void OnReset()
         {
+#if DEBUG
             Console.WriteLine($"ButtonsMenu::OnReset");
+#endif
             foreach (var config in Configuration.Configs)
                 config.Reset(model.data.ChangeReason.USER_RESET);
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());

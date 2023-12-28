@@ -1,9 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.content.model

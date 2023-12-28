@@ -1,10 +1,4 @@
 ﻿using Amrv.ConfigurableCompany.content.utils;
-using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amrv.ConfigurableCompany.content.model
 {

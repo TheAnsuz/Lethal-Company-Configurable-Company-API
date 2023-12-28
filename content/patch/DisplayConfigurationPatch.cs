@@ -1,9 +1,8 @@
-﻿using BepInEx.Configuration;
+﻿using Amrv.ConfigurableCompany.content.display;
+using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.utils;
 using HarmonyLib;
 using System;
-using Amrv.ConfigurableCompany.content.display;
-using Amrv.ConfigurableCompany.content.model;
 
 namespace Amrv.ConfigurableCompany.content.patch
 {

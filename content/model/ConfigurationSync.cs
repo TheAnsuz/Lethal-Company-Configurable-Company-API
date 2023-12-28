@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -51,7 +48,7 @@ namespace Amrv.ConfigurableCompany.content.model
                 {
                     bool result = value.TrySet(syncConfig.Value, ChangeReason.SYNCHRONIZED);
 #if DEBUG
-                    Console.WriteLine($"Syncing bundle key {syncConfig.Key}:{syncConfig.Value} => {result   }");
+                    Console.WriteLine($"Syncing bundle key {syncConfig.Key}:{syncConfig.Value} => {result}");
 #endif
                 }
             }

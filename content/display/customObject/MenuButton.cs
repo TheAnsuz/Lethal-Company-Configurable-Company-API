@@ -1,16 +1,10 @@
 ﻿using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using Amrv.ConfigurableCompany.display.component;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.Button;
-using static UnityEngine.UIElements.UIR.Allocator2D;
 
 namespace Amrv.ConfigurableCompany.content.display.customObject
 {

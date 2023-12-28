@@ -1,8 +1,8 @@
-﻿using BepInEx;
+﻿using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.patch;
+using BepInEx;
 using HarmonyLib;
 using System;
-using Amrv.ConfigurableCompany.content.model;
 
 namespace Amrv.ConfigurableCompany
 {
@@ -65,7 +65,7 @@ namespace Amrv.ConfigurableCompany
                 .Build();
             LethalConfiguration.CreateCategory("dummy_empty_category_autohide").SetName("Should not be visible").HideIfEmpty().Build();
             LethalConfiguration.CreateCategory("dummy_empty_category_nohide").SetName("Should be visible").HideIfEmpty(false).Build();
-            LethalConfiguration.CreateConfig("dummy_boolean_2").SetName("Dummy boolean").SetValue(false).SetType(ConfigurationTypes.Boolean).SetTooltip("").Build();
+            Configuration someConfig = LethalConfiguration.CreateConfig("dummy_boolean_2").SetName("Dummy boolean").SetValue(false).SetType(ConfigurationTypes.Boolean).SetTooltip("").Build();
             LethalConfiguration.CreateConfig("dummy_boolean").SetName("Dummy boolean").SetValue(false).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_integer").SetName("Dummy integer").SetValue(1).SetType(ConfigurationTypes.Integer).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
             LethalConfiguration.CreateConfig("dummy_float").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(category).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
@@ -129,7 +129,6 @@ namespace Amrv.ConfigurableCompany
                 LethalConfiguration.CreateConfig($"dummy_string_small_forcat_{i}").SetName("Dummy small string").SetValue("").SetCategory(cat).SetType(ConfigurationTypes.SmallString).SetTooltip("dummy tooltip").Build();
 
             }
-
 #endif
             Events.PluginEnabled.Invoke(EventArgs.Empty);
         }

@@ -1,11 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -224,7 +219,6 @@ namespace Amrv.ConfigurableCompany.content.display
             {
                 Container.SetActive(true);
                 HeaderTitle_Text.SetText(Config.Name);
-                Console.WriteLine($"'{Config.Tooltip}'");
                 BodyArea.SetActive(Config.HasTooltip);
                 BodyTooltip_Text.SetText(Config.Tooltip);
                 BodyTooltip_Text.ForceMeshUpdate(true, true);

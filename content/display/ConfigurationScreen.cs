@@ -1,15 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using Amrv.ConfigurableCompany.display.component;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.display
 {
