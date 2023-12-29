@@ -47,7 +47,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
             ID = builder.ID;
 
-            if (builder.Name == null)
+            if (builder.Name == null || builder.Name.Replace(" ", "").Length < 1)
                 throw new ArgumentException($"Tried to create config {ID} without a name");
 
             Name = builder.Name;

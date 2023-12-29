@@ -61,6 +61,7 @@ namespace Amrv.ConfigurableCompany.content.patch
         {
             //Plugin.Instance.LoggerObj().LogWarning("Confirm host");
             //_configDisplay.SaveAllToConfig();
+            _configDisplay.SaveAll();
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
             _configDisplay = null;
         }
