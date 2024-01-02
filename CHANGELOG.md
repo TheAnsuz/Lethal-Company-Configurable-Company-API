@@ -1,9 +1,15 @@
-# 2.0.1
+# 2.1.0
+
+## Added
+
+-   Tooltips now show the default value of the configuration
+-   Expanded public API with more LethalConfiguration functions
+-   Two new events: _BeforeMenuDisplay_ and _AfterMenuDisplay_
 
 ## Modified
 
-- Configuration can no longer be created with an empty name
+-   The configuration screen now updates whenever a new config is created (even after host button clicked)
+
+## Removed
 
 ## Fixed
-
-- A bug where configurations set in the last moment before starting a match would not save (Reported by **thunderkweef290**)
