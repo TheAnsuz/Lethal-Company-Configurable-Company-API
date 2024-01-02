@@ -80,9 +80,11 @@ namespace Amrv.ConfigurableCompany.content.display
             TooltipMenu.DisplayConfig(null);
         }
 
-        public void AddCategory(ConfigurationCategory category)
+        public ConfigurationCategoryDisplay AddCategory(ConfigurationCategory category)
         {
-            ConfigurationMenu.Add(new ConfigurationCategoryDisplay(category));
+            ConfigurationCategoryDisplay cat = new(category);
+            ConfigurationMenu.Add(cat);
+            return cat;
         }
 
         public void RemoveCategory(ConfigurationCategory category)
@@ -103,15 +105,18 @@ namespace Amrv.ConfigurableCompany.content.display
             return false;
         }
 
-        public void AddConfig(Configuration config)
+        public ConfigurationItemDisplay AddConfig(Configuration config)
         {
             if (ConfigurationMenu.TryGet(config.Category.ID, out ConfigurationCategoryDisplay categoryDisplay))
             {
-                categoryDisplay.Add(config.Type.CreateDisplay(config));
+                ConfigurationItemDisplay display = config.Type.CreateDisplay(config);
+                categoryDisplay.Add(display);
+                return display;
             }
             else
             {
                 ConfigurableCompanyPlugin.Error($"Tried to create display for config {config.ID} without a category display");
+                return null;
             }
         }
 

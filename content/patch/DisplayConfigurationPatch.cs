@@ -10,11 +10,14 @@ namespace Amrv.ConfigurableCompany.content.patch
     {
         private static ConfigurationScreen _configDisplay = null;
         public static ConfigurationScreen ConfigDisplay => _configDisplay;
+        public static bool ConfigDisplayExists => _configDisplay != null;
 
         [HarmonyPatch(typeof(MenuManager), nameof(MenuManager.ClickHostButton))]
         [HarmonyPostfix]
         private static void HostButtonClick(ref MenuManager __instance)
         {
+            Events.BeforeMenuDisplay.Invoke(EventArgs.Empty);
+
             if (Configuration.Configs.Count == 0)
                 return;
 
@@ -34,6 +37,8 @@ namespace Amrv.ConfigurableCompany.content.patch
 
             _configDisplay.Refresh();
             _configDisplay.LoadAll();
+
+            Events.AfterMenuDisplay.Invoke(EventArgs.Empty);
         }
 
         [HarmonyPatch(typeof(SaveFileUISlot), nameof(SaveFileUISlot.SetFileToThis))]

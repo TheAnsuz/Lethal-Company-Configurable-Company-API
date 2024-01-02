@@ -1,5 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
-using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Amrv.ConfigurableCompany
@@ -32,5 +32,14 @@ namespace Amrv.ConfigurableCompany
             AssemblyRegistry.RegisterAssembly(Assembly.GetCallingAssembly());
             return new(id);
         }
+
+        public static bool TryGetConfig(string id, out Configuration config) => Configuration.TryGet(id, out config);
+
+        public static Dictionary<string, Configuration>.KeyCollection ConfigIDs => Configuration.Ids;
+        public static Dictionary<string, Configuration>.ValueCollection Configs => Configuration.Configs;
+
+        public static bool TryGetCategory(string id, out ConfigurationCategory category) => ConfigurationCategory.TryGet(id, out category);
+        public static Dictionary<string, ConfigurationCategory>.KeyCollection CategoryIDs => ConfigurationCategory.Ids;
+        public static Dictionary<string, ConfigurationCategory>.ValueCollection Categories => ConfigurationCategory.Categories;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Amrv.ConfigurableCompany.content.patch;
+using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -64,6 +65,7 @@ namespace Amrv.ConfigurableCompany.content.model
         {
             Editable = false;
             ConfigurationCategory category = new(this);
+            DisplayConfigurationPatch.ConfigDisplay?.AddCategory(category);
             return category;
         }
 

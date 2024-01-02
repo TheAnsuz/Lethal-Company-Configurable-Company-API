@@ -39,5 +39,8 @@ namespace Amrv.ConfigurableCompany
         /// Called once.
         /// </summary>
         public static EventType<EventArgs> PluginEnabled = new();
+
+        public static EventType<EventArgs> BeforeMenuDisplay = new();
+        public static EventType<EventArgs> AfterMenuDisplay = new();
     }
 }
