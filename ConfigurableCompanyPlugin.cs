@@ -116,18 +116,19 @@ namespace Amrv.ConfigurableCompany
                 .SetSynchronized(false)
                 .Build();
 
-            for (int i = 0; i < 5; i++)
-            {
-                ConfigurationCategory cat = LethalConfiguration.CreateCategory($"dummy_category_{i}").SetName($"Dummy category {i}").SetColorRGB((byte)(i / 50f * 255), 100, 100).Build();
-                LethalConfiguration.CreateConfig($"dummy_boolean_2_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(cat).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
-                LethalConfiguration.CreateConfig($"dummy_boolean_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(cat).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
-                LethalConfiguration.CreateConfig($"dummy_integer_forcat_{i}").SetName("Dummy integer").SetValue(1).SetCategory(cat).SetType(ConfigurationTypes.Integer).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
-                LethalConfiguration.CreateConfig($"dummy_float_forcat_{i}").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(cat).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
-                LethalConfiguration.CreateConfig($"dummy_percent_forcat_{i}").SetName("Dummy percent").SetValue(10).SetCategory(cat).SetType(ConfigurationTypes.Percent).SetTooltip("dummy tooltip").Build();
-                LethalConfiguration.CreateConfig($"dummy_string_forcat_{i}").SetName("Dummy string").SetValue("").SetCategory(cat).SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
-                LethalConfiguration.CreateConfig($"dummy_string_small_forcat_{i}").SetName("Dummy small string").SetValue("").SetCategory(cat).SetType(ConfigurationTypes.SmallString).SetTooltip("dummy tooltip").Build();
-
-            }
+            Events.AfterMenuDisplay += delegate {
+                for (int i = 0; i < 5; i++)
+                {
+                    ConfigurationCategory cat = LethalConfiguration.CreateCategory($"dummy_category_{i}").SetName($"Dummy category {i}").SetColorRGB((byte)(i / 50f * 255), 100, 100).Build();
+                    LethalConfiguration.CreateConfig($"dummy_boolean_2_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(cat).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
+                    LethalConfiguration.CreateConfig($"dummy_boolean_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(cat).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
+                    LethalConfiguration.CreateConfig($"dummy_integer_forcat_{i}").SetName("Dummy integer").SetValue(1).SetCategory(cat).SetType(ConfigurationTypes.Integer).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
+                    LethalConfiguration.CreateConfig($"dummy_float_forcat_{i}").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(cat).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
+                    LethalConfiguration.CreateConfig($"dummy_percent_forcat_{i}").SetName("Dummy percent").SetValue(10).SetCategory(cat).SetType(ConfigurationTypes.Percent).SetTooltip("dummy tooltip").Build();
+                    LethalConfiguration.CreateConfig($"dummy_string_forcat_{i}").SetName("Dummy string").SetValue("").SetCategory(cat).SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
+                    LethalConfiguration.CreateConfig($"dummy_string_small_forcat_{i}").SetName("Dummy small string").SetValue("").SetCategory(cat).SetType(ConfigurationTypes.SmallString).SetTooltip("dummy tooltip").Build();
+                }
+            };
 #endif
             Events.PluginEnabled.Invoke(EventArgs.Empty);
         }
