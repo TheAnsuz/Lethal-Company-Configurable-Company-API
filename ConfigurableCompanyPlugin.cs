@@ -1,5 +1,4 @@
-﻿using Amrv.ConfigurableCompany.content.model;
-using Amrv.ConfigurableCompany.content.patch;
+﻿using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
 using HarmonyLib;
 using System;
