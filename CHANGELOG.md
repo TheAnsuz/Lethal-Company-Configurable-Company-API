@@ -9,7 +9,3 @@
 ## Modified
 
 -   The configuration screen now updates whenever a new config is created (even after host button clicked)
-
-## Removed
-
-## Fixed
