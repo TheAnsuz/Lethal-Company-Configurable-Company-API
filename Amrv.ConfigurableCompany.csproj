@@ -4,7 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>Amrv.ConfigurableCompany</AssemblyName>
     <Description>An api to allow developers to create configurable parameters for lethal company</Description>
-    <Version>2.0.1</Version>
+    <Version>2.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
