@@ -16,4 +16,8 @@ Events are the way the mod communicates to developers on what actions are occuri
 
 -   `PluginEnabled`: Called once, this even triggers when the **ConfigurableCompany** plugin completed the boot up and is ready to work.
 
+-   `BeforeMenuDisplay`: Called every time the in-game configuration menu starts to display.
+
+-   `AfterMenuDisplay`: Called every time the in-game configuration menu is displayed.
+
 To listen to any of the events you should use the [standard pattern](https://learn.microsoft.com/en-us/dotnet/standard/events/#event-handlers).
