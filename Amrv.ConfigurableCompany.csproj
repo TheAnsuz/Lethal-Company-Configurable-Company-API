@@ -61,6 +61,6 @@
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo Creando version para thunderstore...&#xD;&#xA;set route=$(OutDir)package&#xD;&#xA;rmdir /S /Q %25route%25&#xD;&#xA;mkdir %25route%25&#xD;&#xA;echo Output: %25route%25&#xD;&#xA;copy package %25route%25&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;%25route%25&quot; /Y&#xD;&#xA;IF EXIST &quot;README.md&quot; (copy &quot;README.md&quot; &quot;%25route%25&quot;)&#xD;&#xA;IF EXIST &quot;CHANGELOG.md&quot; (copy &quot;CHANGELOG.md&quot; &quot;%25route%25&quot;)&#xD;&#xA;IF EXIST &quot;manifest.json&quot; (copy &quot;manifest.json&quot; &quot;%25route%25&quot;)&#xD;&#xA;echo Version para thunderstore completada" />
+    <Exec Command="IF &quot;$(Configuration)&quot; == &quot;Debug&quot; (exit 0)&#xD;&#xA;&#xD;&#xA;echo Creando version para thunderstore...&#xD;&#xA;set route=$(OutDir)package&#xD;&#xA;rmdir /S /Q %25route%25&#xD;&#xA;mkdir %25route%25&#xD;&#xA;echo Output: %25route%25&#xD;&#xA;copy package %25route%25&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;%25route%25&quot; /Y&#xD;&#xA;IF EXIST &quot;README.md&quot; (copy &quot;README.md&quot; &quot;%25route%25&quot;)&#xD;&#xA;IF EXIST &quot;CHANGELOG.md&quot; (copy &quot;CHANGELOG.md&quot; &quot;%25route%25&quot;)&#xD;&#xA;IF EXIST &quot;manifest.json&quot; (copy &quot;manifest.json&quot; &quot;%25route%25&quot;)&#xD;&#xA;echo Version para thunderstore completada" />
   </Target>
 </Project>
