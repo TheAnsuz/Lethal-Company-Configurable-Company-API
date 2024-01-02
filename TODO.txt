@@ -1,0 +1,7 @@
+﻿- Permitir la creacion de configuraciones en cualquier momento con actualizacion automatica en la interfaz // DONE
+
+- Mayor accesibilidad a la clase Configuration y Metodos utiles (contains, try get...) en la clase LethalConfiguration // Done
+
+- Mostrar en la tooltip el valor por defecto // DONE
+
+- Permitir categorias dentro de categorias
