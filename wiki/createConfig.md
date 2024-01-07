@@ -48,8 +48,9 @@ _This is a description on what does every parameter actually mean._
 -   **Value**/`SetValue(object)`: The value that will contain upon creation. Might be changed instantly if read from file.
 -   **Experimental**/`SetExperimental(bool)`: If this configuration is not guaranteed to work. This is only visual notification for the users. _**OPTIONAL**_
 -   **Synchronized**/`SetSynchronized(bool)`: Marks the configuration to be synchronized with other clients when they join the game. Useful if a configuration might only change client-side.
+-   **NeedsRestart**/`SetNeedsRestart(bool)`: Marks the configuration that the client must restart the game for it to work
 
-`Build()` Will create the configuration. It will not be created until the method is called (However as mentioned above, the method will called automatically if you assign the creation to a configuration).
+    `Build()` Will create the configuration. It will not be created until the method is called (However as mentioned above, the method will called automatically if you assign the creation to a configuration).
 
 Once the `Build()` is called, you will **not** be able to modify the configuration any further.
 
