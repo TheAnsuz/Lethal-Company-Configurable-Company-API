@@ -17,6 +17,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>LethalCompany</PackageTags>
     <PackageReleaseNotes>See changelog</PackageReleaseNotes>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
