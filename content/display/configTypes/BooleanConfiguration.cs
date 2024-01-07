@@ -79,6 +79,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             DisplayText_Rect.offsetMax = new(0, 0);
 
             DisplayText_Text.font = DisplayUtils.GAME_FONT;
+            DisplayText_Text.color = Config.NeedsRestart ? COLOR_INPUT_REQUIRE_RESTART : COLOR_INPUT_NORMAL;
             DisplayText_Text.fontSize = FONT_SIZE_NORMAL;
             DisplayText_Text.fontSizeMin = FONT_SIZE_MIN;
             DisplayText_Text.fontSizeMax = FONT_SIZE_MAX;

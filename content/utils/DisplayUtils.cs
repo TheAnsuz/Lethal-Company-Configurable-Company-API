@@ -39,7 +39,10 @@ namespace Amrv.ConfigurableCompany.content.utils
         public static readonly Color COLOR_SCROLLBAR_HANDLE = new Color32(115, 55, 0, 255);
         public static readonly Color COLOR_SCROLLBAR_HANDLE_OUTLINE = new Color32(255, 125, 0, 255);
 
-        public static readonly Color COLOR_INPUT_TEXT = new Color32(255, 184, 117, 255);
+        public static readonly Color COLOR_INPUT_TEXT = new Color32(227, 227, 227, 255);
+        public static readonly Color COLOR_INPUT_TEXT_INVERTED = new Color32(21, 21, 21, 255);
+        public static readonly Color COLOR_INPUT_TEXT_REQUIRE_RESTART = new Color32(166, 151, 151, 255);
+        public static readonly Color COLOR_INPUT_TEXT_REQUIRE_RESTART_INVERTED = new Color32(221, 21, 21, 255);
         public static readonly Color COLOR_INPUT_BACKGROUND = new Color32(125, 0, 0, 255);
         public static readonly Color COLOR_INPUT_SELECTION = new Color32(237, 152, 24, 120);
 

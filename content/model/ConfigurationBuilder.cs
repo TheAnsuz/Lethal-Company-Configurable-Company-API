@@ -42,6 +42,12 @@ namespace Amrv.ConfigurableCompany.content.model
         /// </summary>
         public bool Experimental { get => _experimental; set { if (Editable) _experimental = value; } }
 
+        private bool _needsRestart = false;
+        /// <summary>
+        /// Mark configurations as Need Restart if the value should only change after the game restarts and not instantly
+        /// </summary>
+        public bool NeedsRestart { get => _needsRestart; set { if (Editable) _needsRestart = value; } }
+
         private string _tooltip = "No information provided";
         /// <summary>
         /// The information that will be displayed on the screen when this configuration is hovered.
@@ -150,6 +156,12 @@ namespace Amrv.ConfigurableCompany.content.model
         public ConfigurationBuilder SetExperimental(bool experimental)
         {
             Experimental = experimental;
+            return this;
+        }
+
+        public ConfigurationBuilder SetNeedsRestart(bool needsRestart)
+        {
+            NeedsRestart = needsRestart;
             return this;
         }
 

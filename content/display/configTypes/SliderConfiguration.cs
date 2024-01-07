@@ -130,7 +130,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             SliderValueDisplay_Rect.offsetMin = new(0, 0);
             SliderValueDisplay_Rect.offsetMax = new(0, 0);
 
-            SliderValueDisplay_Text.color = SLIDER_HANDLE_BORDER_COLOR;
+            SliderValueDisplay_Text.color = Config.NeedsRestart ? DisplayUtils.COLOR_INPUT_TEXT_REQUIRE_RESTART_INVERTED : DisplayUtils.COLOR_INPUT_TEXT_INVERTED;
             SliderValueDisplay_Text.fontStyle = FontStyles.Bold;
             SliderValueDisplay_Text.font = DisplayUtils.GAME_FONT;
             SliderValueDisplay_Text.fontSize = 4;

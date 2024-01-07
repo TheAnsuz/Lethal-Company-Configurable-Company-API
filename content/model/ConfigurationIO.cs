@@ -82,7 +82,7 @@ namespace Amrv.ConfigurableCompany.content.model
             {
                 // Save current configs replacing those that already exist
                 foreach (Configuration config in Configuration.Configs)
-                {
+                {   
                     bundle.Add(config.ID, config.Value?.ToString() ?? "");
                 }
 

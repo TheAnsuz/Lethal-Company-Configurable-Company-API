@@ -29,6 +29,7 @@ namespace Amrv.ConfigurableCompany.content.model
         public readonly string Name;
         public readonly bool Synchronized;
         public readonly bool Experimental;
+        public readonly bool NeedsRestart;
         public readonly ConfigurationCategory Category;
 
         internal protected Configuration(ConfigurationBuilder builder)
@@ -67,6 +68,8 @@ namespace Amrv.ConfigurableCompany.content.model
             Synchronized = builder.Synchronized;
 
             Experimental = builder.Experimental;
+
+            NeedsRestart = builder.NeedsRestart;
 
             Type = builder.Type;
 
@@ -129,6 +132,7 @@ namespace Amrv.ConfigurableCompany.content.model
         internal void Reset(ChangeReason reason)
         {
             object old = Value;
+
             Value = Default;
             Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS));
         }

@@ -70,5 +70,13 @@ namespace Amrv.ConfigurableCompany.content.patch
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
             _configDisplay = null;
         }
+
+        [HarmonyPatch(typeof(MenuManager), "ClickQuitButton")]
+        [HarmonyPrefix]
+        private static void QuitButton_Prefix()
+        {
+            _configDisplay.SaveAll();
+            ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
+        }
     }
 }

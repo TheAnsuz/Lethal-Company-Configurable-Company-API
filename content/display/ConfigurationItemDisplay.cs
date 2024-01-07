@@ -24,6 +24,10 @@ namespace Amrv.ConfigurableCompany.content.display
         public const float FONT_SIZE_NORMAL = 10;
         public const float FONT_SIZE_MAX = 16;
         public static readonly Color COLOR_TRANSPARENT = new(1, 1, 1, 0f);
+        public static readonly Color COLOR_INPUT_NORMAL = DisplayUtils.COLOR_INPUT_TEXT;
+        public static readonly Color COLOR_INPUT_NORMAL_INVERTED = DisplayUtils.COLOR_INPUT_TEXT;
+        public static readonly Color COLOR_INPUT_REQUIRE_RESTART = DisplayUtils.COLOR_INPUT_TEXT_REQUIRE_RESTART;
+        public static readonly Color COLOR_INPUT_REQUIRE_RESTART_INVERTED = DisplayUtils.COLOR_INPUT_TEXT_REQUIRE_RESTART;
 
         public ConfigurationMenu OwnerMenu { get; protected set; }
 

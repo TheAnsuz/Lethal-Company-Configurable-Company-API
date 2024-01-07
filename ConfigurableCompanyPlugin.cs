@@ -1,5 +1,7 @@
-﻿using Amrv.ConfigurableCompany.content.patch;
+﻿using Amrv.ConfigurableCompany.content.model;
+using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
 using System;
 
@@ -78,7 +80,14 @@ namespace Amrv.ConfigurableCompany
                     "A bundh of lines 1",
                     "A bundh of lines 2",
                     "A bundh of lines 3"
-                ).SetCategory(category).SetType(ConfigurationTypes.SmallString).Build();
+                ).SetCategory(category)
+                .SetNeedsRestart(true)
+                .SetType(ConfigurationTypes.SmallString).Build();
+            LethalConfiguration.CreateConfig("dummy_percent_needs_restart")
+                .SetName("Requires restart")
+                .SetType(ConfigurationTypes.Percent)
+                .SetNeedsRestart(true)
+                .Build();
             LethalConfiguration.CreateConfig("dummy_string_small_tooltip_testing")
                 .SetName("Dummy small string with an incredible long name that makes no sense at all but needs to be checked")
                 .SetValue("")
@@ -115,7 +124,8 @@ namespace Amrv.ConfigurableCompany
                 .SetSynchronized(false)
                 .Build();
 
-            Events.AfterMenuDisplay += delegate {
+            Events.AfterMenuDisplay += delegate
+            {
                 for (int i = 0; i < 5; i++)
                 {
                     ConfigurationCategory cat = LethalConfiguration.CreateCategory($"dummy_category_{i}").SetName($"Dummy category {i}").SetColorRGB((byte)(i / 50f * 255), 100, 100).Build();
