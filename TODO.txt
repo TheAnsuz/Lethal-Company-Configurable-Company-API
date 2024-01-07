@@ -10,6 +10,8 @@
 
 - Hacer algunas configuraciones que solo se puedan cambiar si reinicias el juego // "DONE" (solo informa al usuario de que tomaran efecto una vez se reinicie el juego)
 
+- Hacer que las configuraciones se carguen nada mas iniciar el juego (antes de todo el cambio de escena y todo)
+
 - Mas tipos de configuraciones
 * Ranged int/float
 * Ranged slider
