@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>Amrv.ConfigurableCompany</AssemblyName>
-    <Description>An api to allow developers to create configurable parameters for lethal company</Description>
+    <Description>An api to allow developers to create configurable parameters for lethal company. These configurations can be modified in-game using a built in menu, persist during sesions and are save-dependant on each game file.</Description>
     <Version>2.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
@@ -13,6 +13,10 @@
     <Authors>Adrian MRV</Authors>
     <Company>AMRV</Company>
     <SignAssembly>False</SignAssembly>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>LethalCompany</PackageTags>
+    <PackageReleaseNotes>See changelog</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -54,6 +58,28 @@
 
   <ItemGroup>
     <Folder Include="wiki\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Release\net472\package\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="bin\Release\net472\package\CHANGELOG.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="package\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
