@@ -2,6 +2,9 @@
 
 _This is an API, does not contain configurations itself, only the tools for other developers to implement their own._
 
+[NuGet package](https://www.nuget.org/packages/Amrv.ConfigurableCompany)
+[Contact me](##Contact)
+
 This is `BepinEx` Plugin that allows the developer to create configurations that will be displayed in-game so the user can modify them freely.
 
 ## How it works
@@ -28,4 +31,4 @@ Ingame menu (filled with random data)
 
 ## Contact
 
-_Right now there is no github for the project nor issue page so I can only ask to contact using discord to `the_ansuz`_.
+_Right now there is no github for the project nor issue page so I can only ask to contact using discord to `the_ansuz` or using the lethal company modding discord_.
