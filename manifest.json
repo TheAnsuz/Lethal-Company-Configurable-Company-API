@@ -1,8 +1,8 @@
 {
     "name": "ConfigurableCompany",
-    "version_number": "2.2.0",
+    "version_number": "2.3.0",
     "website_url": "https://github.com/TheAnsuz",
-    "description": "An API to allow modders to create save-dependant configurations that remain between matches, all with the simplicity of a click",
+    "description": "An API to allow modders to create save-dependant configurations that remain between matches and can sync. These configs will be shown in an in-game menu",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100"
     ]
