@@ -1,3 +1,9 @@
+# 2.3.1
+
+### Modified
+
+-   Updated mod information
+
 # 2.3.0
 
 ### Added
