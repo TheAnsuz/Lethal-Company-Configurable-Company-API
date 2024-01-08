@@ -1,5 +1,9 @@
 # 2.3.1
 
+### Added
+
+-   v47 compatibility
+
 ### Modified
 
 -   Updated mod information
