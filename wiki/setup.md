@@ -4,6 +4,9 @@ _The guide assumes you already know the basics of programming, c# and the basic 
 
 ## Setting up environment
 
+_You can add the project via [NuGet packages](https://www.nuget.org/packages/Amrv.ConfigurableCompany). Doing so allows you to skip the step to add the `.dll`._  
+If you wish to learn how to use **NuGet**, [here](https://learn.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio) is a link to microsoft's guide.
+
 First of all you need a copy of the `.dll` file (wich you can download manually or copy an existing one if you have the mod installed).
 
 Add the `.dll` to the library folder of your project. _Make sure you also include it as a reference in the project._
