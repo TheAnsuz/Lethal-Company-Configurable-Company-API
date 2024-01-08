@@ -5,6 +5,10 @@
 -   Updated mod information
 -   **Reset file** now resets even configs that are not loaded (deleting the config file)
 
+### Fixed
+
+-   Fixed change file error when there are no mod configs
+
 # 2.3.0
 
 ### Added

@@ -60,6 +60,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         private static void ChangeSelectedFile_Pre()
         {
             //_configDisplay.SaveAllToConfig();
+            if (ConfigDisplay == null)
+                return;
+
             _configDisplay.SaveAll();
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
         }
@@ -68,6 +71,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         [HarmonyPostfix]
         private static void ChangeSelectedFile_Post()
         {
+            if (ConfigDisplay == null)
+                return;
+
             //Plugin.Instance.LoggerObj().LogWarning("Change selected file
             ConfigurationIO.ReadAll(FileUtils.GetCurrentConfigFileName());
             _configDisplay.LoadAll();
@@ -78,6 +84,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         [HarmonyPostfix]
         private static void ConfirmHostButton_Post()
         {
+            if (ConfigDisplay == null)
+                return;
+
             //Plugin.Instance.LoggerObj().LogWarning("Confirm host");
             //_configDisplay.SaveAllToConfig();
             _configDisplay.SaveAll();
@@ -89,11 +98,11 @@ namespace Amrv.ConfigurableCompany.content.patch
         //[HarmonyPrefix]
         private static void QuitButton_Prefix()
         {
-            if (ConfigDisplay != null)
-            {
-                ConfigDisplay.SaveAll();
-                ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
-            }
+            if (ConfigDisplay == null)
+                return;
+
+            ConfigDisplay.SaveAll();
+            ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
         }
 
         private static void BackButton_Click()
