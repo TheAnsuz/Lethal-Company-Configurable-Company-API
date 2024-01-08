@@ -17,18 +17,18 @@ namespace Amrv.ConfigurableCompany.content.display
         public const int SCROLLBAR_WIDTH = 12;
         public const int SCROLLBAR_SPACING = 8;
 
-        protected readonly Dictionary<string, ConfigurationCategoryDisplay> Categories = new();
-
         public readonly ConfigurationScreen Screen;
         protected readonly GameObject ScrollView;
         protected readonly GameObject Viewport;
-        protected readonly GameObject Container;
+        public readonly GameObject PagesContainer;
         protected readonly GameObject Scrollbar;
         protected readonly GameObject SlidingArea;
         protected readonly GameObject SlidingBar;
         protected readonly GameObject SlidingLine;
 
-        public GameObject CategoriesContainer => Container;
+        public ConfigurationPageDisplay CurrentPage => PageIndex == -1 ? null : Pages[PageIndex];
+        public int PageIndex { get; protected set; } = -1;
+        public Dictionary<int, ConfigurationPageDisplay> Pages = new();
 
         protected internal ConfigurationMenu(GameObject parent, ConfigurationScreen owner)
         {
@@ -60,7 +60,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
             Viewport_Outline.effectColor = DisplayUtils.COLOR_VIEWPORT_OUTLINE;
 
-            Container = UnityObject.Create("Container")
+            PagesContainer = UnityObject.Create("Container")
                 .SetParent(Viewport_Rect)
                 .AddComponent(out RectTransform Container_Rect)
                 .AddComponent(out VerticalLayoutGroup Container_Layout)
@@ -76,8 +76,6 @@ namespace Amrv.ConfigurableCompany.content.display
             Container_Layout.childControlWidth = true;
             Container_Layout.childForceExpandHeight = false;
             Container_Layout.childForceExpandWidth = false;
-
-            Container_Layout.spacing = 3;
 
             Container_Fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
@@ -144,82 +142,127 @@ namespace Amrv.ConfigurableCompany.content.display
             ScrollView_Scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
         }
 
-        public void Add(ConfigurationCategoryDisplay category)
+        public ConfigurationPageDisplay DisplayPage(ConfigurationPage page) => DisplayPage(page.Number);
+        public ConfigurationPageDisplay DisplayPage(int index)
         {
-            string ID = category.Category.ID;
-
-            if (TryGet(ID, out ConfigurationCategoryDisplay _))
+            if (Pages.TryGetValue(index, out ConfigurationPageDisplay display))
             {
-                Remove(ID);
-            }
-
-            Categories[ID] = category;
-            category.AddToParent(this);
-        }
-
-        public void Remove(ConfigurationCategoryDisplay category) => Remove(category.Category.ID);
-        public void Remove(string categoryID)
-        {
-            if (TryGet(categoryID, out ConfigurationCategoryDisplay category))
-            {
-                category.RemoveFromParent(this);
-                Categories.Remove(categoryID);
-            }
-        }
-
-        public bool TryGet(string id, out ConfigurationCategoryDisplay result) => Categories.TryGetValue(id, out result);
-
-        protected internal virtual void RefreshContent()
-        {
-            Dictionary<string, ConfigurationCategoryDisplay> remainingToRemove = new(Categories);
-
-#if DEBUG
-            Console.WriteLine($"ConfigurationMenu::RefreshContent");
-#endif
-            foreach (ConfigurationCategory category in ConfigurationCategory.Categories)
-            {
-                if (TryGet(category.ID, out ConfigurationCategoryDisplay result))
+                if (Pages.TryGetValue(PageIndex, out ConfigurationPageDisplay previous))
                 {
-#if DEBUG
-                    Console.WriteLine($"ConfigurationMenu::RefreshContent [MODIFY]  {category.ID}");
-#endif
-                    result.RefreshCategory();
-                    remainingToRemove.Remove(category.ID);
+                    previous.SetVisible(false);
+                }
+
+                PageIndex = index;
+                display.SetVisible(true);
+                return display;
+            }
+            return null;
+        }
+
+        public ConfigurationPageDisplay NextPage()
+        {
+            if (PageIndex == -1)
+                return DisplayPage(0);
+            else if (PageIndex + 1 < Pages.Count)
+                return DisplayPage(PageIndex + 1);
+            else
+                return DisplayPage(0);
+        }
+
+        public bool HasMultiplesPages() => Pages.Count > 1;
+
+        public ConfigurationPageDisplay PrevPage()
+        {
+            if (PageIndex == -1)
+                return DisplayPage(Pages.Count - 1);
+            else if (PageIndex - 1 > 0)
+                return DisplayPage(PageIndex - 1);
+            else
+                return DisplayPage(Pages.Count - 1);
+        }
+
+        public ConfigurationPageDisplay AddPage(ConfigurationPage page)
+        {
+            if (Pages.TryGetValue(page.Number, out ConfigurationPageDisplay previous))
+                RemovePage(previous);
+
+            Pages[page.Number] = new(page, this);
+
+            if (PageIndex == -1)
+                DisplayPage(page.Number);
+
+            return Pages[page.Number];
+        }
+        public ConfigurationPageDisplay AddPage(ConfigurationPageDisplay display)
+        {
+            if (Pages.TryGetValue(display.Index, out ConfigurationPageDisplay previous))
+                RemovePage(previous);
+
+            Pages[display.Index] = display;
+
+            if (PageIndex == -1)
+                DisplayPage(display.Index);
+
+            return display;
+        }
+
+        public void RemovePage(ConfigurationPageDisplay display) => RemovePage(display.Index);
+        public void RemovePage(ConfigurationPage page) => RemovePage(page.Number);
+        public void RemovePage(int pageID)
+        {
+            if (Pages.TryGetValue(pageID, out ConfigurationPageDisplay display))
+            {
+                Pages.Remove(pageID);
+                display.Delete();
+            }
+        }
+
+        public bool TryGetPage(ConfigurationPage page, out ConfigurationPageDisplay display) => TryGetPage(page.Number, out display);
+        public bool TryGetPage(int index, out ConfigurationPageDisplay display)
+        {
+            return Pages.TryGetValue(index, out display);
+        }
+
+        public void RefreshPages()
+        {
+            // Eliminar paginas que ya no existan
+            // Actualizar las que ya existen
+            // Crear las que no existian
+            Dictionary<int, ConfigurationPageDisplay> toRemove = new(Pages);
+
+            foreach (ConfigurationPage page in ConfigurationPage.GetAll())
+            {
+                if (TryGetPage(page.Number, out ConfigurationPageDisplay display))
+                {
+                    toRemove.Remove(page.Number);
                 }
                 else
                 {
-#if DEBUG
-                    Console.WriteLine($"ConfigurationMenu::RefreshContent [ADDED]   {category.ID}");
-#endif
-                    ConfigurationCategoryDisplay display = new(category);
-                    Add(display);
-                    display.RefreshContent();
+                    display = AddPage(page);
                 }
+
+                display.RefreshCategories();
             }
 
-            foreach (KeyValuePair<string, ConfigurationCategoryDisplay> invalids in remainingToRemove)
+            foreach (KeyValuePair<int, ConfigurationPageDisplay> invalid in toRemove)
             {
-#if DEBUG
-                Console.WriteLine($"ConfigurationMenu::RefreshContent [REMOVED] {invalids.Key}");
-#endif
-                Remove(invalids.Key);
-                invalids.Value.Delete();
+                RemovePage(invalid.Key);
             }
         }
 
-        protected internal virtual void LoadConfigs()
+        public void SaveConfigs()
         {
-            foreach (ConfigurationCategoryDisplay display in Categories.Values)
+            foreach (var page in Pages.Values)
             {
-                display.LoadConfigs();
+                page.SaveConfigs();
             }
         }
 
-        protected internal virtual void SaveConfigs()
+        public void LoadConfigs()
         {
-            foreach (ConfigurationCategoryDisplay display in Categories.Values)
+            foreach (var page in Pages.Values)
             {
-                display.SaveConfigs();
+                page.LoadConfigs();
             }
         }
     }

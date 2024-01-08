@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.content.patch;
+﻿using Amrv.ConfigurableCompany.content.display;
+using Amrv.ConfigurableCompany.content.patch;
+using System;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.content.model
@@ -18,6 +20,9 @@ namespace Amrv.ConfigurableCompany.content.model
 
         private Color _color = Color.white;
         public Color Color { get => _color; set { if (Editable) _color = value; } }
+
+        private ConfigurationPage _page = ConfigurationPage.Default;
+        public ConfigurationPage Page { get => _page; set { if (Editable) _page = value; } }
 
         internal protected ConfigurationCategoryBuilder() { }
         internal protected ConfigurationCategoryBuilder(string id)
@@ -61,11 +66,22 @@ namespace Amrv.ConfigurableCompany.content.model
             return this;
         }
 
+        public ConfigurationCategoryBuilder SetPage(ConfigurationPage page)
+        {
+            Page = page;
+            return this;
+        }
+
         public ConfigurationCategory Build()
         {
             Editable = false;
+
             ConfigurationCategory category = new(this);
-            DisplayConfigurationPatch.ConfigDisplay?.AddCategory(category);
+
+            if (DisplayConfigurationPatch.ConfigDisplay?.ConfigurationMenu.TryGetPage(category.Page.Number, out ConfigurationPageDisplay page) ?? false)
+            {
+                page.Add(new(category));
+            }
             return category;
         }
 

@@ -124,6 +124,21 @@ namespace Amrv.ConfigurableCompany
                 .SetSynchronized(false)
                 .Build();
 
+            ConfigurationPage page = LethalConfiguration.CreatePage().SetName("Page 2").Build();
+            ConfigurationCategory pageCategory = LethalConfiguration.CreateCategory("dummy_page_category").SetName("Dummy page category").SetPage(page).SetColorRGB(255, 255, 0, 0);
+
+            for (int i = 0; i < 5; i++)
+            {
+                ConfigurationCategory cat = LethalConfiguration.CreateCategory($"dummy_category_{i}").SetName($"Dummy category {i}").SetColorRGB((byte)(i / 50f * 255), 100, 100).Build();
+                LethalConfiguration.CreateConfig($"dummy_page_boolean_2_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(pageCategory).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_boolean_forcat_{i}").SetName("Dummy boolean").SetValue(false).SetCategory(pageCategory).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_integer_forcat_{i}").SetName("Dummy integer").SetValue(1).SetCategory(pageCategory).SetType(ConfigurationTypes.Integer).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_float_forcat_{i}").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(pageCategory).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_percent_forcat_{i}").SetName("Dummy percent").SetValue(10).SetCategory(pageCategory).SetType(ConfigurationTypes.Percent).SetTooltip("dummy tooltip").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_string_forcat_{i}").SetName("Dummy string").SetValue("").SetCategory(pageCategory).SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
+                LethalConfiguration.CreateConfig($"dummy_page_string_small_forcat_{i}").SetName("Dummy small string").SetValue("").SetCategory(pageCategory).SetType(ConfigurationTypes.SmallString).SetTooltip("dummy tooltip").Build();
+            }
+
             Events.AfterMenuDisplay += delegate
             {
                 for (int i = 0; i < 5; i++)

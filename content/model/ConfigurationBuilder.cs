@@ -189,6 +189,7 @@ namespace Amrv.ConfigurableCompany.content.model
         /// <returns>The Built Configuration object ready to use</returns>
         public Configuration Build()
         {
+            Category ??= LethalConfiguration.CategoryForMyMod();
             Editable = false;
             return Type.CreateConfig(this);
         }

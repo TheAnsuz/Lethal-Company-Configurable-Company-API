@@ -3,6 +3,7 @@ using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.display
 {
@@ -23,6 +24,9 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public readonly GameObject ButtonsMenuArea;
         public readonly ButtonsMenu ButtonsMenu;
+
+        public readonly GameObject PageChangerArea;
+        public readonly PageChanger PageChanger;
 
         public ConfigurationScreen(GameObject parent)
         {
@@ -70,6 +74,17 @@ namespace Amrv.ConfigurableCompany.content.display
             ButtonsMenuArea_Rect.offsetMin = new(0, 0);
             ButtonsMenuArea_Rect.offsetMax = new(0, 0);
 
+            PageChangerArea = UnityObject.Create(nameof(PageChangerArea))
+                .SetParent(ScreenArea_Rect)
+                .AddComponent(out Image image)
+                .AddComponent(out RectTransform PageChangerArea_Rect);
+
+            PageChangerArea_Rect.anchorMax = new(0.287f, 0.995f);
+            PageChangerArea_Rect.anchorMin = new(.03f, 0.96f);
+            PageChangerArea_Rect.offsetMin = new(0, 0);
+            PageChangerArea_Rect.offsetMax = new(0, 0);
+
+            PageChanger = new(PageChangerArea, this);
             TooltipMenu = new(TooltipMenuArea, this);
             ConfigurationMenu = new(ConfigurationMenuArea, this);
             ButtonsMenu = new(ButtonsMenuArea, this);
@@ -80,10 +95,21 @@ namespace Amrv.ConfigurableCompany.content.display
             TooltipMenu.DisplayConfig(null);
         }
 
+        /*
+        public ConfigurationPageDisplay AddPage(ConfigurationPage page)
+        {
+            return ConfigurationMenu.AddPage(page);
+        }
+
+        public void RemovePage(ConfigurationPage page)
+        {
+            ConfigurationMenu.RemovePage(page);
+        }
+
         public ConfigurationCategoryDisplay AddCategory(ConfigurationCategory category)
         {
             ConfigurationCategoryDisplay cat = new(category);
-            ConfigurationMenu.Add(cat);
+            ConfigurationMenu.AddCategory(category);
             return cat;
         }
 
@@ -176,10 +202,12 @@ namespace Amrv.ConfigurableCompany.content.display
             config = null;
             return false;
         }
+        */
 
         public void Refresh()
         {
-            ConfigurationMenu.RefreshContent();
+            ConfigurationMenu.RefreshPages();
+            PageChanger.Refresh();
         }
 
         public void SaveAll()

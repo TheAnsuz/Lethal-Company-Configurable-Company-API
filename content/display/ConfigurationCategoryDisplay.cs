@@ -17,7 +17,7 @@ namespace Amrv.ConfigurableCompany.content.display
         public static float FONT_SIZE_MAX => 16;
         public static readonly Color HEADER_MASK_SHADOW_COLOR = new(0, 0, 0, .8f);
 
-        public ConfigurationMenu OwnerMenu { get; protected set; }
+        public ConfigurationMenu Menu { get; protected set; }
         public readonly ConfigurationCategory Category;
         internal protected readonly GameObject Container;
 
@@ -205,15 +205,15 @@ namespace Amrv.ConfigurableCompany.content.display
             Sidebar_Image.color = Category.Color;
         }
 
-        protected internal virtual void AddToParent(ConfigurationMenu configurationMenu)
+        protected internal virtual void AddToParent(ConfigurationPageDisplay configurationPage)
         {
-            OwnerMenu = configurationMenu;
-            Container.transform.SetParent(configurationMenu.CategoriesContainer.transform, false);
+            Menu = configurationPage.Menu;
+            Container.transform.SetParent(configurationPage.Container.transform, false);
         }
 
-        protected internal virtual void RemoveFromParent(ConfigurationMenu configurationMenu)
+        protected internal virtual void RemoveFromParent(ConfigurationPageDisplay configurationPage)
         {
-            OwnerMenu = null;
+            Menu = null;
             Container.transform.parent = null;
         }
 

@@ -12,6 +12,7 @@ namespace Amrv.ConfigurableCompany.content.model
         private static readonly ConfigurationCategory _defaultCategory = LethalConfiguration.CreateCategory()
             .SetID("configurable_company_default_category")
             .SetName("General")
+            .SetPage(ConfigurationPage.Default)
             .HideIfEmpty(true)
             .Build();
 
@@ -30,6 +31,7 @@ namespace Amrv.ConfigurableCompany.content.model
         public readonly string Name;
         public readonly Color Color;
         public readonly bool HideIfEmpty;
+        public readonly ConfigurationPage Page;
 
         internal ConfigurationCategory(ConfigurationCategoryBuilder builder)
         {
@@ -50,11 +52,16 @@ namespace Amrv.ConfigurableCompany.content.model
             if (builder.Name == null)
                 throw new ArgumentException($"Tried to create category {ID} without a name");
 
+            if (builder.Page == null)
+                throw new ArgumentException($"Tried to create category {ID} without a page");
+
             HideIfEmpty = builder.HidesIfEmpty;
 
             Color = builder.Color;
 
             Name = builder.Name;
+
+            Page = builder.Page;
 
             _categories[ID] = this;
         }

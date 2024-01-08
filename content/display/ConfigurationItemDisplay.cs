@@ -74,7 +74,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public void AddToParent(ConfigurationCategoryDisplay categoryDisplay, GameObject container)
         {
-            OwnerMenu = categoryDisplay.OwnerMenu;
+            OwnerMenu = categoryDisplay.Menu;
             Container.transform.SetParent(container.transform, false);
             OnAdd(categoryDisplay, container);
         }
