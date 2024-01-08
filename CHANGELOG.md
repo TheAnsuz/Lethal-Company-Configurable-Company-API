@@ -3,6 +3,7 @@
 ### Modified
 
 -   Updated mod information
+-   **Reset file** now resets even configs that are not loaded (deleting the config file)
 
 # 2.3.0
 

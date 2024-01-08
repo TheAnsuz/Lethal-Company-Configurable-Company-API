@@ -8,7 +8,7 @@ namespace Amrv.ConfigurableCompany.content.model
     {
         private ConfigurationIO() { }
 
-        public static void ReadAll() => ReadAll(GameNetworkManager.Instance.currentSaveFileName);
+        public static void ReadAll() => ReadAll(GameNetworkManager.Instance?.currentSaveFileName ?? "UnknownFile");
         public static void ReadAll(string file)
         {
             ConfigurableCompanyPlugin.Info("ReadAll from file " + file);
@@ -97,6 +97,13 @@ namespace Amrv.ConfigurableCompany.content.model
                     throw new IOException($"Can't save config to file {file}", ex);
                 }
             }
+        }
+
+        public static void RemoveFile() => RemoveFile(GameNetworkManager.Instance?.currentSaveFileName ?? "UnknownFile");
+        public static void RemoveFile(string file)
+        {
+            if (File.Exists(file))
+                File.Delete(file);
         }
     }
 }

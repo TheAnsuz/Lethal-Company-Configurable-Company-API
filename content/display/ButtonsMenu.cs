@@ -47,7 +47,8 @@ namespace Amrv.ConfigurableCompany.content.display
 #endif
             foreach (var config in Configuration.Configs)
                 config.Reset(model.data.ChangeReason.USER_RESET);
-            ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
+            //ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
+            ConfigurationIO.RemoveFile(FileUtils.GetCurrentConfigFileName());
             Owner.LoadAll();
         }
 
