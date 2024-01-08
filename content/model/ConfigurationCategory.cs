@@ -68,11 +68,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public override bool Equals(object obj)
         {
-            if (obj is ConfigurationCategory Category)
-            {
-                return Category.ID.Equals(ID);
-            }
-            return false;
+            return obj is ConfigurationCategory Category ? Category.ID.Equals(ID) : false;
         }
 
         public override int GetHashCode()

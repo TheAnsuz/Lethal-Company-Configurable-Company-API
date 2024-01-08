@@ -1,6 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.patch;
-using System;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.content.model
@@ -24,8 +23,8 @@ namespace Amrv.ConfigurableCompany.content.model
         private ConfigurationPage _page = ConfigurationPage.Default;
         public ConfigurationPage Page { get => _page; set { if (Editable) _page = value; } }
 
-        internal protected ConfigurationCategoryBuilder() { }
-        internal protected ConfigurationCategoryBuilder(string id)
+        protected internal ConfigurationCategoryBuilder() { }
+        protected internal ConfigurationCategoryBuilder(string id)
         {
             ID = id;
         }

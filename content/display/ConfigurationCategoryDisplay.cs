@@ -1,7 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public ConfigurationMenu Menu { get; protected set; }
         public readonly ConfigurationCategory Category;
-        internal protected readonly GameObject Container;
+        protected internal readonly GameObject Container;
 
         public bool Visible
         {

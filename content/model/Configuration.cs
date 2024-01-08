@@ -32,7 +32,7 @@ namespace Amrv.ConfigurableCompany.content.model
         public readonly bool NeedsRestart;
         public readonly ConfigurationCategory Category;
 
-        internal protected Configuration(ConfigurationBuilder builder)
+        protected internal Configuration(ConfigurationBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentException($"Tried to create configuration without ConfigurationBuilder");
@@ -144,9 +144,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public override bool Equals(object obj)
         {
-            if (obj is Configuration Config)
-                return Config.ID.Equals(ID);
-            return false;
+            return obj is Configuration Config ? Config.ID.Equals(ID) : false;
         }
 
         public override int GetHashCode()

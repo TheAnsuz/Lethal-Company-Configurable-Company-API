@@ -10,7 +10,7 @@ namespace Amrv.ConfigurableCompany.content.display.customObject
 {
     public sealed class MenuButton
     {
-        public static readonly Color COLOR_TRANSPARENT = new Color(0, 0, 0, 0);
+        public static readonly Color COLOR_TRANSPARENT = new(0, 0, 0, 0);
 
         public readonly GameObject Container;
         public readonly GameObject Area;

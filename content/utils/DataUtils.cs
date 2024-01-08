@@ -25,10 +25,7 @@
 
             if (char.IsUpper(c)) return false;
 
-            if (c == '_') return true;
-            if (c == '-') return true;
-
-            return char.IsLetterOrDigit(c);
+            return c == '_' ? true : c == '-' ? true : char.IsLetterOrDigit(c);
         }
     }
 }

@@ -110,12 +110,12 @@ namespace Amrv.ConfigurableCompany.content.model
             }
         }
 
-        internal protected ConfigurationBuilder(string id)
+        protected internal ConfigurationBuilder(string id)
         {
             ID = id;
         }
 
-        internal protected ConfigurationBuilder() { }
+        protected internal ConfigurationBuilder() { }
 
         public ConfigurationBuilder SetID(string id)
         {

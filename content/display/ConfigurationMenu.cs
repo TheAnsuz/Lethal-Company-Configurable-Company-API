@@ -2,7 +2,6 @@
 using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,24 +160,14 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public ConfigurationPageDisplay NextPage()
         {
-            if (PageIndex == -1)
-                return DisplayPage(0);
-            else if (PageIndex + 1 < Pages.Count)
-                return DisplayPage(PageIndex + 1);
-            else
-                return DisplayPage(0);
+            return PageIndex == -1 ? DisplayPage(0) : PageIndex + 1 < Pages.Count ? DisplayPage(PageIndex + 1) : DisplayPage(0);
         }
 
         public bool HasMultiplesPages() => Pages.Count > 1;
 
         public ConfigurationPageDisplay PrevPage()
         {
-            if (PageIndex == -1)
-                return DisplayPage(Pages.Count - 1);
-            else if (PageIndex - 1 > 0)
-                return DisplayPage(PageIndex - 1);
-            else
-                return DisplayPage(Pages.Count - 1);
+            return PageIndex == -1 ? DisplayPage(Pages.Count - 1) : PageIndex - 1 > 0 ? DisplayPage(PageIndex - 1) : DisplayPage(Pages.Count - 1);
         }
 
         public ConfigurationPageDisplay AddPage(ConfigurationPage page)

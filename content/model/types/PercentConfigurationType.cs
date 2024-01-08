@@ -15,9 +15,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         public override bool IsValidValue(object value)
         {
-            if (value is float num)
-                return num >= 0f && num <= 100f;
-            return false;
+            return value is float num ? num >= 0f && num <= 100f : false;
         }
 
         public override bool TryConvert(object value, out object result)

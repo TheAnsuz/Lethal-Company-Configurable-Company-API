@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -130,12 +129,7 @@ namespace Amrv.ConfigurableCompany.content.model.data
 
             foundFinalIndex = FindNextToken(data, foundBeginIndex, TOKEN_ENTRY_END, maxIndex);
 
-            if (foundFinalIndex == -1)
-            {
-                return false;
-            }
-
-            return true;
+            return foundFinalIndex != -1;
         }
 
         private void Step0_findBoundary(string data, out int minIndex, out int maxIndex)

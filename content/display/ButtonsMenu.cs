@@ -2,7 +2,6 @@
 using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 

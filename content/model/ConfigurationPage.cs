@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -48,11 +45,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public override bool Equals(object obj)
         {
-            if (obj is ConfigurationPage other)
-            {
-                return GetHashCode() == other.GetHashCode();
-            }
-            return false;
+            return obj is ConfigurationPage other ? GetHashCode() == other.GetHashCode() : false;
         }
     }
 }

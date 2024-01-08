@@ -5,17 +5,17 @@ namespace Amrv.ConfigurableCompany
 {
     public partial class ConfigurationTypes
     {
-        public readonly static ConfigurationType String = new StringConfigurationType();
+        public static readonly ConfigurationType String = new StringConfigurationType();
 
-        public readonly static ConfigurationType SmallString = new SmallStringConfigurationType();
+        public static readonly ConfigurationType SmallString = new SmallStringConfigurationType();
 
-        public readonly static ConfigurationType Boolean = new BooleanConfigurationType();
+        public static readonly ConfigurationType Boolean = new BooleanConfigurationType();
 
-        public readonly static ConfigurationType Percent = new PercentConfigurationType();
+        public static readonly ConfigurationType Percent = new PercentConfigurationType();
 
-        public readonly static ConfigurationType Float = new FloatConfigurationType();
+        public static readonly ConfigurationType Float = new FloatConfigurationType();
 
-        public readonly static ConfigurationType Integer = new IntegerConfigurationType();
+        public static readonly ConfigurationType Integer = new IntegerConfigurationType();
 
         private ConfigurationTypes() { }
     }

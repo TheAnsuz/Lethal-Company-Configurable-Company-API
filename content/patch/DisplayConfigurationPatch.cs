@@ -96,7 +96,8 @@ namespace Amrv.ConfigurableCompany.content.patch
             }
         }
 
-        private static void BackButton_Click() {
+        private static void BackButton_Click()
+        {
 #if DEBUG
             Console.WriteLine($"ClickBackButton -> savedConfig");
 #endif
