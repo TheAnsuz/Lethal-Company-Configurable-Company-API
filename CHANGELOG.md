@@ -7,3 +7,4 @@
 ### Fixed
 
 -   Reworked 2.2.0 changes
+-   Quit button not working on specific circumstances

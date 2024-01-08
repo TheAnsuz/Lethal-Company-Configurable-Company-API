@@ -3,6 +3,8 @@ using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.utils;
 using HarmonyLib;
 using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.patch
 {
@@ -33,6 +35,18 @@ namespace Amrv.ConfigurableCompany.content.patch
 #endif  
                 DisplayUtils.LoadFontAssets();
                 _configDisplay = new ConfigurationScreen(__instance.HostSettingsScreen);
+
+                GameObject backButton = __instance.HostSettingsScreen.transform.Find("Panel/Back")?.gameObject ?? null;
+                Button backButtonComp = backButton?.GetComponent<Button>() ?? null;
+
+                if (backButtonComp == null)
+                {
+                    ConfigurableCompanyPlugin.Error($"Can't get back button to add exit listener");
+                }
+                else
+                {
+                    backButtonComp.onClick.AddListener(BackButton_Click);
+                }
             }
 
             _configDisplay.Refresh();
@@ -71,11 +85,22 @@ namespace Amrv.ConfigurableCompany.content.patch
             _configDisplay = null;
         }
 
-        [HarmonyPatch(typeof(MenuManager), "ClickQuitButton")]
-        [HarmonyPrefix]
+        //[HarmonyPatch(typeof(MenuManager), "ClickQuitButton")]
+        //[HarmonyPrefix]
         private static void QuitButton_Prefix()
         {
-            _configDisplay.SaveAll();
+            if (ConfigDisplay != null)
+            {
+                ConfigDisplay.SaveAll();
+                ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
+            }
+        }
+
+        private static void BackButton_Click() {
+#if DEBUG
+            Console.WriteLine($"ClickBackButton -> savedConfig");
+#endif
+            ConfigDisplay.SaveAll();
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
         }
     }
