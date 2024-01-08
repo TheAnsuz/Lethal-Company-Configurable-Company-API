@@ -113,6 +113,11 @@ namespace Amrv.ConfigurableCompany.content.display
         public void Refresh()
         {
             Title_Text.SetText(Screen.ConfigurationMenu?.CurrentPage.Page.Name ?? "");
+
+            bool activeArrows = Screen.ConfigurationMenu?.HasMultiplesPages() ?? false;
+
+            ArrowLeft.SetActive(activeArrows);
+            ArrowRight.SetActive(activeArrows);
         }
     }
 }
