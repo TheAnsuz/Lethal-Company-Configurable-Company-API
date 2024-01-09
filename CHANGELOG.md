@@ -1,3 +1,7 @@
+# 2.3.2
+
+_There is absolutely nothing added, some people just want to see the mod updated to make sure it works with the next update_
+
 # 2.3.1
 
 ### Added
