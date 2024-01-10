@@ -1,5 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
+using Amrv.ConfigurableCompany.display.component;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +14,9 @@ namespace Amrv.ConfigurableCompany.content.display
         public static Color MENU_AREA_BACKGROUND_COLOR = DisplayUtils.COLOR_VIEWPORT_BACKGROUND;
 
         public const string PANEL_NAME = "ConfigurableCompanyPanel";
+
+        public readonly GameObject DisabledObject;
+        public readonly GameObject DisabledTitle;
 
         public readonly GameObject ScreenArea;
 
@@ -29,6 +34,69 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public ConfigurationScreen(GameObject parent)
         {
+            DisabledObject = UnityObject.Create("Disabled header")
+                .SetParent(parent)
+                .AddComponent(out RectTransform DisabledObject_Rect)
+                .AddComponent(out Image DisabledObject_Image)
+                .AddComponent(out Outline DisabledObject_Outline);
+
+            DisabledObject_Rect.anchorMin = new(0, 0);
+            DisabledObject_Rect.anchorMax = new(.58f, .12f);
+            DisabledObject_Rect.offsetMin = new(0, 0);
+            DisabledObject_Rect.offsetMax = new(0, 0);
+
+            DisabledObject_Image.color = DisplayUtils.COLOR_VIEWPORT_BACKGROUND;
+            DisabledObject_Outline.effectColor = DisplayUtils.COLOR_VIEWPORT_OUTLINE;
+
+            DisabledTitle = UnityObject.Create("Title")
+                .SetParent(DisabledObject_Rect)
+                .AddComponent(out RectTransform DisabledTitle_Rect)
+                .AddComponent(out RegionButton DisabledTitle_Button)
+                .AddComponent(out TextMeshProUGUI DisabledTitle_Text);
+
+            DisabledTitle_Rect.anchorMin = new(0, 0);
+            DisabledTitle_Rect.anchorMax = new(1, 1);
+            DisabledTitle_Rect.offsetMin = new(0, 0);
+            DisabledTitle_Rect.offsetMax = new(0, 0);
+
+            DisabledTitle_Text.margin = new(4, 0, 4, 0);
+            DisabledTitle_Text.font = DisplayUtils.GAME_FONT;
+            DisabledTitle_Text.fontSize = 10;
+            DisabledTitle_Text.horizontalAlignment = HorizontalAlignmentOptions.Left;
+            DisabledTitle_Text.verticalAlignment = VerticalAlignmentOptions.Middle;
+            DisabledTitle_Text.SetText("Configuration's menu has been <color=red>disabled</color> in challenge mode." +
+                "\nIf you don't like this change you can vote for it to come back. You have multiple options:" +
+                "\n- Vote in the <color=#037bfc><u><link=discord>lethal company modding discord</link></u></color> at the corresponding <color=#8229ff>#mod-releases</color> forum channel." +
+                "\n- Contact the developer <color=#037bfc><u><link=developer>the_ansuz</link></u></color> at discord." +
+                "\n- Complain about it enough <color=#037bfc><u><link=complain>here</link></u></color>.");
+
+            DisabledTitle_Button.OnMouseClick += delegate (object sender, PointerEventData data)
+            {
+                int linkIndex = TMP_TextUtilities.FindIntersectingLink(DisabledTitle_Text, data.pointerPressRaycast.worldPosition, null);
+
+                if (linkIndex == -1)
+                    return;
+
+                string linkId = DisabledTitle_Text.textInfo.linkInfo[linkIndex].GetLinkID();
+
+                switch (linkId)
+                {
+                    case "discord":
+                        Application.OpenURL("https://discord.com/invite/lcmod");
+                        break;
+                    case "developer":
+                        Application.OpenURL("https://discordapp.com/users/341967365908594700");
+                        break;
+                    case "complain":
+                        Application.OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+                        break;
+                }
+
+            };
+
+
+            DisabledObject.SetActive(false);
+
             /*
              * Crea un objeto raiz que ocupa todo el area que luego será dividido en sub menus
              */
@@ -97,6 +165,7 @@ namespace Amrv.ConfigurableCompany.content.display
         public void SetVisible(bool visible)
         {
             ScreenArea.SetActive(visible);
+            DisabledObject.SetActive(!visible);
         }
 
         /*
