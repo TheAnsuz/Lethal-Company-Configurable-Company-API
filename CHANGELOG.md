@@ -1,3 +1,10 @@
+# 2.3.4
+
+### Fixed
+
+-   The disabled menu information now displays correctly
+-   Menu not being displayed again when leaving using leaderboard button
+
 # 2.3.3
 
 ### Modified
