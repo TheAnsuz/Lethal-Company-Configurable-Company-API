@@ -1,3 +1,13 @@
+# 2.3.3
+
+### Modified
+
+-   Now there is no configuration menu for challenge mode (this is a temporal change and might change depending on the result of the voting. You can vote in the [official modding discord](https://discord.gg/lcmod) or contact directly to `the_ansuz`)
+
+### Added
+
+-   The voting information is displayed when selecting the challenge file
+
 # 2.3.2
 
 _There is absolutely nothing added, some people just want to see the mod updated to make sure it works with the next update_
