@@ -12,6 +12,8 @@
 
 - Hacer que las configuraciones se carguen nada mas iniciar el juego (antes de todo el cambio de escena y todo)
 
+- Hacer que el menu no se superponga si se esta mostrando los resultados del desafio semanal (y posiblemente desactivar el menu para el desafio semanal)
+
 - Mas tipos de configuraciones
 * Ranged int/float
 * Ranged slider
