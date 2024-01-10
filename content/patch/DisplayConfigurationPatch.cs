@@ -49,6 +49,13 @@ namespace Amrv.ConfigurableCompany.content.patch
                 }
             }
 
+            SaveFileUISlot saveFile = UnityEngine.Object.FindObjectOfType<SaveFileUISlot>();
+
+            if (saveFile == null)
+                ConfigDisplay.SetVisible(true);
+            else
+                ConfigDisplay.SetVisible(saveFile.fileNum != -1);
+
             _configDisplay.Refresh();
             _configDisplay.LoadAll();
 

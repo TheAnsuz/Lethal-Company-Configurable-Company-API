@@ -41,7 +41,7 @@ namespace Amrv.ConfigurableCompany.content.display
                 .AddComponent(out Outline DisabledObject_Outline);
 
             DisabledObject_Rect.anchorMin = new(0, 0);
-            DisabledObject_Rect.anchorMax = new(.58f, .12f);
+            DisabledObject_Rect.anchorMax = new(.60f, .12f);
             DisabledObject_Rect.offsetMin = new(0, 0);
             DisabledObject_Rect.offsetMax = new(0, 0);
 
