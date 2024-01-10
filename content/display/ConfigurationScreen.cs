@@ -94,6 +94,11 @@ namespace Amrv.ConfigurableCompany.content.display
             TooltipMenu.DisplayConfig(null);
         }
 
+        public void SetVisible(bool visible)
+        {
+            ScreenArea.SetActive(visible);
+        }
+
         /*
         public ConfigurationPageDisplay AddPage(ConfigurationPage page)
         {

@@ -69,10 +69,12 @@ namespace Amrv.ConfigurableCompany.content.patch
 
         [HarmonyPatch(typeof(SaveFileUISlot), nameof(SaveFileUISlot.SetFileToThis))]
         [HarmonyPostfix]
-        private static void ChangeSelectedFile_Post()
+        private static void ChangeSelectedFile_Post(SaveFileUISlot __instance)
         {
             if (ConfigDisplay == null)
                 return;
+
+            ConfigDisplay.SetVisible(__instance.fileNum != -1);
 
             //Plugin.Instance.LoggerObj().LogWarning("Change selected file
             ConfigurationIO.ReadAll(FileUtils.GetCurrentConfigFileName());
