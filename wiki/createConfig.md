@@ -64,6 +64,9 @@ You can choose to create a configuration of your own type however it will take y
 -   `Percent`: Allows a float value that goes from **0** to **100**
 -   `Float`: Allows any float or whole number value
 -   `Integer`: Allows any whole number value
+-   `RangeInteger(min, max)`: A integer that only accepts value within the specified range
+-   `RangeFloat(min, max)`: A float that only accepts values within the specified range
+-   `Slider(min, max)`: A slider that allows any non-rounded value within the specified range
 
 ## Using a configuration
 
