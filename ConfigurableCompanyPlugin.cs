@@ -1,4 +1,7 @@
-﻿using Amrv.ConfigurableCompany.content.patch;
+﻿#if DEBUG
+using Amrv.ConfigurableCompany.content.model;
+#endif
+using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
 using HarmonyLib;
 using System;
@@ -67,7 +70,9 @@ namespace Amrv.ConfigurableCompany
             Configuration someConfig = LethalConfiguration.CreateConfig("dummy_boolean_2").SetName("Dummy boolean").SetValue(false).SetType(ConfigurationTypes.Boolean).SetTooltip("").Build();
             LethalConfiguration.CreateConfig("dummy_boolean").SetName("Dummy boolean").SetValue(false).SetType(ConfigurationTypes.Boolean).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_integer").SetName("Dummy integer").SetValue(1).SetType(ConfigurationTypes.Integer).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
+            LethalConfiguration.CreateConfig("dummy_integer_range").SetName("Dummy integer range").SetValue(1).SetType(ConfigurationTypes.RangeInteger(1, 55)).SetTooltip($"Dummy integer {new string('*', 50)}").Build();
             LethalConfiguration.CreateConfig("dummy_float").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(category).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
+            LethalConfiguration.CreateConfig("dummy_float_range").SetName("Dummy float range").SetSynchronized(true).SetValue(69).SetCategory(category).SetType(ConfigurationTypes.RangeFloat(1.25f, 50f)).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_percent").SetName("Dummy percent").SetValue(10).SetCategory(category2).SetType(ConfigurationTypes.Percent).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_string").SetName("Dummy string").SetValue("").SetCategory(category2).SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_string_small").SetName("Dummy small string").SetValue("")
@@ -83,7 +88,7 @@ namespace Amrv.ConfigurableCompany
                 .SetType(ConfigurationTypes.SmallString).Build();
             LethalConfiguration.CreateConfig("dummy_percent_needs_restart")
                 .SetName("Requires restart")
-                .SetType(ConfigurationTypes.Percent)
+                .SetType(ConfigurationTypes.Slider(5, 500))
                 .SetNeedsRestart(true)
                 .Build();
             LethalConfiguration.CreateConfig("dummy_string_small_tooltip_testing")

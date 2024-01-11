@@ -30,7 +30,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         protected override ConfigurationItemDisplay CreateConfigurationDisplay(Configuration config)
         {
-            return new StringConfiguration(config);
+            return new StringConfiguration(config, 32);
         }
     }
 }

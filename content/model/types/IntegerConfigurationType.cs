@@ -1,32 +1,49 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
+using System.Xml.Linq;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
     public class IntegerConfigurationType : ConfigurationType
     {
-        private const int Default = default;
+        public override object DefaultValue => MinValue;
 
-        public override object DefaultValue => Default;
+        private readonly string _name;
+        public override string Name => _name;
 
-        public override string Name => "Whole number";
+        public readonly int MinValue;
+        public readonly int MaxValue;
+
+        public IntegerConfigurationType()
+        {
+            MinValue = int.MinValue;
+            MaxValue = int.MaxValue;
+            _name = "Whole number";
+        }
+
+        public IntegerConfigurationType(int min, int max)
+        {
+            MinValue = min;
+            MaxValue = max;
+            _name = $"Whole number ({MinValue}:{MaxValue})";
+        }
 
         public override bool IsValidValue(object value)
         {
-            return value is int;
+            return value is int i && i >= MinValue && i <= MaxValue;
         }
 
         public override bool TryConvert(object value, out object result)
         {
             if (value == null)
             {
-                result = default;
+                result = MinValue;
                 return false;
             }
 
             if (int.TryParse(value.ToString(), out int val))
             {
-                result = val;
+                result = val >= MaxValue ? MaxValue : val <= MinValue ? MinValue : val;
                 return true;
             }
 
@@ -36,7 +53,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         protected override ConfigurationItemDisplay CreateConfigurationDisplay(Configuration config)
         {
-            return new IntegerConfiguration(config);
+            return new IntegerConfiguration(config, MinValue, MaxValue);
         }
     }
 }

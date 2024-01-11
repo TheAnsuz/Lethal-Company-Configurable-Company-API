@@ -17,6 +17,12 @@ namespace Amrv.ConfigurableCompany
 
         public static readonly ConfigurationType Integer = new IntegerConfigurationType();
 
+        public static ConfigurationType RangeInteger(int min, int max) => new IntegerConfigurationType(min, max);
+
+        public static ConfigurationType RangeFloat(float min, float max) => new FloatConfigurationType(min, max);
+
+        public static ConfigurationType Slider(float min, float max) => new SliderConfigurationType(min, max);
+
         private ConfigurationTypes() { }
     }
 }

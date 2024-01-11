@@ -5,12 +5,23 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
     public sealed class IntegerConfiguration : SmallInputConfiguration
     {
-        public IntegerConfiguration(Configuration Config) : base(Config, TMP_InputField.ContentType.IntegerNumber)
+        public readonly int MinValue;
+        public readonly int MaxValue;
+
+        public IntegerConfiguration(Configuration Config, int min, int max) : base(Config, TMP_InputField.ContentType.IntegerNumber)
         {
+            MinValue = min;
+            MaxValue = max;
+        }
+
+        protected override bool ValidateText(string text)
+        {
+            return int.TryParse(text, out int value) && value >= MinValue && value <= MaxValue;
         }
 
         protected override void GetFromConfig(Configuration Config)
         {
+            base.GetFromConfig(Config);
             InputArea_Input.text = Config.Value.ToString();
         }
 

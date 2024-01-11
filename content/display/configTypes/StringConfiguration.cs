@@ -5,13 +5,14 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
     public class StringConfiguration : LargeInputConfiguration
     {
-        public StringConfiguration(Configuration Config) : base(Config, TMP_InputField.ContentType.Standard)
+        public StringConfiguration(Configuration Config, int maxCharacters) : base(Config, TMP_InputField.ContentType.Standard, maxCharacters)
         {
         }
 
         protected override void GetFromConfig(Configuration Config)
         {
-            InputArea_Input.text = Config.Get<string>();
+            base.GetFromConfig(Config);
+            InputArea_Input.text = Config.Value.ToString();
         }
 
         protected override void SetToConfig(Configuration Config)

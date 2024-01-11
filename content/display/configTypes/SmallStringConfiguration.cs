@@ -11,6 +11,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 
         protected override void GetFromConfig(Configuration Config)
         {
+            base.GetFromConfig(Config);
             InputArea_Input.text = Config.Value.ToString();
         }
 

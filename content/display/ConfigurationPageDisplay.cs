@@ -1,4 +1,7 @@
-﻿using Amrv.ConfigurableCompany.content.model;
+﻿#if DEBUG
+using System;
+#endif
+using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using System.Collections.Generic;
 using UnityEngine;

@@ -4,6 +4,7 @@ using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
@@ -28,6 +29,8 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
         protected readonly TextMeshProUGUI InputValue_Text;
 
         protected readonly BorderGameObject InputBorder;
+
+        protected string _oldText;
 
         public SmallInputConfiguration(Configuration Config, TMP_InputField.ContentType contentType) : base(Config)
         {
@@ -107,6 +110,8 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             InputArea_Input.enabled = false;
             InputArea_Input.enabled = true;
             InputArea_Input.restoreOriginalTextOnEscape = false;
+            InputArea_Input.customCaretColor = true;
+            InputArea_Input.caretColor = DisplayUtils.COLOR_INPUT_CARET;
             InputArea_Input.caretWidth = 1;
             InputArea_Input.onEndEdit.AddListener(OnEditEnd);
             InputArea_Input.onSubmit.AddListener(OnSubmit);
@@ -114,18 +119,33 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             InputArea_Input.contentType = contentType;
 
             InputValue_Text.margin = new(3, 0, 0, 0);
+
+            _oldText = InputArea_Input.text;
         }
 
         protected virtual void OnSubmit(string text)
         {
+            ConfigurableCompanyPlugin.Debug($"SmallInputConfiguration::OnSubmit");
             InputArea_Input.enabled = false;
             InputArea_Input.enabled = true;
         }
 
         protected virtual void OnEditEnd(string text)
         {
-            InputArea_Input.enabled = false;
-            InputArea_Input.enabled = true;
+            if (!ValidateText(text))
+                InputArea_Input.text = _oldText;
+
+            _oldText = InputArea_Input.text;
+            /*
+            else
+            {
+                InputArea_Input.enabled = false;
+                InputArea_Input.enabled = true;
+                InputArea_Input.Select();
+                InputArea_Input.ActivateInputField();
+            }
+            */
+            ConfigurableCompanyPlugin.Debug($"SmallInputConfiguration::OnEditEnd [{_oldText} -- {InputArea_Input.text}]");
         }
 
         protected override void OnClick()
@@ -135,13 +155,21 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             InputArea_Input.ActivateInputField();
         }
 
+        protected virtual bool ValidateText(string text) => true;
+
         protected virtual void OnDeselect(string text)
         {
+            ConfigurableCompanyPlugin.Debug($"SmallInputConfiguration::OnDeselect");
         }
 
         public override void RefreshConfig()
         {
             Label_Text.SetText(Config.Name);
+        }
+
+        protected override void GetFromConfig(Configuration Config)
+        {
+            _oldText = Config.Value.ToString();
         }
     }
 }

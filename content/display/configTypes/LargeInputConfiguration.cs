@@ -7,7 +7,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
     {
         public override int Height => 50;
 
-        protected LargeInputConfiguration(Configuration Config, TMP_InputField.ContentType contentType) : base(Config, contentType)
+        protected LargeInputConfiguration(Configuration Config, TMP_InputField.ContentType contentType, int charLimit) : base(Config, contentType)
         {
             Label_Rect.anchorMin = new(0, .5f);
             Label_Rect.anchorMax = new(1, 1);
@@ -21,7 +21,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 
             InputValue_Text.margin = new(3, 0, 0, 0);
 
-            InputArea_Input.characterLimit = 32;
+            InputArea_Input.characterLimit = charLimit;
         }
     }
 }

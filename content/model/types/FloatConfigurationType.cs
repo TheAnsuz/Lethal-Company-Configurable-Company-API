@@ -5,28 +5,44 @@ namespace Amrv.ConfigurableCompany.content.model.types
 {
     public class FloatConfigurationType : ConfigurationType
     {
-        private const int Default = default;
+        public override object DefaultValue => MinValue;
 
-        public override object DefaultValue => Default;
+        private readonly string _name;
+        public override string Name => _name;
 
-        public override string Name => "Decimal";
+        public readonly float MinValue;
+        public readonly float MaxValue;
+
+        public FloatConfigurationType()
+        {
+            MinValue = float.MinValue;
+            MaxValue = float.MaxValue;
+            _name = $"Decimal";
+        }
+
+        public FloatConfigurationType(float min, float max)
+        {
+            MinValue = min;
+            MaxValue = max;
+            _name = $"Decimal ({MinValue}:{MaxValue})";
+        }
 
         public override bool IsValidValue(object value)
         {
-            return value is float;
+            return value is float f && f >= MinValue && f <= MaxValue;
         }
 
         public override bool TryConvert(object value, out object result)
         {
             if (value == null)
             {
-                result = default;
+                result = MinValue;
                 return false;
             }
 
             if (float.TryParse(value.ToString(), out float val))
             {
-                result = val;
+                result = val >= MaxValue ? MaxValue : val <= MinValue ? MinValue : val;
                 return true;
             }
 
@@ -36,7 +52,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         protected override ConfigurationItemDisplay CreateConfigurationDisplay(Configuration config)
         {
-            return new FloatConfiguration(config);
+            return new FloatConfiguration(config, MinValue, MaxValue);
         }
     }
 }

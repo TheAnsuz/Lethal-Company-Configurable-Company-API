@@ -33,7 +33,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
         protected readonly GameObject SliderValueDisplay;
         protected readonly TextMeshProUGUI SliderValueDisplay_Text;
 
-        public SliderConfiguration(Configuration Config) : base(Config)
+        public SliderConfiguration(Configuration Config, float min, float max) : base(Config)
         {
             Label = UnityObject.Create("Label")
                 .SetParent(Container)
@@ -115,7 +115,8 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             InputArea_Slider.navigation = DisplayUtils.NO_NAVIGATION;
             InputArea_Slider.fillRect = SliderFill_Rect;
             InputArea_Slider.handleRect = SliderHandle_Rect;
-            InputArea_Slider.maxValue = 100f;
+            InputArea_Slider.minValue = min;
+            InputArea_Slider.maxValue = max;
             InputArea_Slider.value = Config.Get(0f);
 
             InputArea_Slider.onValueChanged.AddListener(OnValueChanged);

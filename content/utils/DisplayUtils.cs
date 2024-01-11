@@ -44,6 +44,7 @@ namespace Amrv.ConfigurableCompany.content.utils
         public static readonly Color COLOR_INPUT_TEXT_REQUIRE_RESTART = new Color32(166, 151, 151, 255);
         public static readonly Color COLOR_INPUT_TEXT_REQUIRE_RESTART_INVERTED = new Color32(221, 21, 21, 255);
         public static readonly Color COLOR_INPUT_BACKGROUND = new Color32(125, 0, 0, 255);
+        public static readonly Color COLOR_INPUT_CARET = new Color32(237, 152, 24, 255);
         public static readonly Color COLOR_INPUT_SELECTION = new Color32(237, 152, 24, 120);
 
         public static readonly Color COLOR_LABEL_TEXT = new Color32(255, 184, 117, 255);

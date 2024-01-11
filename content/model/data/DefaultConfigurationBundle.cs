@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿#if DEBUG
+using System;
+#endif
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 

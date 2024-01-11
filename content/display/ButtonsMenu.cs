@@ -1,4 +1,7 @@
-﻿using Amrv.ConfigurableCompany.content.display.customObject;
+﻿#if DEBUG
+using System;
+#endif
+using Amrv.ConfigurableCompany.content.display.customObject;
 using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
