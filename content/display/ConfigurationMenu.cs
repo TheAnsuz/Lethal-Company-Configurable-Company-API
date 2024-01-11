@@ -152,6 +152,9 @@ namespace Amrv.ConfigurableCompany.content.display
                 }
 
                 PageIndex = index;
+#if DEBUG
+                ConfigurableCompanyPlugin.Debug($"Displaying page {PageIndex}");
+#endif
                 display.SetVisible(true);
                 return display;
             }
@@ -167,7 +170,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
         public ConfigurationPageDisplay PrevPage()
         {
-            return PageIndex == -1 ? DisplayPage(Pages.Count - 1) : PageIndex - 1 > 0 ? DisplayPage(PageIndex - 1) : DisplayPage(Pages.Count - 1);
+            return PageIndex == -1 ? DisplayPage(Pages.Count - 1) : PageIndex - 1 >= 0 ? DisplayPage(PageIndex - 1) : DisplayPage(Pages.Count - 1);
         }
 
         public ConfigurationPageDisplay AddPage(ConfigurationPage page)
