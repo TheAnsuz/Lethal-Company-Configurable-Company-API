@@ -1,6 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
-using System.Xml.Linq;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {

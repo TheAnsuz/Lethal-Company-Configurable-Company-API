@@ -1,10 +1,5 @@
-﻿using Amrv.ConfigurableCompany.content.display.configTypes;
-using Amrv.ConfigurableCompany.content.display;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Amrv.ConfigurableCompany.content.display;
+using Amrv.ConfigurableCompany.content.display.configTypes;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {

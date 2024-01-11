@@ -4,7 +4,6 @@ using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
