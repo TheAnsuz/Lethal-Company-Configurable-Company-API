@@ -1,3 +1,13 @@
+# 2.4.0
+
+### Added
+
+-   New configuration types: RangedInteger, RangedFloat and Slider (a slider that allows to set a min and max values)
+
+### Fixed
+
+-   Page changing to the left is now cyclic
+
 # 2.3.4
 
 ### Fixed
