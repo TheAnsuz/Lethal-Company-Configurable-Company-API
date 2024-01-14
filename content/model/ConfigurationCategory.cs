@@ -9,14 +9,18 @@ namespace Amrv.ConfigurableCompany.content.model
     {
         private static readonly Dictionary<string, ConfigurationCategory> _categories = new();
 
-        private static readonly ConfigurationCategory _defaultCategory = LethalConfiguration.CreateCategory()
-            .SetID("configurable_company_default_category")
-            .SetName("General")
-            .SetPage(ConfigurationPage.Default)
-            .HideIfEmpty(true)
-            .Build();
+        private static ConfigurationCategory _defaultCategory;
 
-        public static ConfigurationCategory Default => _defaultCategory;
+        public static ConfigurationCategory Default { get { 
+                _defaultCategory ??= LethalConfiguration.CreateCategory()
+                    .SetID("configurable_company_default_category")
+                    .SetName("General")
+                    .SetPage(ConfigurationPage.Default)
+                    .HideIfEmpty(true)
+                    .Build();
+
+                return _defaultCategory;
+            } }
 
         public static bool TryGet(string id, out ConfigurationCategory value) => _categories.TryGetValue(id, out value);
         public static bool Contains(string id) => _categories.ContainsKey(id);

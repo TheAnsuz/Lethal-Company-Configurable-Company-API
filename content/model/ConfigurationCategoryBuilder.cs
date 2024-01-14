@@ -20,7 +20,7 @@ namespace Amrv.ConfigurableCompany.content.model
         private Color _color = Color.white;
         public Color Color { get => _color; set { if (Editable) _color = value; } }
 
-        private ConfigurationPage _page = ConfigurationPage.Default;
+        private ConfigurationPage _page = null;
         public ConfigurationPage Page { get => _page; set { if (Editable) _page = value; } }
 
         protected internal ConfigurationCategoryBuilder() { }
@@ -73,6 +73,8 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public ConfigurationCategory Build()
         {
+            Page ??= ConfigurationPage.Default;
+
             Editable = false;
 
             ConfigurationCategory category = new(this);

@@ -68,6 +68,9 @@ namespace Amrv.ConfigurableCompany.content.display
 
             Title_Text.font = DisplayUtils.GAME_FONT;
             Title_Text.fontSize = 18;
+            Title_Text.fontSizeMax = 18;
+            Title_Text.fontSizeMin = 10;
+            Title_Text.enableAutoSizing = true;
             Title_Text.color = DisplayUtils.COLOR_INPUT_TEXT;
             Title_Text.verticalAlignment = VerticalAlignmentOptions.Middle;
             Title_Text.horizontalAlignment = HorizontalAlignmentOptions.Center;

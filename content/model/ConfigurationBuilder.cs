@@ -56,7 +56,7 @@ namespace Amrv.ConfigurableCompany.content.model
         /// </summary>
         public string Tooltip { get => _tooltip; set { if (Editable) _tooltip = value; } }
 
-        private ConfigurationCategory _category = ConfigurationCategory.Default;
+        private ConfigurationCategory _category = null;
         /// <summary>
         /// The category in where this configuration will be shown. All configurations must be inside a category and if no one is provided a default one will be used
         /// </summary>
@@ -189,7 +189,7 @@ namespace Amrv.ConfigurableCompany.content.model
         /// <returns>The Built Configuration object ready to use</returns>
         public Configuration Build()
         {
-            Category ??= LethalConfiguration.CategoryForMyMod();
+            Category ??= ConfigurationCategory.Default;
             Editable = false;
             return Type.CreateConfig(this);
         }

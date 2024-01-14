@@ -7,9 +7,18 @@ namespace Amrv.ConfigurableCompany.content.model
     {
         private static readonly List<ConfigurationPage> _pages = new();
 
-        public static readonly ConfigurationPage Default = LethalConfiguration.CreatePage()
-            .SetName("Default page")
-            .Build();
+        private static ConfigurationPage _default;
+        public static ConfigurationPage Default
+        {
+            get
+            {
+                _default ??= LethalConfiguration.CreatePage()
+                    .SetName("Default page")
+                    .Build();
+
+                return _default;
+            }
+        }
 
         public static IReadOnlyList<ConfigurationPage> GetAll() => _pages;
 
