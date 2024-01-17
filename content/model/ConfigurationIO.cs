@@ -56,6 +56,8 @@ namespace Amrv.ConfigurableCompany.content.model
             {
                 if (bundle.TryGet(config.ID, out string value))
                     config.TrySet(value, ChangeReason.READ_FROM_FILE);
+                else
+                    config.Reset(ChangeReason.READ_FROM_FILE);
             }
         }
 
@@ -102,6 +104,8 @@ namespace Amrv.ConfigurableCompany.content.model
         public static void RemoveFile() => RemoveFile(GameNetworkManager.Instance?.currentSaveFileName ?? "UnknownFile");
         public static void RemoveFile(string file)
         {
+            ConfigurableCompanyPlugin.Info("RemoveFile on file " + file);
+
             if (File.Exists(file))
                 File.Delete(file);
         }
