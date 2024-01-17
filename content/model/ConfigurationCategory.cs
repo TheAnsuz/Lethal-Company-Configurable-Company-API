@@ -11,7 +11,10 @@ namespace Amrv.ConfigurableCompany.content.model
 
         private static ConfigurationCategory _defaultCategory;
 
-        public static ConfigurationCategory Default { get { 
+        public static ConfigurationCategory Default
+        {
+            get
+            {
                 _defaultCategory ??= LethalConfiguration.CreateCategory()
                     .SetID("configurable_company_default_category")
                     .SetName("General")
@@ -20,7 +23,8 @@ namespace Amrv.ConfigurableCompany.content.model
                     .Build();
 
                 return _defaultCategory;
-            } }
+            }
+        }
 
         public static bool TryGet(string id, out ConfigurationCategory value) => _categories.TryGetValue(id, out value);
         public static bool Contains(string id) => _categories.ContainsKey(id);
