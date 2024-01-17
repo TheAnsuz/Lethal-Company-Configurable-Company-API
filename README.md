@@ -29,7 +29,7 @@ For example you can have a x10 enemy spawn multiplier for your first game slot a
 
 Ingame menu (filled with random data)
 
-![Menu image](https://imgur.com/6Egvdfw.png)
+![Menu image](https://i.imgur.com/6Egvdfw.png)
 
 ## Contact
 
