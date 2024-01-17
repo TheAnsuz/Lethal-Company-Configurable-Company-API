@@ -1,6 +1,6 @@
 ﻿- Permitir la creacion de configuraciones en cualquier momento con actualizacion automatica en la interfaz // DONE
 
-- Mayor accesibilidad a la clase Configuration y Metodos utiles (contains, try get...) en la clase LethalConfiguration // Done
+- Mayor accesibilidad a la clase Configuration y Metodos utiles (contains, try get...) en la clase LethalConfiguration // DONE
 
 - Mostrar en la tooltip el valor por defecto // DONE
 
@@ -14,10 +14,14 @@
 
 - Mostrar solo paginas que contengan categorias y no todas (al hacerlo eliminar el lazy load del ConfigurationCategory.Default y ConfigurationPage.Default)
 
+- Actualizar la foto del README para que muestre las paginas
+
 - Hacer que el menu no se superponga si se esta mostrando los resultados del desafio semanal (y posiblemente desactivar el menu para el desafio semanal)
 
+- Guardar el estado abierto/cerrado de las categorias
+
 - Mas tipos de configuraciones
-* Ranged int/float
-* Ranged slider
+* Ranged int/float (DONE)
+* Ranged slider (DONE)
 * String of N chars
 * Enumeration
