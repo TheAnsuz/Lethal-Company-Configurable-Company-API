@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
+using Amrv.ConfigurableCompany.content.utils;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -24,7 +25,8 @@ namespace Amrv.ConfigurableCompany.content.model.types
         {
             MinValue = min;
             MaxValue = max;
-            _name = $"Whole number ({MinValue}:{MaxValue})";
+
+            _name = $"Whole number ( {MinValue} : {MaxValue} )";
         }
 
         public override bool IsValidValue(object value)

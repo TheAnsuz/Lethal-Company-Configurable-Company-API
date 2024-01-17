@@ -24,7 +24,8 @@ namespace Amrv.ConfigurableCompany.content.model.types
         {
             MinValue = min;
             MaxValue = max;
-            _name = $"Decimal ({MinValue}:{MaxValue})";
+
+            _name = $"Decimal ( {MinValue} : {MaxValue} )";
         }
 
         public override bool IsValidValue(object value)

@@ -7,7 +7,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
     {
         public SliderConfigurationType(float min, float max) : base(min, max)
         {
-            _name = $"Slider ({min}:{max})";
+            _name = $"Slider ( {min} : {max} )";
         }
 
         private readonly string _name;
