@@ -46,7 +46,7 @@ namespace Amrv.ConfigurableCompany.content.display
         protected virtual void OnReset()
         {
 #if DEBUG
-            Console.WriteLine($"ButtonsMenu::OnReset");
+            ConfigurableCompanyPlugin.Info($"ButtonsMenu::OnReset");
 #endif
             foreach (var config in Configuration.Configs)
                 config.Reset(model.data.ChangeReason.USER_RESET);
