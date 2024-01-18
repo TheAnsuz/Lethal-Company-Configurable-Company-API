@@ -161,7 +161,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             ConfigurableCompanyPlugin.Debug($"SmallInputConfiguration::OnDeselect");
         }
 
-        public override void RefreshConfig()
+        public override void RefreshDisplay()
         {
             Label_Text.SetText(Config.Name);
         }
