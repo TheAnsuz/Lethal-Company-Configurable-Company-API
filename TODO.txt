@@ -14,11 +14,11 @@
 
 - Mostrar solo paginas que contengan categorias y no todas (al hacerlo eliminar el lazy load del ConfigurationCategory.Default y ConfigurationPage.Default)
 
-- Actualizar la foto del README para que muestre las paginas
+- Actualizar la foto del README para que muestre las paginas // DONE
 
 - Hacer que el menu no se superponga si se esta mostrando los resultados del desafio semanal (y posiblemente desactivar el menu para el desafio semanal)
 
-- Guardar el estado abierto/cerrado de las categorias
+- Guardar el estado abierto/cerrado de las categorias // DONE
 
 - Añadir "presets" que guardan configuraciones ajustadas previamente
 
