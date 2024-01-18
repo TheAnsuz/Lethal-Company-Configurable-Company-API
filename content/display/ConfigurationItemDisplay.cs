@@ -94,7 +94,7 @@ namespace Amrv.ConfigurableCompany.content.display
         public void SetToConfig() => SetToConfig(Config);
         public void GetFromConfig() => GetFromConfig(Config);
 
-        public abstract void RefreshConfig();
+        public abstract void RefreshDisplay();
         protected abstract void OnClick();
         protected abstract void GetFromConfig(Configuration Config);
         protected abstract void SetToConfig(Configuration Config);
