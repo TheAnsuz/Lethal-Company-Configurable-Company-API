@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
+using System;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -46,6 +47,12 @@ namespace Amrv.ConfigurableCompany.content.model.types
             int length = value.ToString().Length;
             result = length > MaxLength ? value.ToString().Substring(0, MaxLength) : value.ToString().Substring(0, length);
             return true;
+        }
+
+        public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code)
+        {
+            result = default;
+            return false;
         }
 
         protected override ConfigurationItemDisplay CreateConfigurationDisplay(Configuration config)

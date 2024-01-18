@@ -1,5 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
+using Amrv.ConfigurableCompany.content.utils;
+using System;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -30,6 +32,17 @@ namespace Amrv.ConfigurableCompany.content.model.types
                 return true;
             }
 
+            result = default;
+            return false;
+        }
+
+        public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code)
+        {
+            if (DataUtils.IsNumeric<T>())
+            {
+                result = (T)Convert.ChangeType(value.Equals(true) ? 1 : 0, code);
+                return true;
+            }
             result = default;
             return false;
         }

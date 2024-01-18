@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
+using System;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -51,6 +52,12 @@ namespace Amrv.ConfigurableCompany.content.model.types
         protected override ConfigurationItemDisplay CreateConfigurationDisplay(Configuration config)
         {
             return new StringConfiguration(config, 32);
+        }
+
+        public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code)
+        {
+            result = default;
+            return false;
         }
     }
 }

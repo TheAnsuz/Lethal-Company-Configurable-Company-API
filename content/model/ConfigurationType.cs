@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.patch;
+using System;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -69,6 +70,10 @@ namespace Amrv.ConfigurableCompany.content.model
         /// <param name="result">The resulting object converted or nothing if the conversion failed</param>
         /// <returns>True if the conversion succeded, False otherwise</returns>
         public abstract bool TryConvert(object value, out object result);
+
+        public bool TryGetAs<T>(object value, out T result) => TryGetAs<T>(value, out result, typeof(T), Type.GetTypeCode(typeof(T)));
+
+        public abstract bool TryGetAs<T>(object value, out T result, Type type, TypeCode code);
 
         /// <summary>
         /// This method creates the new configuration. The implementation could create additional checks and do additional tasks upon completion

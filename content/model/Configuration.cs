@@ -124,6 +124,11 @@ namespace Amrv.ConfigurableCompany.content.model
                 result = converted;
                 return true;
             }
+            else if (Type.TryGetAs(Value, out T parsed))
+            {
+                result = parsed;
+                return true;
+            }
 
             result = default;
             return false;
@@ -132,7 +137,7 @@ namespace Amrv.ConfigurableCompany.content.model
         internal void Reset(ChangeReason reason)
         {
             object old = Value;
-
+            //Console.WriteLine($"Reset {ID} value {old} from default {Default} because of {reason}");
             Value = Default;
             Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS));
         }
@@ -144,7 +149,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public override bool Equals(object obj)
         {
-            return obj is Configuration Config ? Config.ID.Equals(ID) : false;
+            return obj is Configuration Config && Config.ID.Equals(ID);
         }
 
         public override int GetHashCode()
