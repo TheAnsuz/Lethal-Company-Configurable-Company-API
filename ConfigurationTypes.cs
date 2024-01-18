@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.model.types;
+using System;
 
 namespace Amrv.ConfigurableCompany
 {
@@ -24,6 +25,10 @@ namespace Amrv.ConfigurableCompany
         public static ConfigurationType Slider(float min, float max) => new SliderConfigurationType(min, max);
 
         public static ConfigurationType StringOfLength(int maxLength) => maxLength >= SmallStringConfigurationType.ForcedMaxLength ? new StringConfigurationType(maxLength) : new SmallStringConfigurationType(maxLength);
+
+        public static ConfigurationType Options(Type enumeration) => new EnumConfigurationType(enumeration);
+
+        public static ConfigurationType Options(params string[] options) => new ListConfigurationType(options);
 
         private ConfigurationTypes() { }
     }
