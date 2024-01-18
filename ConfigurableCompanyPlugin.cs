@@ -1,5 +1,7 @@
 ﻿#if DEBUG
 using Amrv.ConfigurableCompany.content.model;
+using Amrv.ConfigurableCompany.content.model.events;
+using Amrv.ConfigurableCompany.content.model.types;
 #endif
 using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
@@ -56,6 +58,16 @@ namespace Amrv.ConfigurableCompany
         {
             Info("Enabling Configurable Company");
 #if DEBUG
+
+            /*
+            foreach (var val in typeof(LevelWeatherType).GetEnumValues())
+                Console.WriteLine($"LevelWeatherType::{val}[{(int)val}]");
+            Events.ConfigurationChanged.AddListener(delegate (object self, ConfigurationChanged evt)
+            {
+                Console.WriteLine($"New {evt.Configuration.ID} value is {evt.Configuration.Get(-1)}, {evt.Configuration.Get<LevelWeatherType>()}, {evt.Configuration.Get("nil")}, {evt.Configuration.Get(false)}, {evt.Configuration.Get(10f)}, {evt.Configuration.Get(24l)}");
+            });
+            */
+
             //LethalConfiguration.CreateConfig("dummy_other_string").SetName("Dummy other string").SetValue("Custom string value for testing ]]").SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
             ConfigurationCategory category = LethalConfiguration.CreateCategory("dummy_category").SetName("Dummy category").SetColorRGB(255, 100, 100);
             ConfigurationCategory category2 = LethalConfiguration.CreateCategory("dummy_category_long_name").SetName("Dummy category with a long name");
@@ -86,6 +98,20 @@ namespace Amrv.ConfigurableCompany
                 ).SetCategory(category)
                 .SetNeedsRestart(true)
                 .SetType(ConfigurationTypes.SmallString).Build();
+
+            LethalConfiguration.CreateConfig("dummy_enum")
+                .SetValue(LevelWeatherType.Rainy)
+                .SetType(ConfigurationTypes.Options(typeof(LevelWeatherType)))
+                .SetName("LevelWeatherType enum")
+                .SetCategory(category)
+                .Build();
+
+            LethalConfiguration.CreateConfig("dummy_enum_2")
+                .SetValue("Texto de ejemplo largo 3")
+                .SetType(ConfigurationTypes.Options("Texto de ejemplo largo 1", "Texto de ejemplo largo 2", "Texto de ejemplo largo 3", "Texto de ejemplo largo 4"))
+                .SetName("LevelWeatherType enum")
+                .SetCategory(category)
+                .Build();
             LethalConfiguration.CreateConfig("dummy_percent_needs_restart")
                 .SetName("Requires restart")
                 .SetType(ConfigurationTypes.Slider(5, 500))
