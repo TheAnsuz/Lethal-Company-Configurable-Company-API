@@ -160,7 +160,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             Config.TrySet(InputArea_Slider.value, model.data.ChangeReason.USER_CHANGED);
         }
 
-        public override void RefreshConfig()
+        public override void RefreshDisplay()
         {
             Label_Text.SetText(Config.Name);
         }
