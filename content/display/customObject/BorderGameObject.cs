@@ -7,6 +7,7 @@ namespace Amrv.ConfigurableCompany.content.display.customObject
     public sealed class BorderGameObject
     {
         public readonly GameObject Container;
+        public RectTransform Transform => Container_Rect;
         private readonly RectTransform Container_Rect;
 
         private readonly RectTransform Top_Rect;
