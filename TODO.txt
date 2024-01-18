@@ -20,8 +20,10 @@
 
 - Guardar el estado abierto/cerrado de las categorias
 
+- Añadir "presets" que guardan configuraciones ajustadas previamente
+
 - Mas tipos de configuraciones
 * Ranged int/float (DONE)
 * Ranged slider (DONE)
-* String of N chars
-* Enumeration
+* String of N chars (DONE)
+* Enumeration (DONE)
