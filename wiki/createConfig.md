@@ -67,6 +67,7 @@ You can choose to create a configuration of your own type however it will take y
 -   `RangeInteger(min, max)`: A integer that only accepts value within the specified range
 -   `RangeFloat(min, max)`: A float that only accepts values within the specified range
 -   `Slider(min, max)`: A slider that allows any non-rounded value within the specified range
+-   `Options(Enumeration/object collection or array)`: A choosable option that allows for a specific value in a collection _The provided collection must be of just one type, you **can't** use an heterogeneous array_.
 
 ## Using a configuration
 
@@ -76,6 +77,8 @@ There are multiple ways you can get the value of a configuration. Each one might
 -   `configuration.Get<T>(T failsafe)`: This will retrieve the value as an instance of T but if the conversion fails it will return the `failsafe` value instead.
 -   `configuration.TryGet<T>(out T value)`: This is a standard TryGet that will return true if the Get succeded and false if it failed. The resulting value will be stored in `T value`.
 -   `configuration.Value`: Will return the raw object for the configuration without any cast or check.
+
+_Some configuration types will be automatically converted to other types if you request it. For example the **Options** type will allow you to get the index of the item if you use `Get<int>()` or the value itself if you request it as `Get<T>()` (T being the type of the collection)_
 
 To set a configuration you need to use `configuration.TrySet(newValue, ChangeReason)` and will return true if the set was succesful.
 
