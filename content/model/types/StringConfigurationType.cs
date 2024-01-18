@@ -19,6 +19,9 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         public StringConfigurationType(int maxLength = DefaultLength)
         {
+            if (maxLength <= 0)
+                MaxLength = DefaultLength;
+            else
             if (maxLength > ForcedMaxLength)
                 MaxLength = ForcedMaxLength;
             else
