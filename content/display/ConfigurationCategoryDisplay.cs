@@ -267,7 +267,7 @@ namespace Amrv.ConfigurableCompany.content.display
 #if DEBUG
                         Console.WriteLine($"-- [MODIF]: {config.ID}");
 #endif
-                        result.RefreshConfig();
+                        result.RefreshDisplay();
                         remainingToRemove.Remove(config.ID);
                     }
                     else
