@@ -1,3 +1,34 @@
+# 2.5.0
+
+_If you created your own ConfigurationType you **MUST** update your mod with the newer internal implementation_
+
+### Added
+
+-   New configuration type `ConfigurationTypes.StringOfLength(int)` that allows for a string with a maximum length (this can go up to 48 characters)
+-   New configuration type `ConfigurationTypes.Options(Enumeration / collection of values)` that let the user choose one option from a list, you can get back the value as an `int` (for the index) or as a `T` (for the value at the index)
+
+### Modified
+
+-   Now config getters allow to get their value as other types, for example a float config as an int without casting
+-   The image now is from a trusted somain so everyone should be able to see it (NuGet only)
+-   Added spacing to the tooltip's type range values
+-   Category open state now persists during sesions
+
+### Fixed
+
+-   Removed strict casting when getting configuration values as a `T` type
+-   Configuration values now reset correctly with newly generated configurations
+
+# 2.4.1
+
+### Fixed
+
+-   Configuration pages now have a better title fitting with font scaling
+
+### Modified
+
+-   Default page and category now will only appear if a developer uses them (a getter will spawn them)
+
 # 2.4.0
 
 ### Added
