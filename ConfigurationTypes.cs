@@ -23,6 +23,8 @@ namespace Amrv.ConfigurableCompany
 
         public static ConfigurationType Slider(float min, float max) => new SliderConfigurationType(min, max);
 
+        public static ConfigurationType StringOfLength(int maxLength) => maxLength >= SmallStringConfigurationType.ForcedMaxLength ? new StringConfigurationType(maxLength) : new SmallStringConfigurationType(maxLength);
+
         private ConfigurationTypes() { }
     }
 }

@@ -9,11 +9,27 @@ namespace Amrv.ConfigurableCompany.content.model.types
 
         public override object DefaultValue => Default;
 
-        public override string Name => "Text";
+        private readonly string _name;
+        public override string Name => _name;
+
+        public const int DefaultLength = 32;
+        public const int ForcedMaxLength = 48;
+
+        public readonly int MaxLength;
+
+        public StringConfigurationType(int maxLength = DefaultLength)
+        {
+            if (maxLength > ForcedMaxLength)
+                MaxLength = ForcedMaxLength;
+            else
+                MaxLength = maxLength;
+
+            _name = $"Text ({MaxLength} characters)";
+        }
 
         public override bool IsValidValue(object value)
         {
-            return true;
+            return value != null && value.ToString().Length <= MaxLength;
         }
 
         public override bool TryConvert(object value, out object result)
@@ -24,7 +40,8 @@ namespace Amrv.ConfigurableCompany.content.model.types
                 return false;
             }
 
-            result = value.ToString();
+            int length = value.ToString().Length;
+            result = length > MaxLength ? value.ToString().Substring(0, MaxLength) : value.ToString().Substring(0, length);
             return true;
         }
 

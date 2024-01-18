@@ -74,7 +74,7 @@ namespace Amrv.ConfigurableCompany
             LethalConfiguration.CreateConfig("dummy_float").SetName("Dummy float").SetSynchronized(true).SetValue(69).SetCategory(category).SetType(ConfigurationTypes.Float).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_float_range").SetName("Dummy float range").SetSynchronized(true).SetValue(69).SetCategory(category).SetType(ConfigurationTypes.RangeFloat(1.25f, 50f)).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_percent").SetName("Dummy percent").SetValue(10).SetCategory(category2).SetType(ConfigurationTypes.Percent).SetTooltip("dummy tooltip").Build();
-            LethalConfiguration.CreateConfig("dummy_string").SetName("Dummy string").SetValue("").SetCategory(category2).SetType(ConfigurationTypes.String).SetTooltip("dummy tooltip").Build();
+            LethalConfiguration.CreateConfig("dummy_string").SetName("Dummy string of N length").SetValue("").SetCategory(category2).SetType(ConfigurationTypes.StringOfLength(199)).SetTooltip("dummy tooltip").Build();
             LethalConfiguration.CreateConfig("dummy_string_small").SetName("Dummy small string").SetValue("")
                 .SetTooltip(
                     "Dummy tooltip",
