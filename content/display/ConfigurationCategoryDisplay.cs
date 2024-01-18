@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
 namespace Amrv.ConfigurableCompany.content.display
 {
@@ -187,6 +188,12 @@ namespace Amrv.ConfigurableCompany.content.display
                 Container.SetActive(false);
             else
                 Container.SetActive(true);
+
+            if (Visible)
+            {
+                Visible = CategoryIO.ShouldBeOpen(Category);
+                Console.WriteLine($"Category {Category.ID} should be open {Visible}");
+            }
         }
 
         protected virtual void OnClick()
@@ -194,10 +201,12 @@ namespace Amrv.ConfigurableCompany.content.display
             if (Visible)
             {
                 Visible = false;
+                CategoryIO.ShouldBeOpen(Category, false);
             }
             else if (!IsEmpty)
             {
                 Visible = true;
+                CategoryIO.ShouldBeOpen(Category, true);
             }
         }
 
@@ -307,6 +316,12 @@ namespace Amrv.ConfigurableCompany.content.display
                 Visible = false;
             else if (wasEmpty)
                 Visible = true;
+
+            if (Visible)
+            {
+                Visible = CategoryIO.ShouldBeOpen(Category);
+                Console.WriteLine($"Category {Category.ID} should be open {Visible}");
+            }
         }
 
         protected internal virtual void SaveConfigs()

@@ -33,6 +33,7 @@ namespace Amrv.ConfigurableCompany.content.patch
 #if DEBUG
                 Console.WriteLine("Creating menu");
 #endif  
+                CategoryIO.ReadAll();
                 DisplayUtils.LoadFontAssets();
                 _configDisplay = new ConfigurationScreen(__instance.HostSettingsScreen);
 
@@ -100,6 +101,7 @@ namespace Amrv.ConfigurableCompany.content.patch
             //_configDisplay.SaveAllToConfig();
             _configDisplay.SaveAll();
             ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
+            CategoryIO.SaveAll();
             _configDisplay = null;
         }
 

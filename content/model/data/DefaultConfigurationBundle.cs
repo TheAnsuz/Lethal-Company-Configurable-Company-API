@@ -96,7 +96,7 @@ namespace Amrv.ConfigurableCompany.content.model.data
                     );
             }
 
-#if DEBUG
+#if DEBUG && false
             foreach (KeyValuePair<string, string> loaded in _mapping)
             {
                 Console.WriteLine($"Entry: '{loaded.Key}={loaded.Value}'");
