@@ -13,6 +13,7 @@ _If you created your own ConfigurationType you **MUST** update your mod with the
 -   The image now is from a trusted somain so everyone should be able to see it (NuGet only)
 -   Added spacing to the tooltip's type range values
 -   Category open state now persists during sesions
+-   Changed icon to a more modern design
 
 ### Fixed
 
