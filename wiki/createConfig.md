@@ -67,6 +67,7 @@ You can choose to create a configuration of your own type however it will take y
 -   `RangeInteger(min, max)`: A integer that only accepts value within the specified range
 -   `RangeFloat(min, max)`: A float that only accepts values within the specified range
 -   `Slider(min, max)`: A slider that allows any non-rounded value within the specified range
+-   `StringOfLength(length)`: A string that allows you to set a maximum amount of characters that can go from 1 to 48.
 -   `Options(Enumeration/object collection or array)`: A choosable option that allows for a specific value in a collection _The provided collection must be of just one type, you **can't** use an heterogeneous array_.
 
 ## Using a configuration
