@@ -1,6 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
-using Amrv.ConfigurableCompany.content.utils;
 using System;
 
 namespace Amrv.ConfigurableCompany.content.model.types

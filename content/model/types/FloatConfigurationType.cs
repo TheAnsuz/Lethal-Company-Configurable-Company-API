@@ -2,7 +2,6 @@
 using Amrv.ConfigurableCompany.content.display.configTypes;
 using Amrv.ConfigurableCompany.content.utils;
 using System;
-using System.ComponentModel;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {

@@ -3,9 +3,6 @@ using Amrv.ConfigurableCompany.content.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -24,7 +21,6 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public static void ShouldBeOpen(ConfigurationCategory Category, bool open)
         {
-            Console.WriteLine($"Saved open state for {Category.ID} set to {open}");
             _categoryOpenState[Category] = open;
         }
 
@@ -68,7 +64,6 @@ namespace Amrv.ConfigurableCompany.content.model
             {
                 if (categoryStateBundle.TryGet(category.ID, out string openString))
                 {
-                    Console.Error.WriteLine($"{category.ID} read open state [{openString.ToLower().Equals("Open")}]");
                     ShouldBeOpen(category, openString.ToLower().Equals("open"));
                 }
             }

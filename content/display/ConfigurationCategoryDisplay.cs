@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
 namespace Amrv.ConfigurableCompany.content.display
 {
@@ -192,7 +191,6 @@ namespace Amrv.ConfigurableCompany.content.display
             if (Visible)
             {
                 Visible = CategoryIO.ShouldBeOpen(Category);
-                Console.WriteLine($"Category {Category.ID} should be open {Visible}");
             }
         }
 
@@ -320,7 +318,6 @@ namespace Amrv.ConfigurableCompany.content.display
             if (Visible)
             {
                 Visible = CategoryIO.ShouldBeOpen(Category);
-                Console.WriteLine($"Category {Category.ID} should be open {Visible}");
             }
         }
 
