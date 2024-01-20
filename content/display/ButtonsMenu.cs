@@ -16,6 +16,7 @@ namespace Amrv.ConfigurableCompany.content.display
         public readonly ConfigurationScreen Owner;
 
         protected readonly MenuButton Button_Reset;
+        protected readonly MenuButton Button_Information;
 
         protected internal ButtonsMenu(GameObject parent, ConfigurationScreen owner)
         {
@@ -32,7 +33,7 @@ namespace Amrv.ConfigurableCompany.content.display
             Container_Rect.offsetMax = Vector2.zero;
 
             Container_Layout.padding = new(2, 2, 2, 2);
-            Container_Layout.spacing = 2;
+            Container_Layout.spacing = 6;
             Container_Layout.childControlHeight = true;
             Container_Layout.childControlWidth = true;
             Container_Layout.childForceExpandHeight = false;
@@ -41,6 +42,8 @@ namespace Amrv.ConfigurableCompany.content.display
 
             Button_Reset = CreateButton("Reset button", "Reset configuration");
             Button_Reset.OnClick.AddListener(OnReset);
+            Button_Information = CreateButton("Information", "Information / Guide");
+            Button_Information.OnClick.AddListener(OnInformation);
         }
 
         protected virtual void OnReset()
@@ -53,6 +56,11 @@ namespace Amrv.ConfigurableCompany.content.display
             //ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
             ConfigurationIO.RemoveFile(FileUtils.GetCurrentConfigFileName());
             Owner.LoadAll();
+        }
+
+        protected virtual void OnInformation()
+        {
+            Application.OpenURL("https://i.imgur.com/457DmHb.png");
         }
 
         protected virtual MenuButton CreateButton(string name, string text)
