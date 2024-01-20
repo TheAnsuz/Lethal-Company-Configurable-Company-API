@@ -34,4 +34,6 @@ Ingame menu (filled with random data)
 
 ## Contact
 
-_Right now there is no github for the project nor issue page so I can only ask to contact using discord to `the_ansuz` or using the lethal company modding discord_.
+Contact the mod author directly on discord [the_ansuz](https://discordapp.com/users/341967365908594700)  
+Join the [lethal company modding discord](https://discord.com/invite/lcmod) and ask in the [corresponding forum](https://discord.com/channels/1168655651455639582/1193563980300558437)  
+Create a [github issue regarding your needs](https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API/issues/new/choose)
