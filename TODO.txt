@@ -22,6 +22,8 @@
 
 - Añadir "presets" que guardan configuraciones ajustadas previamente
 
+- Metodos para obtener paginas/categorias/configuraciones y crearlas si no existen
+
 - Mas tipos de configuraciones
 * Ranged int/float (DONE)
 * Ranged slider (DONE)
