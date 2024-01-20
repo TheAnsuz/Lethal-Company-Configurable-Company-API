@@ -1,3 +1,17 @@
+# 2.5.1
+
+### Added
+
+-   Added public project repository
+-   Added Issues
+-   Added github wiki
+-   Added new contact methods
+-   Added `Information / Guide` button to show a simple usage for the menu
+
+### Modified
+
+-   Updated contact information in readme
+
 # 2.5.0
 
 _If you created your own ConfigurationType you **MUST** update your mod with the newer internal implementation_
