@@ -15,10 +15,13 @@
     <SignAssembly>False</SignAssembly>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>LethalCompany; API; Configuration</PackageTags>
-    <PackageReleaseNotes>See changelog</PackageReleaseNotes>
+    <PackageTags>LethalCompany; API; Configuration; Unity, Modding, Interface</PackageTags>
+    <PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Nullable>disable</Nullable>
+    <PackageProjectUrl>https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
