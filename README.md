@@ -5,7 +5,8 @@ Add a in-game menu that contains organized configurations that automatically syn
 _This is an API, does not contain configurations itself, only the tools for other developers to implement their own. You can have a mod that uses this API and also provides some features with [Lethal company variables](https://thunderstore.io/c/lethal-company/p/AMRV/LethalCompanyVariables/)._
 
 [NuGet package](https://www.nuget.org/packages/Amrv.ConfigurableCompany)  
-[Contact me](##Contact)
+[Contact me](##Contact)  
+[How to use](https://thunderstore.io/c/lethal-company/p/AMRV/ConfigurableCompany/wiki/1310-how-to-use/)
 
 This is `BepinEx` Plugin that allows the developer to create configurations that will be displayed in-game so the user can modify them freely.
 
