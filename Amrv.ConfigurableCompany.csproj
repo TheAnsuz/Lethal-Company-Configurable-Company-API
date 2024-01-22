@@ -57,6 +57,9 @@
     <Reference Include="Steamworks">
       <HintPath>libs\Facepunch.Steamworks.Win64.dll</HintPath>
     </Reference>
+    <Reference Include="BetterSaves">
+      <HintPath>libs\LCBetterSaves.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">

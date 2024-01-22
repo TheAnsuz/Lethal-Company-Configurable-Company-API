@@ -1,4 +1,5 @@
 ﻿#if DEBUG
+using Amrv.ConfigurableCompany.content.dependency;
 using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.model.events;
 using Amrv.ConfigurableCompany.content.model.types;
@@ -7,10 +8,12 @@ using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
 using HarmonyLib;
 using System;
+using System.Reflection;
 
 namespace Amrv.ConfigurableCompany
 {
     [BepInPlugin(PLUGIN_GUID, PLUGIN_NAME, PLUGIN_VERSION)]
+    [BepInDependency(BetterSavesDependency.PLUGIN_GUID, BetterSavesDependency.DEPENDENCY_TYPE)]
     internal sealed class ConfigurableCompanyPlugin : BaseUnityPlugin
     {
         public const string PLUGIN_GUID = "dev.amrv.lethalCompany.config";
@@ -50,6 +53,10 @@ namespace Amrv.ConfigurableCompany
 
             Patcher.PatchAll(typeof(DisplayConfigurationPatch));
             Patcher.PatchAll(typeof(SteamLobbyPatch));
+
+            AbstractDependency.Register(new BetterSavesDependency());
+
+            AbstractDependency.TryFindAll(Patcher);
 
             Events.PluginSetup.Invoke(EventArgs.Empty);
         }

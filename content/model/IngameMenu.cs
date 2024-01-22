@@ -26,6 +26,10 @@ namespace Amrv.ConfigurableCompany.content.model
         {
             return slot?.fileNum == -1;
         }
+        public static bool ShouldIgnoreFile(int fileNum)
+        {
+            return fileNum == -1;
+        }
 
         public static bool ShouldCreateMenu() => Configuration.Configs.Count > 0;
 

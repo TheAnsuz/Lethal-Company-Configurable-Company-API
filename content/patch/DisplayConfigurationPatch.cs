@@ -10,10 +10,19 @@ namespace Amrv.ConfigurableCompany.content.patch
 {
     internal class DisplayConfigurationPatch
     {
+        public static bool Patch_HostButtonClick { get; internal set; } = true;
+        public static bool Patch_ChangeSelectedFile_Pre { get; internal set; } = true;
+        public static bool Patch_ChangeSelectedFile_Post { get; internal set; } = true;
+        public static bool Patch_ConfirmHostButton_Post { get; internal set; } = true;
+        public static bool Patch_QuitButton_Prefix { get; internal set; } = false;
+
         [HarmonyPatch(typeof(MenuManager), nameof(MenuManager.ClickHostButton))]
         [HarmonyPostfix]
         private static void HostButtonClick(ref MenuManager __instance)
         {
+            if (!Patch_HostButtonClick)
+                return;
+
             IngameMenu.SafeInstantiate(__instance);
         }
 
@@ -21,6 +30,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         [HarmonyPrefix]
         private static void ChangeSelectedFile_Pre(SaveFileUISlot __instance)
         {
+            if (!Patch_ChangeSelectedFile_Pre)
+                return;
+
             if (IngameMenu.ShouldIgnoreFile(/*__instance*/))
                 return;
 
@@ -31,6 +43,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         [HarmonyPostfix]
         private static void ChangeSelectedFile_Post(SaveFileUISlot __instance)
         {
+            if (!Patch_ChangeSelectedFile_Post)
+                return;
+
             if (IngameMenu.ShouldIgnoreFile(__instance))
             {
                 IngameMenu.SetVisible(false);
@@ -45,6 +60,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         [HarmonyPostfix]
         private static void ConfirmHostButton_Post()
         {
+            if (!Patch_ConfirmHostButton_Post)
+                return;
+
             if (IngameMenu.ShouldIgnoreFile())
             {
                 IngameMenu.ResetCurrentConfig();
@@ -62,6 +80,9 @@ namespace Amrv.ConfigurableCompany.content.patch
         //[HarmonyPrefix]
         private static void QuitButton_Prefix()
         {
+            if (!Patch_QuitButton_Prefix)
+                return;
+
             IngameMenu.SaveCurrentConfig();
             IngameMenu.SaveCategories();
         }
