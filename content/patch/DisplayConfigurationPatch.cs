@@ -1,10 +1,5 @@
-﻿using Amrv.ConfigurableCompany.content.display;
-using Amrv.ConfigurableCompany.content.model;
-using Amrv.ConfigurableCompany.content.utils;
+﻿using Amrv.ConfigurableCompany.content.model;
 using HarmonyLib;
-using System;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.patch
 {

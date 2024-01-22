@@ -1,14 +1,11 @@
-﻿#if DEBUG
-using Amrv.ConfigurableCompany.content.dependency;
-using Amrv.ConfigurableCompany.content.model;
-using Amrv.ConfigurableCompany.content.model.events;
-using Amrv.ConfigurableCompany.content.model.types;
-#endif
+﻿using Amrv.ConfigurableCompany.content.dependency;
 using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
 using HarmonyLib;
 using System;
-using System.Reflection;
+#if DEBUG
+using Amrv.ConfigurableCompany.content.model;
+#endif
 
 namespace Amrv.ConfigurableCompany
 {

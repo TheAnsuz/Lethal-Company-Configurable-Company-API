@@ -1,5 +1,4 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
-using Amrv.ConfigurableCompany.content.patch;
 using System;
 
 namespace Amrv.ConfigurableCompany.content.model

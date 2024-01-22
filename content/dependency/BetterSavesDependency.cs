@@ -2,12 +2,6 @@
 using Amrv.ConfigurableCompany.content.patch;
 using BepInEx;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amrv.ConfigurableCompany.content.dependency
 {
