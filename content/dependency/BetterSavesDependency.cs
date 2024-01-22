@@ -41,5 +41,12 @@ namespace Amrv.ConfigurableCompany.content.dependency
             IngameMenu.SetVisible(true);
             IngameMenu.LoadCurrentConfig();
         }
+
+        [HarmonyPatch(typeof(SaveFileUISlot), nameof(SaveFileUISlot.SetFileToThis))]
+        [HarmonyPostfix]
+        private static void ChangeSelectedFile_Post(SaveFileUISlot __instance)
+        {
+            IngameMenu.SetVisible(!IngameMenu.ShouldIgnoreFile(__instance));
+        }
     }
 }
