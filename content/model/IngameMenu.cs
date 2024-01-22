@@ -19,7 +19,6 @@ namespace Amrv.ConfigurableCompany.content.model
 
         public static bool ShouldIgnoreFile(/*SaveFileUISlot slot*/)
         {
-            Console.WriteLine($"Should ignore file {GameNetworkManager.Instance?.saveFileNum ?? null}");
             return GameNetworkManager.Instance?.saveFileNum == -1;
         }
         public static bool ShouldIgnoreFile(SaveFileUISlot slot)
