@@ -101,6 +101,7 @@ namespace Amrv.ConfigurableCompany.content.model
         {
             if (ConfigDisplay == null) return;
 
+            ConfigDisplay.SaveAll();
             ConfigurationIO.SaveAll(filename ?? FileUtils.GetCurrentConfigFileName());
         }
 
