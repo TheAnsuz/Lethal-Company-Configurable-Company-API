@@ -48,14 +48,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
         protected virtual void OnReset()
         {
-#if DEBUG
-            ConfigurableCompanyPlugin.Info($"ButtonsMenu::OnReset");
-#endif
-            foreach (var config in Configuration.Configs)
-                config.Reset(model.data.ChangeReason.USER_RESET);
-            //ConfigurationIO.SaveAll(FileUtils.GetCurrentConfigFileName());
-            ConfigurationIO.RemoveFile(FileUtils.GetCurrentConfigFileName());
-            Owner.LoadAll();
+            IngameMenu.ResetCurrentConfig();
         }
 
         protected virtual void OnInformation()

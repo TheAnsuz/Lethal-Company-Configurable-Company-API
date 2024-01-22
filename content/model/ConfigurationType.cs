@@ -25,7 +25,7 @@ namespace Amrv.ConfigurableCompany.content.model
             // The configuration constructor will do the necesary checks for the configs to work, but only the required for nulls
 
             Configuration config = CreateNewConfiguration(builder);
-            if (DisplayConfigurationPatch.ConfigDisplay?.ConfigurationMenu.Pages[config.Category.Page.Number].TryGet(config.Category.ID, out ConfigurationCategoryDisplay display) ?? false)
+            if (IngameMenu.ConfigDisplay?.ConfigurationMenu.Pages[config.Category.Page.Number].TryGet(config.Category.ID, out ConfigurationCategoryDisplay display) ?? false)
             {
                 display.Add(config.Type.CreateConfigurationDisplay(config));
             }

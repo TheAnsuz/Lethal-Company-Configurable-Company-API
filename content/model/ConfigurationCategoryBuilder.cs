@@ -79,7 +79,7 @@ namespace Amrv.ConfigurableCompany.content.model
 
             ConfigurationCategory category = new(this);
 
-            if (DisplayConfigurationPatch.ConfigDisplay?.ConfigurationMenu.TryGetPage(category.Page.Number, out ConfigurationPageDisplay page) ?? false)
+            if (IngameMenu.ConfigDisplay?.ConfigurationMenu.TryGetPage(category.Page.Number, out ConfigurationPageDisplay page) ?? false)
             {
                 page.Add(new(category));
             }
