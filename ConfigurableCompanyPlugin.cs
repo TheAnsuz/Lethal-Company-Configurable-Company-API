@@ -205,7 +205,10 @@ namespace Amrv.ConfigurableCompany
         internal static void Debug(object data)
         {
 #if DEBUG
-            Info(data);
+            if (_plugin == null)
+                Console.Error.WriteLine($"[Configurable Company DEBUG] {data}");
+            else
+                _plugin.Logger.LogFatal(data);
 #endif
         }
     }
