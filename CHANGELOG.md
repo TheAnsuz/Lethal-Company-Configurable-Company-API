@@ -1,3 +1,17 @@
+# 2.5.2
+
+### Added
+
+-   [BetterSaves](https://thunderstore.io/c/lethal-company/p/Pooble/LCBetterSaves/) compatibility
+
+### Modified
+
+-   Internal changes to in-game menu for better compatibility implementation
+
+### Fixed
+
+-   Configurations won't reset to their previous state when clicking `[ BACK ]` button
+
 # 2.5.1
 
 ### Added

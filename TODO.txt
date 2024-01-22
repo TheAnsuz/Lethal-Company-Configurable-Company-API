@@ -24,6 +24,10 @@
 
 - Metodos para obtener paginas/categorias/configuraciones y crearlas si no existen
 
+- Que las configs se restauren al entrar la desafio semanal en vez de coger el valor de la ultima config que habia // DONE
+- Compatibilidad con better saves // DONE
+- Guaradr configuraciones al pulsar [ BACK ] // DONE
+
 - Mas tipos de configuraciones
 * Ranged int/float (DONE)
 * Ranged slider (DONE)
