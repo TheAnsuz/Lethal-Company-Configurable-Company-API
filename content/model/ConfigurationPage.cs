@@ -36,9 +36,6 @@ namespace Amrv.ConfigurableCompany.content.model
             Name = builder.Name;
             Number = _pages.Count;
 
-#if DEBUG
-            Console.WriteLine($"Created page {Name} at index {Number}");
-#endif
             _pages.Insert(Number, this);
         }
 

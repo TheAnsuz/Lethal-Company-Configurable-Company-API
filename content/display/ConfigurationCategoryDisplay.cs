@@ -262,26 +262,17 @@ namespace Amrv.ConfigurableCompany.content.display
 
             Dictionary<string, ConfigurationItemDisplay> remainingToRemove = new(Configurations);
 
-#if DEBUG
-            Console.WriteLine($"Refreshing configs of category {Category.ID}");
-#endif
             foreach (Configuration config in Configuration.Configs)
             {
                 if (config.Category == Category)
                 {
                     if (TryGet(config.ID, out ConfigurationItemDisplay result))
                     {
-#if DEBUG
-                        Console.WriteLine($"-- [MODIF]: {config.ID}");
-#endif
                         result.RefreshDisplay();
                         remainingToRemove.Remove(config.ID);
                     }
                     else
                     {
-#if DEBUG
-                        Console.WriteLine($"-- [ADDED]: {config.ID}");
-#endif
                         Add(config.Type.CreateDisplay(config));
                     }
                 }
@@ -297,9 +288,6 @@ namespace Amrv.ConfigurableCompany.content.display
 
             foreach (KeyValuePair<string, ConfigurationItemDisplay> invalids in remainingToRemove)
             {
-#if DEBUG
-                Console.WriteLine($"-- [REMOV]: {invalids.Key}");
-#endif
                 Remove(invalids.Key);
                 invalids.Value.Delete();
             }

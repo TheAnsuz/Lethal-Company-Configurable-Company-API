@@ -85,24 +85,15 @@ namespace Amrv.ConfigurableCompany.content.display
         {
             Dictionary<string, ConfigurationCategoryDisplay> remainingToRemove = new(Categories);
 
-#if DEBUG
-            Console.WriteLine($"ConfigurationPageDisplay::RefreshContent");
-#endif
             foreach (ConfigurationCategory category in ConfigurationCategory.Categories)
             {
                 if (TryGet(category.ID, out ConfigurationCategoryDisplay result))
                 {
-#if DEBUG
-                    Console.WriteLine($"ConfigurationPageDisplay::RefreshContent [MODIFY]  {category.ID}");
-#endif
                     result.RefreshCategory();
                     remainingToRemove.Remove(category.ID);
                 }
                 else if (category.Page == Page)
                 {
-#if DEBUG
-                    Console.WriteLine($"ConfigurationPageDisplay::RefreshContent [ADDED]   {category.ID}");
-#endif
                     ConfigurationCategoryDisplay display = new(category);
                     Add(display);
                     display.RefreshContent();
@@ -111,9 +102,6 @@ namespace Amrv.ConfigurableCompany.content.display
 
             foreach (KeyValuePair<string, ConfigurationCategoryDisplay> invalids in remainingToRemove)
             {
-#if DEBUG
-                Console.WriteLine($"ConfigurationPageDisplay::RefreshContent [REMOVED] {invalids.Key}");
-#endif
                 Remove(invalids.Key);
                 invalids.Value.Delete();
             }

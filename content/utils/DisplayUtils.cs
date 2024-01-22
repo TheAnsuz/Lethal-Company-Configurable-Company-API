@@ -120,14 +120,7 @@ namespace Amrv.ConfigurableCompany.content.utils
 
                         /*
                          * A freaking lot of debugging to make this work correctly
-                        ConfigurableCompanyPlugin.Info($"String: {lines[i]}");
-                        ConfigurableCompanyPlugin.Info($"Start index: {startIndex}");
-                        ConfigurableCompanyPlugin.Info($"Length: {length} [I: {startIndex + length}]");
-                        ConfigurableCompanyPlugin.Info($"Nearest space forward: {nearSpaceForwardIndex} [{nearSpaceForwardDistance}]");
-                        ConfigurableCompanyPlugin.Info($"Nearest space backtrack: {nearSpaceBacktrackIndex} [{nearSpaceBacktrackDistance}]");
-                        ConfigurableCompanyPlugin.Info($"Substring: {lines[i].Substring(startIndex, length)}");
-                        ConfigurableCompanyPlugin.Info($"Remaining: {lines[i].Length - (startIndex + length)}");
-                        */
+                         */
 
                         builder.Append(lines[i].Substring(startIndex, length).Trim());
                         builder.Append(LINE_SEPARATOR);

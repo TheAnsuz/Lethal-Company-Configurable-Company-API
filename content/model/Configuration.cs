@@ -137,7 +137,6 @@ namespace Amrv.ConfigurableCompany.content.model
         internal void Reset(ChangeReason reason)
         {
             object old = Value;
-            //Console.WriteLine($"Reset {ID} value {old} from default {Default} because of {reason}");
             Value = Default;
             Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS));
         }

@@ -95,13 +95,6 @@ namespace Amrv.ConfigurableCompany.content.model.data
                     .Replace(TOKEN_SKIP + TOKEN_ENTRY_END, TOKEN_ENTRY_END)
                     );
             }
-
-#if DEBUG && false
-            foreach (KeyValuePair<string, string> loaded in _mapping)
-            {
-                Console.WriteLine($"Entry: '{loaded.Key}={loaded.Value}'");
-            }
-#endif
         }
 
         internal string[] Step1_getAllEntries(string data, int minIndex, int maxIndex)
@@ -121,7 +114,6 @@ namespace Amrv.ConfigurableCompany.content.model.data
         // Return true if an entry was found, false otherwise
         private bool Step11_getNextEntry(string data, out int foundBeginIndex, out int foundFinalIndex, int index, int maxIndex)
         {
-            //Console.WriteLine($"Step11_getNextEntry::INDEX({index},{maxIndex})");
             foundBeginIndex = FindNextToken(data, index, TOKEN_ENTRY_START, maxIndex);
 
             if (foundBeginIndex == -1)
@@ -150,7 +142,6 @@ namespace Amrv.ConfigurableCompany.content.model.data
 
             for (int i = startIndex; i < endIndex; i++)
             {
-                //Console.WriteLine($"Trying to compare data[{i}] (l: {data.Length}) with token[{found}] (l: {token.Length})");
                 if (data[i] == token[found])
                 {
                     found++;
