@@ -15,7 +15,7 @@ namespace Amrv.ConfigurableCompany
     {
         public const string PLUGIN_GUID = "dev.amrv.lethalCompany.config";
         public const string PLUGIN_NAME = "Configurable Company";
-        public const string PLUGIN_VERSION = "2.5.2";
+        public const string PLUGIN_VERSION = "2.5.3";
 
         private static ConfigurableCompanyPlugin _plugin;
 
