@@ -47,9 +47,9 @@ copy %resultFile% "%output%" /Y
 
 :: Custom additions to package
 echo Adding extra files to %output%
-call:clone "CHANGELOG.md" %output%
-call:clone "README.md" %output%
-call:clone "manifest.md" %output%
+call:clone "CHANGELOG.md" "%output%"
+call:clone "README.md" "%output%"
+call:clone "manifest.json" "%output%"
 
 :: Compress folder using winrar
 cd %outputDir%
@@ -63,8 +63,8 @@ exit
 :: Functions
 
 :clone
-IF EXIST "%1" (
+IF EXIST %1 (
     echo Cloning %1 to %2
-    copy "%1" "%2" >NUL
+    copy %1 %2 /Y
     )
 exit /B %ERRORLEVEL%
