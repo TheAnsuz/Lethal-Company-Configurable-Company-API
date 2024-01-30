@@ -1,3 +1,6 @@
+# 2.5.3
+
+-   Updated project target framework for `net standard 2.1`
 # 2.5.2
 
 ### Added
