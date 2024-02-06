@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.content.model.data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Amrv.ConfigurableCompany.content.model
@@ -16,7 +17,7 @@ namespace Amrv.ConfigurableCompany.content.model
             foreach (Configuration config in Configuration.Configs)
             {
                 if (config.Synchronized)
-                    bundle.Add(config.ID, config.Value.ToString());
+                    bundle.Add(config.ID, config.ValueToString());
             }
 
             try
@@ -50,6 +51,10 @@ namespace Amrv.ConfigurableCompany.content.model
 #if DEBUG
                     Console.WriteLine($"Syncing bundle key {syncConfig.Key}:{syncConfig.Value} => {result}");
 #endif
+                }
+                else
+                {
+                    ConfigurableCompanyPlugin.Error($"Can't synchronize key {syncConfig.Key}");
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.content.display;
 using Amrv.ConfigurableCompany.content.display.configTypes;
 using System;
+using System.Globalization;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -45,7 +46,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
             return value is int index && index >= 0 && index < Options.Length;
         }
 
-        public override bool TryConvert(object value, out object result)
+        public override bool TryConvert(object value, out object result, IFormatProvider formatter = null)
         {
             // Si el valor es nulo
             if (value == null)
@@ -66,7 +67,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
             }
 
             // Si el valor es un indice
-            if (int.TryParse(value.ToString(), out int val))
+            if (int.TryParse(value.ToString(), NumberStyles.Integer, formatter ?? CultureInfo.InvariantCulture, out int val))
             {
                 result = val >= Options.Length ? Options.Length : val <= 0 ? 0 : val;
                 return true;

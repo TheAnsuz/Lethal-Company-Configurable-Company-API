@@ -1,4 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
+using System;
+using System.Globalization;
 using TMPro;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
@@ -23,11 +25,12 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
         {
             base.GetFromConfig(Config);
             InputArea_Input.text = Config.Value.ToString();
+            Console.WriteLine(Config.Value);
         }
 
         protected override void SetToConfig(Configuration Config)
         {
-            Config.TrySet(InputArea_Input.text, model.data.ChangeReason.USER_CHANGED);
+            Config.TrySet(InputArea_Input.text, model.data.ChangeReason.USER_CHANGED, CultureInfo.CurrentCulture);
         }
     }
 }

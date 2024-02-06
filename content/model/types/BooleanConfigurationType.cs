@@ -18,7 +18,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
             return value is bool;
         }
 
-        public override bool TryConvert(object value, out object result)
+        public override bool TryConvert(object value, out object result, IFormatProvider formatter = null)
         {
             if (value == null)
             {

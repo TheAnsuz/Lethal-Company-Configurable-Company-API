@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.content.utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -93,7 +94,7 @@ namespace Amrv.ConfigurableCompany.content.model
             return tooltip != null && tooltip.Replace(" ", "").Length > 0;
         }
 
-        public virtual bool TrySet(object value, ChangeReason reason = ChangeReason.SCRIPTED)
+        public virtual bool TrySet(object value, ChangeReason reason = ChangeReason.SCRIPTED, IFormatProvider formatter = null)
         {
             object old = Value;
 
@@ -104,7 +105,7 @@ namespace Amrv.ConfigurableCompany.content.model
                 return true;
             }
 
-            if (Type.TryConvert(value, out object result))
+            if (Type.TryConvert(value, out object result, formatter))
             {
                 Value = result;
                 Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS_CONVERTED));
@@ -139,6 +140,11 @@ namespace Amrv.ConfigurableCompany.content.model
             object old = Value;
             Value = Default;
             Events.ConfigurationChanged.Invoke(new(this, old, Value, reason, ChangeResult.SUCCESS));
+        }
+
+        public string ValueToString()
+        {
+            return Value == null ? "" : Value is IFormattable formattable ? formattable.ToString(null, CultureInfo.InvariantCulture) : Value.ToString();
         }
 
         public virtual void Reset()

@@ -1,4 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.model;
+using System.Globalization;
 using TMPro;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
@@ -17,7 +18,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 
         protected override void SetToConfig(Configuration Config)
         {
-            Config.TrySet(InputArea_Input.text, model.data.ChangeReason.USER_CHANGED);
+            Config.TrySet(InputArea_Input.text, model.data.ChangeReason.USER_CHANGED, CultureInfo.CurrentCulture);
         }
     }
 }

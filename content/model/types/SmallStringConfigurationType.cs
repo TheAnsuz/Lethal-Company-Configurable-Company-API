@@ -36,7 +36,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
             return value != null && value.ToString().Length <= MaxLength;
         }
 
-        public override bool TryConvert(object value, out object result)
+        public override bool TryConvert(object value, out object result, IFormatProvider formatter = null)
         {
             if (value == null)
             {

@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.content.model;
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -112,7 +113,7 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
 
         protected override void SetToConfig(Configuration Config)
         {
-            Config.TrySet(Enabled, model.data.ChangeReason.USER_CHANGED);
+            Config.TrySet(Enabled, model.data.ChangeReason.USER_CHANGED, CultureInfo.CurrentCulture);
         }
 
         public override void RefreshDisplay()

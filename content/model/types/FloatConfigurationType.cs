@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.content.display.configTypes;
 using Amrv.ConfigurableCompany.content.utils;
 using System;
+using System.Globalization;
 
 namespace Amrv.ConfigurableCompany.content.model.types
 {
@@ -35,7 +36,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
             return value is float f && f >= MinValue && f <= MaxValue;
         }
 
-        public override bool TryConvert(object value, out object result)
+        public override bool TryConvert(object value, out object result, IFormatProvider formatter = null)
         {
             if (value == null)
             {
@@ -43,7 +44,7 @@ namespace Amrv.ConfigurableCompany.content.model.types
                 return false;
             }
 
-            if (float.TryParse(value.ToString(), out float val))
+            if (float.TryParse(value.ToString(), NumberStyles.Float, formatter ?? CultureInfo.InvariantCulture, out float val))
             {
                 result = val >= MaxValue ? MaxValue : val <= MinValue ? MinValue : val;
                 return true;
