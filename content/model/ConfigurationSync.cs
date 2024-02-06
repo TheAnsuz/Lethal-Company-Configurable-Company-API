@@ -1,7 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.content.model.data;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 
 namespace Amrv.ConfigurableCompany.content.model
