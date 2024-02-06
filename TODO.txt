@@ -22,13 +22,18 @@
 
 - Añadir "presets" que guardan configuraciones ajustadas previamente
 
+- Permitir importar y exportar configuraciones
+
 - Metodos para obtener paginas/categorias/configuraciones y crearlas si no existen
 
 - Que las configs se restauren al entrar la desafio semanal en vez de coger el valor de la ultima config que habia // DONE
 - Compatibilidad con better saves // DONE
 - Guaradr configuraciones al pulsar [ BACK ] // DONE
 
+- Regularizar el como se escriben los datos para que sean transferibles y no dependan del idioma
+
 - Mas tipos de configuraciones
+* Doble slider (rango de valores)
 * Ranged int/float (DONE)
 * Ranged slider (DONE)
 * String of N chars (DONE)
