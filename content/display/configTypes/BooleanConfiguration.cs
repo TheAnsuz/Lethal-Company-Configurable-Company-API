@@ -5,6 +5,7 @@ using Amrv.ConfigurableCompany.content.utils;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
@@ -101,8 +102,9 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             Enabled = Config.Get(false);
         }
 
-        protected override void OnClick()
+        protected override void OnClick(object sender, PointerEventData e)
         {
+            base.OnClick(sender, e);
             Enabled = !Enabled;
         }
 

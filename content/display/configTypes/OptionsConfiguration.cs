@@ -7,6 +7,8 @@ using System;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
@@ -193,9 +195,13 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             }
         }
 
-        protected override void OnClick()
+        protected override void OnClick(object sender, PointerEventData e)
         {
-            Next();
+            base.OnClick(sender, e);
+            if (e.button == PointerEventData.InputButton.Left)
+                Previous();
+            else if (e.button == PointerEventData.InputButton.Right)
+                Next();
         }
 
         protected override void SetToConfig(Configuration Config)

@@ -165,10 +165,5 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
         {
             Label_Text.SetText(Config.Name);
         }
-
-        protected override void OnClick()
-        {
-
-        }
     }
 }

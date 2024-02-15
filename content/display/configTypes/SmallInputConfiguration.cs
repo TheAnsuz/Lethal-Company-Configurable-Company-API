@@ -4,6 +4,8 @@ using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Amrv.ConfigurableCompany.content.display.configTypes
 {
@@ -147,11 +149,16 @@ namespace Amrv.ConfigurableCompany.content.display.configTypes
             ConfigurableCompanyPlugin.Debug($"SmallInputConfiguration::OnEditEnd [{_oldText} -- {InputArea_Input.text}]");
         }
 
-        protected override void OnClick()
+        protected override void OnClick(object sender, PointerEventData e)
         {
-            InputArea_Input.enabled = true;
-            InputArea_Input.Select();
-            InputArea_Input.ActivateInputField();
+            base.OnClick(sender, e);
+
+            if (!Keyboard.current.shiftKey.isPressed)
+            {
+                InputArea_Input.enabled = true;
+                InputArea_Input.Select();
+                InputArea_Input.ActivateInputField();
+            }
         }
 
         protected virtual bool ValidateText(string text) => true;

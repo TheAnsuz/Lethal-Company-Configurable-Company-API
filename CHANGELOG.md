@@ -6,6 +6,8 @@
 
 ### Added
 
+-   Configurations can be reverted by clicking while holding Shift key
+-   Configurations can be reset by clicking while holding Ctrl + Shift
 -   Added `experimental` tag
 
 ### Deprecated

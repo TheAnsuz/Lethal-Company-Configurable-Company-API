@@ -2,8 +2,10 @@
 using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using Amrv.ConfigurableCompany.display.component;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.content.display
@@ -45,7 +47,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
             Container_Image.color = COLOR_TRANSPARENT;
 
-            Container_Button.onClick.AddListener(OnClick);
+            Container_Button.OnMouseClick += OnClick;
             Container_Button.OnMouseEnter += OnMouseEnter;
             Container_Button.OnMouseExit += OnMouseExit;
             Container_Button.colors = DisplayUtils.COLOR_TINT_DEFAULT;
@@ -95,7 +97,16 @@ namespace Amrv.ConfigurableCompany.content.display
         public void GetFromConfig() => GetFromConfig(Config);
 
         public abstract void RefreshDisplay();
-        protected abstract void OnClick();
+        protected virtual void OnClick(object sender, PointerEventData e)
+        {
+            if (Keyboard.current.shiftKey.isPressed)
+            {
+                if (!Keyboard.current.ctrlKey.isPressed)
+                    Config.Reset(model.data.ChangeReason.USER_RESET);
+
+                GetFromConfig();
+            }
+        }
         protected abstract void GetFromConfig(Configuration Config);
         protected abstract void SetToConfig(Configuration Config);
         protected virtual void OnAdd(ConfigurationCategoryDisplay category, GameObject parent) { }
