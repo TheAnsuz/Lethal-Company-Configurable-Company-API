@@ -41,6 +41,7 @@ namespace Amrv.ConfigurableCompany.content.display
         protected readonly GameObject Tag_Type;
         protected readonly GameObject Tag_DefaultValue;
         protected readonly GameObject Tag_NeedsRestart;
+        protected readonly GameObject Tag_Experimental;
         protected readonly TextMeshProUGUI Tag_Type_Text;
         protected readonly TextMeshProUGUI Tag_DefaultValue_Text;
 
@@ -210,8 +211,9 @@ namespace Amrv.ConfigurableCompany.content.display
 
                 Tag_Type = CreateTag("Type", Color.yellow, FooterArea_Rect, out Tag_Type_Text);
                 Tag_Synchronized = CreateTag("Client synchronize", Color.cyan, FooterArea_Rect, out _);
-                Tag_NeedsRestart = CreateTag("Needs restart", new Color(245, 96, 66), FooterArea_Rect, out _);
+                Tag_NeedsRestart = CreateTag("Needs restart", new Color32(245, 96, 66, 255), FooterArea_Rect, out _);
                 Tag_DefaultValue = CreateTag("Default value", new Color32(191, 191, 191, 255), FooterArea_Rect, out Tag_DefaultValue_Text);
+                Tag_Experimental = CreateTag("Experimental", new Color32(181, 2, 2, 255), FooterArea_Rect, out _);
             }
 
             DisplayConfig(null);
@@ -233,6 +235,7 @@ namespace Amrv.ConfigurableCompany.content.display
 
                 Tag_NeedsRestart.SetActive(Config.NeedsRestart);
                 Tag_Synchronized.SetActive(Config.Synchronized);
+                Tag_Experimental.SetActive(Config.Experimental);
                 Tag_Type_Text.SetText($"Type: {Config.Type.Name}");
                 Tag_DefaultValue_Text.SetText($"Default value: {Config.Default}");
                 BodyTooltip_Element.enabled = BodyTooltip_Text.preferredHeight > 80f;

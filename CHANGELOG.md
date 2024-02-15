@@ -4,6 +4,10 @@
 
 -   Menu not appearing when hosting after joining a game
 
+### Added
+
+-   Added `experimental` tag
+
 # 2.5.2
 
 ### Modified
