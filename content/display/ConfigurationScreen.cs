@@ -33,6 +33,9 @@ namespace Amrv.ConfigurableCompany.content.display
         public readonly GameObject PageChangerArea;
         public readonly PageChanger PageChanger;
 
+        public readonly GameObject SharingArea;
+        public readonly ConfigSharer Sharing;
+
         public ConfigurationScreen(GameObject parent)
         {
             DisabledObject = UnityObject.Create("Disabled header")
@@ -144,7 +147,6 @@ namespace Amrv.ConfigurableCompany.content.display
 
             PageChangerArea = UnityObject.Create(nameof(PageChangerArea))
                 .SetParent(ScreenArea_Rect)
-                .AddComponent(out Image image)
                 .AddComponent(out RectTransform PageChangerArea_Rect);
 
             PageChangerArea_Rect.anchorMax = new(0.287f, 0.995f);
@@ -152,6 +154,16 @@ namespace Amrv.ConfigurableCompany.content.display
             PageChangerArea_Rect.offsetMin = new(0, 0);
             PageChangerArea_Rect.offsetMax = new(0, 0);
 
+            SharingArea = UnityObject.Create(nameof(SharingArea))
+                .SetParent(ScreenArea_Rect)
+                .AddComponent(out RectTransform SharingArea_Rect);
+
+            SharingArea_Rect.anchorMax = new(0.287f, 0.042f);
+            SharingArea_Rect.anchorMin = new(.03f, 0.007f);
+            SharingArea_Rect.offsetMin = new(0, 0);
+            SharingArea_Rect.offsetMax = new(0, 0);
+
+            Sharing = new(SharingArea, this);
             PageChanger = new(PageChangerArea, this);
             TooltipMenu = new(TooltipMenuArea, this);
             ConfigurationMenu = new(ConfigurationMenuArea, this);
@@ -305,6 +317,7 @@ namespace Amrv.ConfigurableCompany.content.display
             UnityEngine.Object.Destroy(TooltipMenuArea);
             UnityEngine.Object.Destroy(ButtonsMenuArea);
             UnityEngine.Object.Destroy(PageChangerArea);
+            UnityEngine.Object.Destroy(SharingArea);
         }
     }
 }

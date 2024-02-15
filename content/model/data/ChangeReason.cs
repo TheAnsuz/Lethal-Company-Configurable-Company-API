@@ -29,6 +29,10 @@
         /// <summary>
         /// The value was set from the existing value inside the stored file data
         /// </summary>
-        READ_FROM_FILE
+        READ_FROM_FILE,
+        /// <summary>
+        /// The value was set from the user's clipboard after an imported configuration
+        /// </summary>
+        READ_FROM_CLIPBOARD
     }
 }
