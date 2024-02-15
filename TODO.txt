@@ -22,7 +22,7 @@
 
 - Añadir "presets" que guardan configuraciones ajustadas previamente
 
-- Permitir importar y exportar configuraciones
+- Permitir importar y exportar configuraciones // DONE
 
 - Metodos para obtener paginas/categorias/configuraciones y crearlas si no existen
 
@@ -30,7 +30,7 @@
 - Compatibilidad con better saves // DONE
 - Guaradr configuraciones al pulsar [ BACK ] // DONE
 
-- Regularizar el como se escriben los datos para que sean transferibles y no dependan del idioma
+- Regularizar el como se escriben los datos para que sean transferibles y no dependan del idioma // DONE
 
 - Actualizar las wikis
 
