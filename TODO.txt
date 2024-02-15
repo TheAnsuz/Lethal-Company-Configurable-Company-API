@@ -32,6 +32,8 @@
 
 - Regularizar el como se escriben los datos para que sean transferibles y no dependan del idioma
 
+- Actualizar las wikis
+
 - Mas tipos de configuraciones
 * Doble slider (rango de valores)
 * Ranged int/float (DONE)
