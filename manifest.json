@@ -1,6 +1,6 @@
 {
     "name": "ConfigurableCompany",
-    "version_number": "2.5.4",
+    "version_number": "2.6.0",
     "website_url": "https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API",
     "description": "An API to allow modders to create save-dependant configurations that remain between matches and can sync. These configs will be shown in an in-game menu",
     "dependencies": [
