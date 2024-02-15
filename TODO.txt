@@ -34,8 +34,12 @@
 
 - Actualizar las wikis
 
+- Sincronizacion dinamica
+- Compresion para compartir configuraciones
+- Permitir configuraciones de bepinex
+
 - Mas tipos de configuraciones
-* Doble slider (rango de valores)
+* Range int/float
 * Ranged int/float (DONE)
 * Ranged slider (DONE)
 * String of N chars (DONE)
