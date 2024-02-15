@@ -1,4 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.content.utils;
+using System;
 
 namespace Amrv.ConfigurableCompany.content.model
 {
@@ -46,6 +47,7 @@ namespace Amrv.ConfigurableCompany.content.model
         /// <summary>
         /// Mark configurations as Need Restart if the value should only change after the game restarts and not instantly
         /// </summary>
+        [Obsolete("Pleasle, try to implement your settings in a way users won't need to restart the game\nIf you need help with that, you can check out Lethal Company Variables does it or ask for help")]
         public bool NeedsRestart { get => _needsRestart; set { if (Editable) _needsRestart = value; } }
 
         private string _tooltip = "No information provided";
@@ -159,6 +161,7 @@ namespace Amrv.ConfigurableCompany.content.model
             return this;
         }
 
+        [Obsolete("Pleasle, try to implement your settings in a way users won't need to restart the game\nIf you need help with that, you can check out Lethal Company Variables does it or ask for help")]
         public ConfigurationBuilder SetNeedsRestart(bool needsRestart)
         {
             NeedsRestart = needsRestart;

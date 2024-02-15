@@ -8,6 +8,11 @@
 
 -   Added `experimental` tag
 
+### Deprecated
+
+-   The attribute `Needs restart` is now obsolete, it will be removed in future releases.  
+    The decision has been made because developers should try to make their settings modificable even after the game has started. This might be hard to understand but Ill be glad to help anyone who needs asistance with it, you can also check Lethal company variables and see how it implements this functionality.
+
 # 2.5.2
 
 ### Modified

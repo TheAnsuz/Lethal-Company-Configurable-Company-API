@@ -30,6 +30,7 @@ namespace Amrv.ConfigurableCompany.content.model
         public readonly string Name;
         public readonly bool Synchronized;
         public readonly bool Experimental;
+        [Obsolete("Pleasle, try to implement your settings in a way users won't need to restart the game\nIf you need help with that, you can check out Lethal Company Variables does it or ask for help")]
         public readonly bool NeedsRestart;
         public readonly ConfigurationCategory Category;
 
