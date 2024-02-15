@@ -42,8 +42,10 @@ namespace Amrv.ConfigurableCompany.content.model
                 ConfigurationIO.ReadAll(FileUtils.GetCurrentConfigFileName());
             }
 
-            if (ConfigDisplay == null)
+            if (ConfigDisplay == null || !ConfigDisplay.IsValid())
             {
+                ConfigDisplay?.Destroy();
+
                 CategoryIO.ReadAll();
                 DisplayUtils.LoadFontAssets();
 

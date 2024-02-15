@@ -1,3 +1,9 @@
+# 2.6.0
+
+### Fixed
+
+-   Menu not appearing when hosting after joining a game
+
 # 2.5.2
 
 ### Modified

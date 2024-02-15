@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.content.unity;
 using Amrv.ConfigurableCompany.content.utils;
 using Amrv.ConfigurableCompany.display.component;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -157,6 +158,8 @@ namespace Amrv.ConfigurableCompany.content.display
             ButtonsMenu = new(ButtonsMenuArea, this);
         }
 
+        public bool IsValid() => ScreenArea != null;
+
         internal void OnEnterConfigurationMenuArea(object sender, PointerEventData e)
         {
             TooltipMenu.DisplayConfig(null);
@@ -291,6 +294,17 @@ namespace Amrv.ConfigurableCompany.content.display
         public void LoadAll()
         {
             ConfigurationMenu.LoadConfigs();
+        }
+
+        internal void Destroy()
+        {
+            UnityEngine.Object.Destroy(DisabledObject);
+            UnityEngine.Object.Destroy(DisabledTitle);
+            UnityEngine.Object.Destroy(ScreenArea);
+            UnityEngine.Object.Destroy(ConfigurationMenuArea);
+            UnityEngine.Object.Destroy(TooltipMenuArea);
+            UnityEngine.Object.Destroy(ButtonsMenuArea);
+            UnityEngine.Object.Destroy(PageChangerArea);
         }
     }
 }
