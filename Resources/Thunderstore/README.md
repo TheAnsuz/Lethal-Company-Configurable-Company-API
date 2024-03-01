@@ -15,13 +15,13 @@ Configurable Company provides an enhanced experience for both players and develo
 
 Using the in-game menu allows you to set a specific setting for your current file, you can have your **first save** with `x10` enemy spawning and your second one with `x0` enemy spawning.
 
-![A image of the in-game menu with some configurations from Lethal Company Variables](https://i.imgur.com/i1G4XTP.png)
+![A image of the in-game menu with some configurations from Lethal Company Variables](https://i.imgur.com/A2zn1vy.png)
 
 As the image shows, configuration are split into pages (_Seen at the top left of the image_) and then into categories.
 
 ### Buttons
 
-![A image of the in-game menu showing the buttons](https://i.imgur.com/A2zn1vy.png)
+![A image of the in-game menu showing the buttons](https://i.imgur.com/FUwQ4zA.png)
 
 -   **Save configurations**: Saves the settings you changed.
 -   **Reset to default values**: Resets every configuration to the initial value.
