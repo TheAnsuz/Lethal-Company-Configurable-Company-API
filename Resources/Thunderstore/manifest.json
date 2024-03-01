@@ -1,0 +1,9 @@
+{
+    "name": "ConfigurableCompany",
+    "version_number": "--APPLICATION_VERSION--",
+    "website_url": "https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API",
+    "description": "A robust and powerful API for configuration handling and synchronization in real time. Create file-dependant configurations that can be changed while in game by the players. (The developer MUST implement their own configurations)",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}

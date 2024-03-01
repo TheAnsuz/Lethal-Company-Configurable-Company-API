@@ -1,0 +1,47 @@
+echo VERSION is ${VERSION}
+echo EXECUTION_PATH is ${EXECUTION_PATH}
+echo EXECUTION_FILE is ${EXECUTION_FILE}
+echo EXECUTION_FOLDER is ${EXECUTION_FOLDER}
+echo FILE_NAME is ${FILE_NAME}
+echo FILE_PATH is ${FILE_PATH}
+echo STRING is ${STRING}
+echo CURRENT_PATH is ${CURRENT_PATH}
+echo CURRENT_FOLDER is ${CURRENT_FOLDER}
+
+set VERSION 3.0.0
+set thunderstore Release\Thunderstore
+set github Release\Github
+
+delete Release
+color 4
+echo >>>>> Creating Thunderstore release
+color 0F
+
+copy Amrv.ConfigurableCompany\bin\Release\netstandard2.1\Amrv.ConfigurableCompany.dll ${thunderstore}
+copy Unity.ConfigurableCompany\Assets\AssetBundles\configuration_menu ${thunderstore}
+copy Resources\CHANGELOG.md ${thunderstore}
+copy Resources\Thunderstore\README.md ${thunderstore}
+copy Resources\Thunderstore\manifest.json ${thunderstore}
+copy Resources\Thunderstore\icon.png ${thunderstore}
+
+replace ${thunderstore}\manifest.json --APPLICATION_VERSION-- ${VERSION}
+zip compress ${thunderstore} Release\thunderstore_release.zip
+
+copy Resources\Thunderstore\Wiki ${thunderstore}
+
+color 4
+echo >>>>> Creating Github release
+color 0F
+
+copy Amrv.ConfigurableCompany\bin\Release\netstandard2.1\Amrv.ConfigurableCompany.dll ${github}
+copy Unity.ConfigurableCompany\Assets\AssetBundles\configuration_menu ${github}
+
+zip compress ${github} Release\github_release.zip
+
+color 4
+echo >>>>> Creating NuGet release
+color 0C
+echo WARNING to create a NuGet package you must run the create_release.bat manually after building the project
+color 0F
+
+move Amrv.ConfigurableCompany\bin\Release\*.nupkg Release

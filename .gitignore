@@ -1,5 +1,48 @@
-/packages/
 /.vs/
-/obj/
+*/.vs/
 /.dist/
-/bin/
+*/obj/
+*/bin/
+.vsconfig
+*/Temp/
+Release
+Resources/Github/Wiki/.*
+
+# Libraries
+Amrv.ConfigurableCompany/libs/*
+
+# Unity
+Unity*/[Ll]ibrary/
+Unity*/[Tt]emp/
+Unity*/[Oo]bj/
+Unity*/[Bb]uild/
+Unity*/[Bb]uilds/
+Unity*/[Ll]ogs/
+Unity*/[Uu]ser[Ss]ettings/
+
+Unity*/[Mm]emoryCaptures/
+Unity*/[Rr]ecordings/
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics generated file
+crashlytics-build.properties
+
+# Packed Addressables
+Unity*/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Temporary auto-generated Android Assets
+Unity*/[Aa]ssets/[Ss]treamingAssets/aa.meta
+Unity*/[Aa]ssets/[Ss]treamingAssets/aa/*

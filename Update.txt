@@ -1,0 +1,42 @@
+===== DONE
+
+===== TODO
+
+Configuration IO:
+DONE - Las configuraciones deben de depender del perfil usado
+DONE - Guardar el estado de las categorias (abierto/cerrado)
+DONE - Guardar las configuraciones (valor, activa/inactiva)
+(El modelo solo debe ser accesible mediante IOEventRouter y IOController)
+
+Network:
+- Enviar los cambios de configuracion a los clientes
+- Enviar los valores iniciales y estado de las configuraciones cuando el jugador se une
+(El modelo solo debe ser accesible mediante NetEventRouter y NetController)
+
+Sharing:
+DONE - Permitir copiar y pegar configuraciones
+- Permitir crear presets de configuraciones que se exporten con el perfil de bepInEx
+
+Maintainability:
+- Comentar toda la parte accesible de la API
+- Internalizar todas las clases que no deban ser accesibles bajo ningun concepto
+- Crear la wiki 
+- Crear un README para thunderstore y github
+- Crear la compatibilidad con versiones anteriores
+
+Extra:
+- Crear el icono de la app
+- Crear el changelog
+- Ampliar la IDGen para evitar tener que poner IDs a paginas, secciones y categorias
+- Añadir configuracion "Rango de valores"
+- Añadir configuracion "Lista de multiple seleccion"
+- Permitir crear configuraciones usando bepInEx::ConfigEntry
+
+Visual:
+DONE - Hacer cada entrada del menu de paginas menos alto con menos espacio entre titulo y descripcion
+
+===== PROBLEMS
+
+El boton de reset/revert de la interfaz no funciona
+
+No se ve bien el boton de guardar
