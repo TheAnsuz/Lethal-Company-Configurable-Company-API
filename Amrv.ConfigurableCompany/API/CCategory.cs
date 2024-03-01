@@ -19,7 +19,7 @@ namespace Amrv.ConfigurableCompany.API
                     Color = new Color32(214, 90, 24, 255),
                     HideIfEmpty = true,
                     Name = "Configurations",
-                    Page = CPage.Default
+                    CPage = CPage.Default
                 };
 
                 return _defaultCategory;
