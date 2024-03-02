@@ -1,3 +1,14 @@
+# 3.0.1
+
+### Modified
+
+-   Code cleanup
+
+### Fixed
+
+-   Now you can change configurations for BetterSaves's new file
+-   Fixed incorrect Canvas attachment of the menu with some mods
+
 # 3.0.0
 
 ### Modified
