@@ -1,3 +1,8 @@
+When updating:
+- Change the version of the csproj
+- Change the version of the ConfigurableCompanyPlugin
+- Change the version of the BuildScript.pbs
+
 ===== DONE
 
 ===== TODO

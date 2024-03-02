@@ -2,14 +2,14 @@
 
 Configurable Company provides an enhanced experience for both players and developers adding an in-game menu where you can change you gameplay settings.
 
+> **WARNING**  
+> This plugin does not add content on it's own, it's an API.  
+> If you want content alongside it install [Lethal Company Variables](https://thunderstore.io/c/lethal-company/p/AMRV/LethalCompanyVariables/).
+
 | [Player information](#player-guide) | [Developer guide](#developer-guide) |
 | ----------------------------------- | ----------------------------------- |
 
 # Player information
-
-> **PRO TIP**  
-> This plugin does not add content on it's own, it's an API.  
-> If you want content alongside it install [Lethal Company Variables](https://thunderstore.io/c/lethal-company/p/AMRV/LethalCompanyVariables/).
 
 ### Menu
 
