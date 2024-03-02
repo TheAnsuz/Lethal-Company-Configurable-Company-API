@@ -3,6 +3,7 @@ using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Core.Patch;
 using Amrv.ConfigurableCompany.Plugin;
 using HarmonyLib;
+using System;
 
 namespace Amrv.ConfigurableCompany.Core.Dependency
 {
@@ -41,11 +42,33 @@ namespace Amrv.ConfigurableCompany.Core.Dependency
         [HarmonyPatch(typeof(NewFileUISlot_BetterSaves))]
         [HarmonyPatch(nameof(NewFileUISlot_BetterSaves.SetFileToThis))]
         [HarmonyPostfix]
-        private static void NewFileUISlot_BetterSaves_SetFileToThis_Postfix()
+        private static void NewFileUISlot_BetterSaves_SetFileToThis_Postfix(NewFileUISlot_BetterSaves __instance)
         {
-            IOController.RemoveConfigs();
-            IOController.SetConfigCache();
-            MenuController.SetLocked(true);
+            MenuController.SetLocked(GameNetworkManager.Instance.saveFileNum == -1);
+
+            if (GameNetworkManager.Instance.saveFileNum == -1)
+                IOController.RemoveConfigs();
+            else
+                IOController.LoadConfigs();
+
+            IOController.GetConfigCache();
+            MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
+        }
+
+        [HarmonyPatch(typeof(SaveFileUISlot))]
+        [HarmonyPatch(nameof(SaveFileUISlot.SetFileToThis))]
+        [HarmonyPostfix]
+        private static void SetFileToThis_Postfix(SaveFileUISlot __instance)
+        {
+            MenuController.SetLocked(GameNetworkManager.Instance.saveFileNum == -1);
+
+            if (GameNetworkManager.Instance.saveFileNum == -1)
+                IOController.RemoveConfigs();
+            else
+                IOController.LoadConfigs();
+
+            IOController.GetConfigCache();
+            MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
         }
     }
 }
