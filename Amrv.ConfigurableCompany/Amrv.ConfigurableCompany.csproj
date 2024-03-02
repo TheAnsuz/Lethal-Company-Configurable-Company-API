@@ -4,7 +4,7 @@
 		<TargetFrameworks>netstandard2.1</TargetFrameworks>
 		<AssemblyName>Amrv.ConfigurableCompany</AssemblyName>
 		<Description>An api to allow developers to create configurable parameters for lethal company. These configurations can be modified in-game using a built in menu, persist during sesions and are save-dependant on each game file.</Description>
-		<Version>3.0.0</Version>
+		<Version>3.0.1</Version>
 		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
