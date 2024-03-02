@@ -90,7 +90,6 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Toggle Category ({category.ID}, {(active ? "Visible" : "Hidden")})");
             IOController.SetCategoryOpenState(category, active);
-            //CategoryIO.SetState(category, active);
         }
     }
 }

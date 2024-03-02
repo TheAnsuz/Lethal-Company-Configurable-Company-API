@@ -26,21 +26,21 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CSection Normal = new CSectionBuilder()
         {
-            Category = CategoryBuilding.Normal,
+            CCategory = CategoryBuilding.Normal,
             ID = "configurable-company_section_normal",
             Name = "Normal section"
         };
 
         public static CSection LargeName = new CSectionBuilder()
         {
-            Category = CategoryBuilding.Normal,
+            CCategory = CategoryBuilding.Normal,
             ID = "configurable-company_section_large-name",
             Name = "Normal section with a very long name that should exceed the limit of characters thus causing an elipse in the text interface"
         };
 
         public static CSection NullID = new CSectionBuilder()
         {
-            Category = CategoryBuilding.Normal,
+            CCategory = CategoryBuilding.Normal,
             Name = "Null section id"
         };
     }

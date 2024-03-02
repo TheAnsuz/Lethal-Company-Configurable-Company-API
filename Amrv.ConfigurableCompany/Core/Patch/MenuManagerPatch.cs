@@ -11,10 +11,9 @@ namespace Amrv.ConfigurableCompany.Core.Patch
     {
         [HarmonyPatch("Start")]
         [HarmonyPostfix]
-        static void Start_Postfix(MenuManager __instance)
+        private static void Start_Postfix(MenuManager __instance)
         {
             ConfigurableCompanyPlugin.Debug($"MenuManager::Start [Postfix]");
-
             if (!__instance.isInitScene)
             {
                 //CategoryIO.Load();
@@ -24,21 +23,21 @@ namespace Amrv.ConfigurableCompany.Core.Patch
 
         }
 
-        static void ClickBackButton_Event()
+        private static void ClickBackButton_Event()
         {
             MenuController.SetVisible(false);
         }
 
         [HarmonyPatch(nameof(MenuManager.ClickHostButton))]
         [HarmonyPostfix]
-        static void ClickHostButton_Postfix()
+        private static void ClickHostButton_Postfix()
         {
             MenuController.SetVisible(true);
         }
 
         [HarmonyPatch(nameof(MenuManager.ConfirmHostButton))]
         [HarmonyPostfix]
-        static void ConfirmHostButton_Postfix()
+        private static void ConfirmHostButton_Postfix()
         {
             LifecycleEventRouter.DestroyMenu();
         }

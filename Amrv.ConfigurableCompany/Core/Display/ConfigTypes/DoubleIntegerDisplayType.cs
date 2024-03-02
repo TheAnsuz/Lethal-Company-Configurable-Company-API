@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TMPro;
-using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 {

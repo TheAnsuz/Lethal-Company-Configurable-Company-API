@@ -23,7 +23,7 @@ namespace Amrv.ConfigurableCompany.Core.Dependency
         [HarmonyPatch(typeof(SaveFileUISlot_BetterSaves))]
         [HarmonyPatch(nameof(SaveFileUISlot_BetterSaves.SetFileToThis))]
         [HarmonyPostfix]
-        static void SaveFileUISlot_BetterSaves_SetFileToThis_Postfix(SaveFileUISlot_BetterSaves __instance)
+        private static void SaveFileUISlot_BetterSaves_SetFileToThis_Postfix(SaveFileUISlot_BetterSaves __instance)
         {
             ConfigurableCompanyPlugin.Debug($"SaveFileUISlot_BetterSaves::SetFileToThis [Postfix] | fileNum: {__instance.fileNum} | fileString: {__instance.fileString} |");
 

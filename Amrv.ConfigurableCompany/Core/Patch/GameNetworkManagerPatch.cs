@@ -9,7 +9,7 @@ namespace Amrv.ConfigurableCompany.Core.Patch
     {
         [HarmonyPatch(nameof(GameNetworkManager.SaveGame))]
         [HarmonyPostfix]
-        static void SaveGameValues_Postfix()
+        private static void SaveGameValues_Postfix()
         {
             if (NetSynchronizer.IsServer)
             {

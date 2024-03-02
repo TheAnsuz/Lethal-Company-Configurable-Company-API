@@ -10,7 +10,7 @@ namespace Amrv.ConfigurableCompany.Core.Patch
     {
         [HarmonyPatch("Singleton", MethodType.Setter)]
         [HarmonyPostfix]
-        static void UpdateSingleton(NetworkManager value)
+        private static void UpdateSingleton(NetworkManager value)
         {
             ConfigurableCompanyPlugin.Debug($"Detected NetworkManager singleton modification ({value == null}) {value}");
 

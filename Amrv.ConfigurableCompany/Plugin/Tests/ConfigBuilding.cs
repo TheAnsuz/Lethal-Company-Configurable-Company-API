@@ -12,7 +12,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         [HarmonyPatch("OpenMenu_performed")]
         [HarmonyPostfix]
-        static void Method()
+        private static void Method()
         {
             ConfigBuilding.IntegerAutomatic.TrySet(ConfigBuilding.IntegerAutomatic.Get(10) + 1);
         }
@@ -27,10 +27,10 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
         private static int id = 0;
         [HarmonyPatch(nameof(SaveFileUISlot.SetFileToThis))]
         [HarmonyPostfix]
-        static void SetFileToThis_Postfix()
+        private static void SetFileToThis_Postfix()
         {
             using CConfigBuilder builder = new CConfigBuilder();
-            builder.Section = SectionBuilding.Normal;
+            builder.CSection = SectionBuilding.Normal;
             builder.ID = "configurable-company-test_config_number-dynamic" + (id++);
             builder.Value = id;
             builder.Tooltip = "Simple tooltip for dynamic numeric configuration";
@@ -38,7 +38,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig Boolean = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_boolean",
             Name = "Boolean",
             Tooltip = "Simple boolean configuration",
@@ -47,7 +47,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig SliderInt = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_int-slider",
             Name = "Slider integer",
             Tooltip = "Simple integer slider configuration",
@@ -57,7 +57,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig List = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_list",
             Name = "Value list for single options",
             Tooltip = "Only one option at a time",
@@ -67,7 +67,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig Tuple = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_tuple1",
             Name = "Value tuple",
             Tooltip = "Range of values",
@@ -76,7 +76,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig TupleDecimal = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_tuple2",
             Name = "Decimal value tuple",
             Tooltip = "Range of decimal values",
@@ -85,7 +85,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig String = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_string",
             Name = "Text normal",
             Tooltip = "Normal text configuration",
@@ -96,7 +96,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig Enum = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_enum",
             Name = "Slider integer",
             Tooltip = "Simple integer slider configuration",
@@ -107,7 +107,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig SliderDecimal = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_float-slider",
             Name = "Slider float",
             Tooltip = "Simple float slider configuration",
@@ -118,7 +118,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig FloatingNumber = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_floating-number",
             Name = "Floating number",
             Tooltip = "Simple floating number configuration",
@@ -128,7 +128,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig IntegerNumber = new CConfigBuilder()
         {
-            Category = CategoryBuilding.Normal,
+            CCategory = CategoryBuilding.Normal,
             ID = "configurable-company-test_config_integer-number",
             Name = "Integer number",
             Tooltip = "Simple integer number configuration",
@@ -138,7 +138,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig IntegerNumberRanged = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_integer-number-range",
             Name = "Integer number",
             Tooltip = "Simple integer number configuration",
@@ -148,7 +148,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig IntegerAutomatic = new CConfigBuilder()
         {
-            Category = CategoryBuilding.Normal,
+            CCategory = CategoryBuilding.Normal,
             ID = "configurable-company-test_config_integer-number-synchronized",
             Name = "Integer number (synchronized)",
             Tooltip = "Simple synchronized integer number configuration",
@@ -158,7 +158,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
 
         public static CConfig AutoDetected = new CConfigBuilder()
         {
-            Section = SectionBuilding.Normal,
+            CSection = SectionBuilding.Normal,
             ID = "configurable-company-test_config_auto-detected",
             Name = "Auto detected",
             Tooltip = "Auto detected type configuration",

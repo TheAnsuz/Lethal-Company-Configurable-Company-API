@@ -1,5 +1,4 @@
 ﻿using Amrv.ConfigurableCompany.API;
-using Amrv.ConfigurableCompany.API.ConfigTypes;
 using System;
 
 namespace Amrv.ConfigurableCompany.content.model

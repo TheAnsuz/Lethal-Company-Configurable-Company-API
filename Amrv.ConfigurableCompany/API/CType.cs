@@ -56,14 +56,14 @@ namespace Amrv.ConfigurableCompany.API
         /// <param name="config">The configuration that will be created</param>
         /// <returns>An instance of the configuration display that will be shown in-game</returns>
         protected internal abstract ConfigDisplay CreateDisplay { get; }
-        
+
         /// <summary>
         /// Checks if the provided value is valid to be used with this configuration type
         /// </summary>
         /// <param name="value">The value to check</param>
         /// <returns>True if can be accepted as a value, false otherwise</returns>
         public abstract bool IsValidValue(object value);
-        
+
         /// <summary>
         /// Tries to convert a value to an accepted value by this configuration type
         /// </summary>

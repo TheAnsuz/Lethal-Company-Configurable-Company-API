@@ -56,7 +56,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             MenuEventRouter.OnAction_PrepareMenu();
 
-            Container = Object.Instantiate(MenuPresets.Menu);
+            Container = UnityEngine.Object.Instantiate(MenuPresets.Menu);
             Container.name = "Configuration menu";
             Container.transform.SetParent(parent, false);
             LifecycleListener lifecycle = Container.AddComponent<LifecycleListener>();
@@ -79,6 +79,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Configs = new(this);
 
             // This should not be in the constructor but in the creator
+
             Pages.UpdateContent();
             Pages.UpdateSelf();
 
@@ -104,7 +105,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
         internal void Destroy()
         {
-            Object.Destroy(Container);
+            UnityEngine.Object.Destroy(Container);
         }
     }
 }

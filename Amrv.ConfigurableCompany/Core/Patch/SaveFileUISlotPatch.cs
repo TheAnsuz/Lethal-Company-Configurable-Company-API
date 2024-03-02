@@ -12,7 +12,7 @@ namespace Amrv.ConfigurableCompany.Core.Patch
 
         [HarmonyPatch(nameof(SaveFileUISlot.SetFileToThis))]
         [HarmonyPostfix]
-        static void SetFileToThis_Postfix(SaveFileUISlot __instance)
+        private static void SetFileToThis_Postfix(SaveFileUISlot __instance)
         {
             if (!Patch_SetFileToThis_Postfix)
                 return;
