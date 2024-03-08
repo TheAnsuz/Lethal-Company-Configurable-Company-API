@@ -4,6 +4,7 @@ using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Amrv.ConfigurableCompany.API.ConfigTypes
@@ -13,6 +14,8 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
         private static readonly Type TYPE_CONVERTABLE = typeof(IConvertible);
         private static readonly Type TYPE_ITUPLE = typeof(ITuple);
         private static readonly Type TYPE_TUPLE_T_T = typeof(Tuple<,>);
+        private static readonly MethodInfo METHOD_TUPLE = typeof(IntegerRangeType).GetMethod("TupleOfTypes", BindingFlags.Static | BindingFlags.NonPublic);
+        private static readonly MethodInfo METHOD_VALUE_TUPLE = typeof(IntegerRangeType).GetMethod("ValueTupleOfTypes", BindingFlags.Static | BindingFlags.NonPublic);
 
         public readonly long Min;
         public readonly long Max;
@@ -102,7 +105,7 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
             if (TYPE_CONVERTABLE.IsAssignableFrom(type))
             {
-                result = (T)Convert.ChangeType(max - min, code, formatProvider);
+                result = (T)Convert.ChangeType(max - min, Type.GetTypeCode(type), formatProvider ?? CultureInfo.InvariantCulture);
                 return true;
             }
             else if (TYPE_ITUPLE.IsAssignableFrom(type))
@@ -113,39 +116,31 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
                     return false;
                 }
 
-                dynamic a = null;
-                dynamic b = null;
-
-                if (TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[0]))
-                    a = Convert.ChangeType(min, type.GenericTypeArguments[0].UnderlyingSystemType);
-
-                if (TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[1]))
-                    b = Convert.ChangeType(min, type.GenericTypeArguments[1].UnderlyingSystemType);
-
-                //if (a != null && b != null)
-                if (TYPE_TUPLE_T_T.IsAssignableFrom(type.GetGenericTypeDefinition()))
+                if (!TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[0]) || !TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[1]))
                 {
-                    result = Tuple.Create(a, b);
-                    return true;
+                    result = default;
+                    return false;
                 }
-                else
-                {
-                    result = ValueTuple.Create(a, b);
-                    return true;
-                }
+
+                object a = Convert.ChangeType(min, type.GenericTypeArguments[0].UnderlyingSystemType);
+                object b = Convert.ChangeType(min, type.GenericTypeArguments[1].UnderlyingSystemType);
+
+                object tupleImp = TYPE_TUPLE_T_T.IsAssignableFrom(type.GetGenericTypeDefinition()) ? GenericTuple(a, b) : GenericValueTuple(a, b);
+
+                result = (T)tupleImp;
+                return true;
             }
             else if (type.IsSubclassOf(typeof(Array)) && TYPE_CONVERTABLE.IsAssignableFrom(type.GetElementType()))
             {
-                dynamic array = Array.CreateInstance(type.GetElementType(), 2);
+                Array array = Array.CreateInstance(type.GetElementType(), 2);
                 array.SetValue(Convert.ChangeType(min, type.GetElementType()), 0);
                 array.SetValue(Convert.ChangeType(max, type.GetElementType()), 1);
-                result = array;
+                result = (T)(object)array;
                 return true;
             }
 
             result = default;
             return false;
-
         }
 
         protected internal override bool Deserialize(in string data, out object item)
@@ -170,6 +165,26 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             }
             data = default;
             return false;
+        }
+
+        private static object GenericTuple(object a, object b)
+        {
+            return METHOD_TUPLE.MakeGenericMethod(a.GetType(), b.GetType()).Invoke(null, [a, b]);
+        }
+
+        private static object GenericValueTuple(object a, object b)
+        {
+            return METHOD_VALUE_TUPLE.MakeGenericMethod(a.GetType(), b.GetType()).Invoke(null, [a, b]);
+        }
+
+        private static Tuple<T1, T2> TupleOfTypes<T1, T2>(T1 a, T2 b)
+        {
+            return Tuple.Create(a, b);
+        }
+
+        private static ValueTuple<T1, T2> ValueTupleOfTypes<T1, T2>(T1 a, T2 b)
+        {
+            return ValueTuple.Create(a, b);
         }
     }
 }

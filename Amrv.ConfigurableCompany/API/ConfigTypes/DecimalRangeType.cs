@@ -92,6 +92,8 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code, IFormatProvider formatProvider = null)
         {
+            Console.WriteLine($"Trying to get {value} as {type}");
+
             if (!TryConvert(value, out object safe))
             {
                 result = default;
@@ -102,7 +104,7 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
             if (TYPE_CONVERTABLE.IsAssignableFrom(type))
             {
-                result = (T)Convert.ChangeType(max - min, code, formatProvider);
+                result = (T)Convert.ChangeType(max - min, Type.GetTypeCode(type), formatProvider ?? CultureInfo.InvariantCulture);
                 return true;
             }
             else if (TYPE_ITUPLE.IsAssignableFrom(type))
@@ -113,39 +115,31 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
                     return false;
                 }
 
-                dynamic a = null;
-                dynamic b = null;
-
-                if (TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[0]))
-                    a = Convert.ChangeType(min, type.GenericTypeArguments[0].UnderlyingSystemType);
-
-                if (TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[1]))
-                    b = Convert.ChangeType(min, type.GenericTypeArguments[1].UnderlyingSystemType);
-
-                //if (a != null && b != null)
-                if (TYPE_TUPLE_T_T.IsAssignableFrom(type.GetGenericTypeDefinition()))
+                if (!TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[0]) || !TYPE_CONVERTABLE.IsAssignableFrom(type.GenericTypeArguments[1]))
                 {
-                    result = Tuple.Create(a, b);
-                    return true;
+                    result = default;
+                    return false;
                 }
-                else
-                {
-                    result = ValueTuple.Create(a, b);
-                    return true;
-                }
+
+                object a = Convert.ChangeType(min, type.GenericTypeArguments[0].UnderlyingSystemType);
+                object b = Convert.ChangeType(min, type.GenericTypeArguments[1].UnderlyingSystemType);
+
+                object tupleImp = TYPE_TUPLE_T_T.IsAssignableFrom(type.GetGenericTypeDefinition()) ? GenericTuple(a, b) : GenericValueTuple(a, b);
+
+                result = (T)tupleImp;
+                return true;
             }
             else if (type.IsSubclassOf(typeof(Array)) && TYPE_CONVERTABLE.IsAssignableFrom(type.GetElementType()))
             {
-                dynamic array = Array.CreateInstance(type.GetElementType(), 2);
+                Array array = Array.CreateInstance(type.GetElementType(), 2);
                 array.SetValue(Convert.ChangeType(min, type.GetElementType()), 0);
                 array.SetValue(Convert.ChangeType(max, type.GetElementType()), 1);
-                result = array;
+                result = (T)(object)array;
                 return true;
             }
 
             result = default;
             return false;
-
         }
 
         protected internal override bool Deserialize(in string data, out object item)
