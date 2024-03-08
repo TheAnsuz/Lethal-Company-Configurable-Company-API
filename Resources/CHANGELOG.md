@@ -1,3 +1,18 @@
+# 3.1.0
+
+### Fixed
+
+-   Hard crash when trying to get value of range configuration type
+-   Typo on `CConfigBuilder` **Toggleable**
+
+### Added
+
+-   Accesibility methods for `RangeTypes`
+
+### Removed
+
+-   Accesibility methods for number variables now require to input both arguments
+
 # 3.0.1
 
 ### Modified
