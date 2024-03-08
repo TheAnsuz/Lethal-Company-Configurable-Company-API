@@ -53,12 +53,10 @@ namespace Amrv.ConfigurableCompany.Core.Net
 
                 if (clients == null || clients.Length == 0)
                 {
-                    //Console.WriteLine($"Sending message {identifier} to everyone");
                     NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll(identifier, stream, delivery);
                 }
                 else
                 {
-                    //Console.WriteLine($"Sending message {identifier} to {string.Join(", ", clients)}");
                     NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage(identifier, clients, stream, delivery);
                 }
             }
@@ -87,8 +85,6 @@ namespace Amrv.ConfigurableCompany.Core.Net
 
         internal static void Create(NetworkManager instance)
         {
-            Console.WriteLine($"Created net synchronizer");
-
             NetworkManager.Singleton.OnClientStarted += ClientCallbacks.TriggerConnect;
             NetworkManager.Singleton.OnClientStopped += ClientCallbacks.TriggerDisconnect;
 

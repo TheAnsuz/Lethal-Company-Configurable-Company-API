@@ -92,8 +92,6 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code, IFormatProvider formatProvider = null)
         {
-            Console.WriteLine($"Trying to get {value} as {type}");
-
             if (!TryConvert(value, out object safe))
             {
                 result = default;

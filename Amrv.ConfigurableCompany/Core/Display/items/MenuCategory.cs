@@ -31,7 +31,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         private MenuCategory(GameObject container, CCategory category)
         {
             container.name = $"Category {category.ID}";
-            Console.WriteLine($"Created category display");
             Container = container;
             Category = category;
             Content = Container.FindChild("Content area");

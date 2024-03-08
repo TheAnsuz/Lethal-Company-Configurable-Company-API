@@ -36,7 +36,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected internal override void LoadFromConfig(in object value)
         {
-            Console.WriteLine($">>>>>>>>>>>>>>> DoubleIntegerDisplayType is type {value.GetType()}");
             if (value is (double, double))
             {
                 (double, double) tuple = ((double, double))value;

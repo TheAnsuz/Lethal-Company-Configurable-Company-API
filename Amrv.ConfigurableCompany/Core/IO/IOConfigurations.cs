@@ -23,7 +23,6 @@ namespace Amrv.ConfigurableCompany.Core.IO
                 cfg = new CCFGFile(GetFullPath(file));
                 _files.Add(file, cfg);
             }
-            Console.WriteLine($"Loading file {file} from {cfg.File}");
             cfg.Read();
         }
 
