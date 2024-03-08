@@ -12,7 +12,7 @@
 ### Removed
 
 -   Accesibility methods for number variables now require to input both arguments
-
+-   Unnecesary console logs in release version
 # 3.0.1
 
 ### Modified
