@@ -74,7 +74,7 @@ namespace Amrv.ConfigurableCompany.API
 
             Synchronized = builder.Synchronized;
             Experimental = builder.Experimental;
-            Toggleable = builder.Toogleable;
+            Toggleable = builder.Toggleable;
 
             if (!TrySet(builder.Value ?? Type.Default, ChangeReason.CREATION))
                 throw new BuildingException($"Can't create configuration with default value {builder.Value ?? Type.Default}[{(builder.Value == null ? "Def" : "Val")}] using type {Type.GetType().Name}");

@@ -15,7 +15,7 @@ namespace Amrv.ConfigurableCompany.API
         public bool Enabled;
         public bool Experimental;
         public bool Synchronized;
-        public bool Toogleable;
+        public bool Toggleable;
 
         public CCategory CCategory
         {
@@ -147,7 +147,7 @@ namespace Amrv.ConfigurableCompany.API
 
         public CConfigBuilder SetToggleable(bool toggleable)
         {
-            Toogleable = toggleable;
+            Toggleable = toggleable;
             return this;
         }
 
