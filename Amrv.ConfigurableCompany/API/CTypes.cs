@@ -41,22 +41,34 @@ namespace Amrv.ConfigurableCompany.API
         }
 
         private static readonly CType _decimalAny = new DecimalType();
+        private static readonly CType _decimalPositive = new DecimalType(min: 0);
         private static readonly CType _integerAny = new IntegerType();
+        private static readonly CType _integerPositive = new IntegerType(min: 0);
         private static readonly CType _boolean = new BooleanType();
         private static readonly CType _string = new StringType();
+        private static readonly CType _decimalPercent = new DecimalType(0f, 100f) { UseSlider = true };
+        private static readonly CType _intPercent = new IntegerType(0, 100) { UseSlider = true };
         private static readonly CType _intRange = new IntegerRangeType((long.MinValue, long.MaxValue));
         private static readonly CType _decimalRange = new DecimalRangeType((double.MinValue, double.MaxValue));
 
+        public static CType DecimalNumberRange() => _decimalRange;
+        public static CType DecimalNumberRange(double min, double max) => new DecimalRangeType((min, max));
+
         public static CType DecimalNumber() => _decimalAny;
-        public static CType DecimalNumber(double min = double.NegativeInfinity, double max = double.PositiveInfinity) => new DecimalType(min, max);
+        public static CType DecimalNumberPositive() => _decimalPositive;
+        public static CType DecimalNumber(double min, double max) => new DecimalType(min, max);
+
+        public static CType WholeNumberRange() => _intRange;
+        public static CType WholeNumberRange(long min, long max) => new IntegerRangeType((min, max));
 
         public static CType WholeNumber() => _integerAny;
-        public static CType WholeNumber(long min = long.MinValue, long max = long.MaxValue) => new IntegerType(min, max);
+        public static CType WholeNumberPositive() => _integerPositive;
+        public static CType WholeNumber(long min, long max) => new IntegerType(min, max);
 
-        public static CType DecimalPercent() => new DecimalType(0f, 100f) { UseSlider = true };
+        public static CType DecimalPercent() => _decimalPercent;
         public static CType DecimalSlider(float min, float max) => new DecimalType(min, max) { UseSlider = true };
 
-        public static CType WholePercent() => new IntegerType(0, 100) { UseSlider = true };
+        public static CType WholePercent() => _intPercent;
         public static CType WholeSlider(int min, int max) => new IntegerType(min, max) { UseSlider = true };
 
         public static CType Boolean() => _boolean;
