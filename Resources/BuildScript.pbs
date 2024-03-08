@@ -8,7 +8,7 @@ echo STRING is ${STRING}
 echo CURRENT_PATH is ${CURRENT_PATH}
 echo CURRENT_FOLDER is ${CURRENT_FOLDER}
 
-set VERSION 3.0.1
+set VERSION 3.1.0
 set thunderstore Release\Thunderstore
 set github Release\Github
 
