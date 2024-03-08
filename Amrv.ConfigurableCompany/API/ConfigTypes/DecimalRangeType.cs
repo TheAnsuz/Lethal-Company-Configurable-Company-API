@@ -4,6 +4,7 @@ using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Amrv.ConfigurableCompany.API.ConfigTypes
@@ -13,6 +14,8 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
         private static readonly Type TYPE_CONVERTABLE = typeof(IConvertible);
         private static readonly Type TYPE_ITUPLE = typeof(ITuple);
         private static readonly Type TYPE_TUPLE_T_T = typeof(Tuple<,>);
+        private static readonly MethodInfo METHOD_TUPLE = typeof(DecimalRangeType).GetMethod("TupleOfTypes", BindingFlags.Static | BindingFlags.NonPublic);
+        private static readonly MethodInfo METHOD_VALUE_TUPLE = typeof(DecimalRangeType).GetMethod("ValueTupleOfTypes", BindingFlags.Static | BindingFlags.NonPublic);
 
         public readonly double Min;
         public readonly double Max;
@@ -162,6 +165,26 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             }
             data = default;
             return false;
+        }
+
+        private static object GenericTuple(object a, object b)
+        {
+            return METHOD_TUPLE.MakeGenericMethod(a.GetType(), b.GetType()).Invoke(null, [a, b]);
+        }
+
+        private static object GenericValueTuple(object a, object b)
+        {
+            return METHOD_VALUE_TUPLE.MakeGenericMethod(a.GetType(), b.GetType()).Invoke(null, [a, b]);
+        }
+
+        private static Tuple<T1, T2> TupleOfTypes<T1, T2>(T1 a, T2 b)
+        {
+            return Tuple.Create(a, b);
+        }
+
+        private static ValueTuple<T1, T2> ValueTupleOfTypes<T1, T2>(T1 a, T2 b)
+        {
+            return ValueTuple.Create(a, b);
         }
     }
 }
