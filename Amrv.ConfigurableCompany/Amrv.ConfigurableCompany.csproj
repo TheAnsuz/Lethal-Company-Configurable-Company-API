@@ -92,4 +92,8 @@
 	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
 	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="echo %25cd%25&#xD;&#xA;rmdir /S /Q bin\$(ConfigurationName)" />
+	</Target>
 </Project>
