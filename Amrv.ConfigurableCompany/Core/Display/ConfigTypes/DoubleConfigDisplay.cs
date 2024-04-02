@@ -34,12 +34,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
             RightInput.contentType = LeftContentType;
             RightInput.characterLimit = MAX_CHARACTERS;
-            RightInput.inputValidator = new CustomCharacterValidator(RightValidateChar);
+            RightInput.inputValidator = CustomCharacterValidator.Create(RightValidateChar);
             RightInput.onEndEdit.AddListener(OnRightEditEnd);
 
             LeftInput.contentType = LeftContentType;
             LeftInput.characterLimit = MAX_CHARACTERS;
-            LeftInput.inputValidator = new CustomCharacterValidator(LeftValidateChar);
+            LeftInput.inputValidator = CustomCharacterValidator.Create(LeftValidateChar);
             LeftInput.onEndEdit.AddListener(OnLeftEditEnd);
 
             container.FindChild("Buttons/Restore").GetComponent<Button>().onClick.AddListener(Restore);

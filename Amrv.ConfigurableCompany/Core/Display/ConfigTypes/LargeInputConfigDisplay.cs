@@ -28,7 +28,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
             InputField.contentType = ContentType;
             InputField.characterLimit = MAX_CHARACTERS;
-            InputField.inputValidator = new CustomCharacterValidator(ValidateChar);
+            InputField.inputValidator = CustomCharacterValidator.Create(ValidateChar);
 
             InputField.onEndEdit.AddListener(OnEditEnd);
 
