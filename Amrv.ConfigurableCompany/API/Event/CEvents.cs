@@ -1,4 +1,7 @@
-﻿namespace Amrv.ConfigurableCompany.API.Event
+﻿using Amrv.ConfigurableCompany.Core.Extensions;
+using System.Collections.Generic;
+
+namespace Amrv.ConfigurableCompany.API.Event
 {
     public static class CEvents
     {
@@ -31,6 +34,10 @@
             public static readonly CEventType<CEventCreateConfig> CreateConfig = new();
             public static readonly CEventType<CEventChangeConfig> ChangeConfig = new();
             public static readonly CEventType<CEventToggleConfig> ToggleConfig = new();
+
+            internal static void AddSingleConfig(CConfig config) => _singleConfigChange[config] = new();
+            private static readonly Dictionary<CConfig, CEventType<CEventChangeConfig>> _singleConfigChange = [];
+            public static readonly IReadOnlyDictionary<CConfig, CEventType<CEventChangeConfig>> ConfigChangeSingle = _singleConfigChange.AsReadOnly();
         }
 
         public static class LifecycleEvents

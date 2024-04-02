@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.Core;
+﻿using Amrv.ConfigurableCompany.API.Event;
+using Amrv.ConfigurableCompany.Core;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
 using System;
@@ -88,6 +89,7 @@ namespace Amrv.ConfigurableCompany.API
             _configs.Add(ID, this);
             Section?.AddConfig(this);
             Category?.AddConfig(this);
+            CEvents.ConfigEvents.AddSingleConfig(this);
 
             // Notify
             IOController.GetConfigCache(this);
@@ -132,6 +134,11 @@ namespace Amrv.ConfigurableCompany.API
             if (Type.TryGetAs(Value, out T result))
                 return result;
             return @defaut;
+        }
+
+        public CBind<T> Bind<T>()
+        {
+            return new CBind<T>(this);
         }
 
         internal bool SerializeValue(out string data)

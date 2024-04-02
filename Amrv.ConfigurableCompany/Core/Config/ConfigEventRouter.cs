@@ -41,7 +41,9 @@ namespace Amrv.ConfigurableCompany.Core.Config
         {
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnChange | Config ({config.ID}, {(succeded ? "Accepted" : "Denied")})");
             MenuController.UpdateConfig(config, reason);
-            CEvents.ConfigEvents.ChangeConfig.Invoke(new(config, reason, oldValue, requestedValue, succeded, converted));
+            CEventChangeConfig @event = new(config, reason, oldValue, requestedValue, succeded, converted);
+            CEvents.ConfigEvents.ConfigChangeSingle[config]?.Invoke(@event);
+            CEvents.ConfigEvents.ChangeConfig.Invoke(@event);
             if (succeded && NetSynchronizer.IsServer)
                 NetController.SendConfig(config);
         }
