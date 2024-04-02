@@ -12,7 +12,7 @@ Resources/Github/Wiki/.*
 Amrv.ConfigurableCompany/libs/*
 
 # Unity
-Unity*/[Aa]ssets/AssetBundles/*
+Unity.ConfigurableCompany/Assets/AssetBundles/*
 Unity*/[Ss]cenes/
 Unity*/[Ll]ibrary/
 Unity*/[Tt]emp/
