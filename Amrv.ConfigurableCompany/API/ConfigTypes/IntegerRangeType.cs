@@ -123,7 +123,7 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
                 }
 
                 object a = Convert.ChangeType(min, type.GenericTypeArguments[0].UnderlyingSystemType);
-                object b = Convert.ChangeType(min, type.GenericTypeArguments[1].UnderlyingSystemType);
+                object b = Convert.ChangeType(max, type.GenericTypeArguments[1].UnderlyingSystemType);
 
                 object tupleImp = TYPE_TUPLE_T_T.IsAssignableFrom(type.GetGenericTypeDefinition()) ? GenericTuple(a, b) : GenericValueTuple(a, b);
 
