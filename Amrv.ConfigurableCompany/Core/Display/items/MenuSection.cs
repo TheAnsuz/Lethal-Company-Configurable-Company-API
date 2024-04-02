@@ -1,8 +1,11 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
+using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Items
 {
@@ -24,10 +27,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
             Container = container;
             Section = section;
+            container.FindChild("Name").GetComponent<Button>().onClick.AddListener(OnClick);
             Text = container.FindChild("Name/Text").GetComponent<TextMeshProUGUI>();
             Content = container.FindChild("Content");
 
             SetName(section.Name);
+        }
+
+        private void OnClick()
+        {
+            Content.SetActive(!Content.activeSelf);
         }
 
         public void SetName(string name)

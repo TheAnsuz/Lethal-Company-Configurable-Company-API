@@ -39,6 +39,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             NameArea.AddComponent<RegionButton>().OnMouseClick += OnClickHeader;
 
             Sidebar_Image = Container.FindChild("Sidebar").GetComponent<Image>();
+            Container.FindChild("Sidebar").GetComponent<Button>().onClick.AddListener(() => SetOpen(!IsOpen()));
             Name_Text = Container.FindChild("Name area/Name").GetComponent<TextMeshProUGUI>();
             Name_Background = Container.FindChild("Name area/Background").GetComponent<Image>();
 
@@ -49,15 +50,17 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         private void SetOpen(bool open)
         {
+            open &= Content.transform.childCount != 0;
             Content.SetActive(open);
             Shadow.SetActive(!open);
-
-            Container.SetActive(!(Content.transform.childCount == 0 && Category.HideIfEmpty));
+            Container.SetActive(!open);
         }
+
+        public bool IsOpen() => Content.activeSelf;
 
         private void OnClickHeader(object sender, PointerEventData e)
         {
-            bool active = Content.transform.childCount != 0 && !Content.activeSelf;
+            bool active = Content.transform.childCount != 0 && !IsOpen();
             MenuEventRouter.OnAction_ToggleCategory(Category, active);
             SetOpen(active);
         }
