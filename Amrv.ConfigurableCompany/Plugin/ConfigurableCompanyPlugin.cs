@@ -21,7 +21,7 @@ namespace Amrv.ConfigurableCompany.Plugin
     {
         public const string PLUGIN_GUID = "dev.amrv.lethalCompany.config";
         public const string PLUGIN_NAME = "Configurable Company";
-        public const string PLUGIN_VERSION = "3.1.0";
+        public const string PLUGIN_VERSION = "3.2.0";
 
         /// <summary>
         /// Plugin folder
@@ -45,7 +45,7 @@ namespace Amrv.ConfigurableCompany.Plugin
             PluginFolder = Path.GetDirectoryName(base.Info.Location) + Path.DirectorySeparatorChar;
             DataFolder = Path.Combine(Application.persistentDataPath, "Configurable Company", Directory.GetParent(Paths.BepInExRootPath).Name);
             Directory.CreateDirectory(DataFolder);
-
+            
             Info("Initializating Configurable Company");
 
             MenuPresets.Ping();
