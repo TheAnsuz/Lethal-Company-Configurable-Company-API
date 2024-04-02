@@ -1,14 +1,22 @@
 ﻿using TMPro;
+using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Scripts
 {
-    public class CustomCharacterValidator(CustomCharacterValidator.CharValidator validator = null) : TMP_InputValidator
+    public class CustomCharacterValidator : TMP_InputValidator
     {
+        public static TMP_InputValidator Create(CharValidator validator)
+        {
+            CustomCharacterValidator ccv = CreateInstance<CustomCharacterValidator>();
+            ccv.Validator = validator;
+            return ccv;
+        }
+
         private const char NO_CHAR = '\0';
 
         public delegate bool CharValidator(ref string text, ref int pos, ref char ch);
 
-        public CharValidator Validator = validator;
+        public CharValidator Validator;
 
         public override char Validate(ref string text, ref int pos, char ch)
         {
