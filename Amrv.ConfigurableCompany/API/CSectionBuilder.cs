@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.Core;
+﻿using Amrv.ConfigurableCompany.API.Accesors;
+using Amrv.ConfigurableCompany.Core;
+using System;
 
 namespace Amrv.ConfigurableCompany.API
 {
@@ -6,22 +8,13 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public string Category;
+        public BuildCategory Category;
 
+        [Obsolete("Use Category")]
         public CCategory CCategory
         {
-            set
-            {
-                Category = value?.ID ?? null;
-            }
-            get
-            {
-                if (CCategory.Storage.TryGetValue(Category, out var category))
-                {
-                    return category;
-                }
-                return null;
-            }
+            set => Category = value;
+            get => Category;
         }
 
         public CSectionBuilder SetID(string id)
@@ -50,7 +43,7 @@ namespace Amrv.ConfigurableCompany.API
 
         protected override CSection BuildInstance()
         {
-            CCategory ??= CCategory.Default;
+            Category ??= CCategory.Default;
 
             return new CSection(this);
         }

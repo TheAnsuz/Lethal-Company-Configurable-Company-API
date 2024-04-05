@@ -1,4 +1,7 @@
-﻿using Amrv.ConfigurableCompany.Core;
+﻿using Amrv.ConfigurableCompany.API.Accesors;
+using Amrv.ConfigurableCompany.Core;
+using System;
+using System.Collections.Generic;
 
 namespace Amrv.ConfigurableCompany.API
 {
@@ -6,9 +9,9 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public string Section;
-        public string Category;
-        public string Tooltip;
+        public BuildSection Section;
+        public BuildCategory Category;
+        public BuildTooltip Tooltip;
         public CType Type;
         public object DefaultValue;
         public object Value;
@@ -17,6 +20,7 @@ namespace Amrv.ConfigurableCompany.API
         public bool Synchronized;
         public bool Toggleable;
 
+        [Obsolete("Use Category")]
         public CCategory CCategory
         {
             set
@@ -33,6 +37,7 @@ namespace Amrv.ConfigurableCompany.API
             }
         }
 
+        [Obsolete("Use Section")]
         public CSection CSection
         {
             set
@@ -49,16 +54,11 @@ namespace Amrv.ConfigurableCompany.API
             }
         }
 
+        [Obsolete("Use Tooltip")]
         public string[] Tooltips
         {
-            set
-            {
-                Tooltip = string.Join("\n", value);
-            }
-            get
-            {
-                return Tooltip.Split('\n');
-            }
+            get => Tooltip;
+            set => Tooltip = value;
         }
 
         public CConfigBuilder SetID(string id)
@@ -104,6 +104,12 @@ namespace Amrv.ConfigurableCompany.API
         }
 
         public CConfigBuilder SetTooltip(params string[] lines)
+        {
+            Tooltip = string.Join("\n", lines);
+            return this;
+        }
+
+        public CConfigBuilder SetTooltip(IEnumerable<string> lines)
         {
             Tooltip = string.Join("\n", lines);
             return this;

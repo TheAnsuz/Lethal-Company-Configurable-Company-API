@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.Core;
+﻿using Amrv.ConfigurableCompany.API.Accesors;
+using Amrv.ConfigurableCompany.Core;
+using System;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.API
@@ -7,10 +9,11 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public Color Color;
-        public string Page;
+        public BuildColor Color;
+        public BuildPage Page;
         public bool HideIfEmpty;
 
+        [Obsolete("Use Page")]
         public CPage CPage
         {
             set
@@ -27,16 +30,11 @@ namespace Amrv.ConfigurableCompany.API
             }
         }
 
+        [Obsolete("Use Color")]
         public (byte, byte, byte) ColorRGB
         {
-            set
-            {
-                Color = new Color32(value.Item1, value.Item2, value.Item3, byte.MaxValue);
-            }
-            get
-            {
-                return ((byte)(Color.r * byte.MaxValue), (byte)(Color.g * byte.MaxValue), (byte)(Color.b * byte.MaxValue));
-            }
+            set => Color = value;
+            get => Color;
         }
 
         public CCategoryBuilder SetID(string id)
@@ -83,7 +81,7 @@ namespace Amrv.ConfigurableCompany.API
 
         protected override CCategory BuildInstance()
         {
-            CPage ??= CPage.Default;
+            Page ??= CPage.Default;
 
             return new CCategory(this);
         }
