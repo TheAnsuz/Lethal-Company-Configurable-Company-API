@@ -36,5 +36,10 @@ namespace Amrv.ConfigurableCompany.API.Accesors
             }
             return null;
         }
+
+        public override string ToString()
+        {
+            return $"BuildSection[id: {_id}]";
+        }
     }
 }

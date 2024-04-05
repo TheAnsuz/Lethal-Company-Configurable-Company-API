@@ -36,7 +36,7 @@ namespace Amrv.ConfigurableCompany.API.Accesors
 
         public static implicit operator Color(BuildColor color)
         {
-            return new(color.R / byte.MaxValue, color.G / byte.MaxValue, color.B / byte.MaxValue, color.A / byte.MaxValue);
+            return new((float)color.R / byte.MaxValue, (float)color.G / byte.MaxValue, (float)color.B / byte.MaxValue, (float)color.A / byte.MaxValue);
         }
 
         public static implicit operator BuildColor(Color32 color)
@@ -82,6 +82,11 @@ namespace Amrv.ConfigurableCompany.API.Accesors
         public static implicit operator BuildColor(int hex)
         {
             return new((byte)(hex >> 16 & 0xff), (byte)(hex >> 8 & 0xff), (byte)(hex & 0xff), (byte)(hex >> 24 & 0xff));
+        }
+
+        public override string ToString()
+        {
+            return $"BuildColor[R: {R}, G: {G}, B: {B},A: {A}]";
         }
     }
 }

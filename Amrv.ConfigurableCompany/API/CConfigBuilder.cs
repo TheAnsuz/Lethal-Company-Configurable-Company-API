@@ -9,9 +9,12 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public BuildSection Section;
-        public BuildCategory Category;
-        public BuildTooltip Tooltip;
+        [Obsolete("Use BSection")]
+        public string Section;
+        [Obsolete("Use BCategory")]
+        public string Category;
+        [Obsolete("Use BTooltip")]
+        public string Tooltip;
         public CType Type;
         public object DefaultValue;
         public object Value;
@@ -20,45 +23,29 @@ namespace Amrv.ConfigurableCompany.API
         public bool Synchronized;
         public bool Toggleable;
 
-        [Obsolete("Use Category")]
+        public BuildSection BSection { get; set; }
+        public BuildTooltip BTooltip { get; set; }
+        public BuildCategory BCategory { get; set; }
+
+        [Obsolete("Use BCategory")]
         public CCategory CCategory
         {
-            set
-            {
-                Category = value?.ID ?? null;
-            }
-            get
-            {
-                if (CCategory.Storage.TryGetValue(Category, out var category))
-                {
-                    return category;
-                }
-                return null;
-            }
+            set => BCategory = value;
+            get => BCategory;
         }
 
-        [Obsolete("Use Section")]
+        [Obsolete("Use BSection")]
         public CSection CSection
         {
-            set
-            {
-                Section = value?.ID ?? null;
-            }
-            get
-            {
-                if (CSection.Storage.TryGetValue(Section, out var section))
-                {
-                    return section;
-                }
-                return null;
-            }
+            set => BSection = value;
+            get => BSection;
         }
 
-        [Obsolete("Use Tooltip")]
+        [Obsolete("Use BTooltip")]
         public string[] Tooltips
         {
-            get => Tooltip;
-            set => Tooltip = value;
+            get => BTooltip;
+            set => BTooltip = value;
         }
 
         public CConfigBuilder SetID(string id)
@@ -75,43 +62,43 @@ namespace Amrv.ConfigurableCompany.API
 
         public CConfigBuilder SetSection(string sectionId)
         {
-            Section = sectionId;
+            BSection = sectionId;
             return this;
         }
 
         public CConfigBuilder SetSection(CSection section)
         {
-            Section = section.ID;
+            BSection = section.ID;
             return this;
         }
 
         public CConfigBuilder SetCategory(string categoryId)
         {
-            Category = categoryId;
+            BCategory = categoryId;
             return this;
         }
 
         public CConfigBuilder SetCategory(CCategory category)
         {
-            Category = category.ID;
+            BCategory = category.ID;
             return this;
         }
 
         public CConfigBuilder SetToolip(string tooltip)
         {
-            Tooltip = tooltip;
+            BTooltip = tooltip;
             return this;
         }
 
         public CConfigBuilder SetTooltip(params string[] lines)
         {
-            Tooltip = string.Join("\n", lines);
+            BTooltip = string.Join("\n", lines);
             return this;
         }
 
         public CConfigBuilder SetTooltip(IEnumerable<string> lines)
         {
-            Tooltip = string.Join("\n", lines);
+            BTooltip = string.Join("\n", lines);
             return this;
         }
 
@@ -159,6 +146,15 @@ namespace Amrv.ConfigurableCompany.API
 
         protected override CConfig BuildInstance()
         {
+            if (Section != null)
+                BSection ??= Section;
+
+            if (Category != null)
+                BCategory ??= Category;
+            
+            if (Tooltip != null)
+                BTooltip ??= Tooltip;
+
             if (Type == null)
             {
                 CType.TryGetMapping(Value.GetType(), out Type);

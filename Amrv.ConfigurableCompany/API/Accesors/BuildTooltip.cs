@@ -33,5 +33,10 @@ namespace Amrv.ConfigurableCompany.API.Accesors
         {
             return tooltip.Value;
         }
+
+        public override string ToString()
+        {
+            return $"BuildTooltip[text: {Value}]";
+        }
     }
 }

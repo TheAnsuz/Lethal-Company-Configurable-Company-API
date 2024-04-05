@@ -13,9 +13,9 @@ namespace Amrv.ConfigurableCompany.API.Accesors
             _id = id;
         }
 
-        public static implicit operator BuildSection(string name)
+        public static implicit operator BuildSection(string id)
         {
-            return new(name);
+            return new(id);
         }
 
         public static implicit operator BuildSection(CSection section)
@@ -35,6 +35,11 @@ namespace Amrv.ConfigurableCompany.API.Accesors
                 return built;
             }
             return null;
+        }
+
+        public override string ToString()
+        {
+            return $"BuildSection[id: {_id}]";
         }
     }
 }

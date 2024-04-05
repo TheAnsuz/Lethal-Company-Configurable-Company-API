@@ -36,5 +36,10 @@ namespace Amrv.ConfigurableCompany.API.Accesors
             }
             return null;
         }
+
+        public override string ToString()
+        {
+            return $"BuildPage[id: {_id}]";
+        }
     }
 }

@@ -58,10 +58,10 @@ namespace Amrv.ConfigurableCompany.API
             if (_configs.ContainsKey(builder.ID)) throw new BuildingException($"Tried to create a configuration with an existing ID ({builder.ID})");
 
             // Si esta dentro de una seccion
-            if (builder.Section != null && CSection.Storage.TryGetValue(builder.Section, out CSection section))
+            if (builder.BSection != null && CSection.Storage.TryGetValue(builder.BSection, out CSection section))
                 Section = section;
             // Sino, si esta dentro de una categoria
-            else if (builder.Category != null && CCategory.Storage.TryGetValue(builder.Category, out CCategory category))
+            else if (builder.BCategory != null && CCategory.Storage.TryGetValue(builder.BCategory, out CCategory category))
                 Category = category;
             // Sino, error
             else
@@ -70,7 +70,7 @@ namespace Amrv.ConfigurableCompany.API
             // Sets
             ID = builder.ID;
             Name = builder.Name ?? "";
-            Tooltip = builder.Tooltip;
+            Tooltip = builder.BTooltip;
             Type = builder.Type;
 
             Synchronized = builder.Synchronized;

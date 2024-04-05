@@ -16,10 +16,10 @@ namespace Amrv.ConfigurableCompany.API
                 _defaultCategory ??= new CCategoryBuilder()
                 {
                     ID = "configurable-company_category_default",
-                    Color = new Color32(214, 90, 24, 255),
+                    BColor = new Color32(214, 90, 24, 255),
                     HideIfEmpty = true,
                     Name = "Configurations",
-                    CPage = CPage.Default
+                    BPage = CPage.Default
                 };
 
                 return _defaultCategory;
@@ -90,13 +90,13 @@ namespace Amrv.ConfigurableCompany.API
 
             if (_categories.ContainsKey(builder.ID)) throw new BuildingException($"Tried to create a category with an existing ID ({builder.ID})");
 
-            if (builder.Page == null || !CPage.Storage.TryGetValue(builder.Page, out Page))
-                throw new BuildingException($"Tried to create category within an undefined page {builder.Page}");
+            if (builder.BPage == null || !CPage.Storage.TryGetValue(builder.BPage, out Page))
+                throw new BuildingException($"Tried to create category within an undefined page {builder.BPage}");
 
             // Sets
             ID = builder.ID;
             Name = builder.Name ?? "";
-            Color = builder.Color;
+            Color = builder.BColor;
 
             // Indexing
             _sections = [];

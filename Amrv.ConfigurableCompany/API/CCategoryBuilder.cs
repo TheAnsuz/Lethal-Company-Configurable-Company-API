@@ -9,32 +9,27 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public BuildColor Color;
-        public BuildPage Page;
+        [Obsolete("Use BColor")]
+        public Color Color;
+        [Obsolete("Use BPage")]
+        public string Page;
         public bool HideIfEmpty;
 
-        [Obsolete("Use Page")]
+        public BuildPage BPage { get; set; }
+        public BuildColor BColor { get; set; }
+
+        [Obsolete("Use BPage")]
         public CPage CPage
         {
-            set
-            {
-                Page = value?.ID ?? null;
-            }
-            get
-            {
-                if (CPage.Storage.TryGetValue(Page, out var page))
-                {
-                    return page;
-                }
-                return null;
-            }
+            set => BPage = value;
+            get => BPage;
         }
 
-        [Obsolete("Use Color")]
+        [Obsolete("Use BColor")]
         public (byte, byte, byte) ColorRGB
         {
-            set => Color = value;
-            get => Color;
+            set => BColor = value;
+            get => BColor;
         }
 
         public CCategoryBuilder SetID(string id)
@@ -51,25 +46,25 @@ namespace Amrv.ConfigurableCompany.API
 
         public CCategoryBuilder SetColor(Color color)
         {
-            Color = color;
+            BColor = color;
             return this;
         }
 
         public CCategoryBuilder SetColor(byte red, byte green, byte blue, byte alpha = 255)
         {
-            Color = new Color32(red, green, blue, alpha);
+            BColor = new Color32(red, green, blue, alpha);
             return this;
         }
 
         public CCategoryBuilder SetPage(CPage page)
         {
-            Page = page.ID;
+            BPage = page.ID;
             return this;
         }
 
         public CCategoryBuilder SetPage(string pageId)
         {
-            Page = pageId;
+            BPage = pageId;
             return this;
         }
 
@@ -81,7 +76,12 @@ namespace Amrv.ConfigurableCompany.API
 
         protected override CCategory BuildInstance()
         {
-            Page ??= CPage.Default;
+            if (Page != null)
+                BPage ??= Page;
+
+            BColor ??= Color;
+
+            BPage ??= CPage.Default;
 
             return new CCategory(this);
         }

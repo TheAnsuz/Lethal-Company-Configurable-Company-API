@@ -8,13 +8,16 @@ namespace Amrv.ConfigurableCompany.API
     {
         public string ID;
         public string Name;
-        public BuildCategory Category;
+        [Obsolete("Use BCategory")]
+        public string Category;
 
-        [Obsolete("Use Category")]
+        public BuildCategory BCategory { get; set; }
+
+        [Obsolete("Use BCategory")]
         public CCategory CCategory
         {
-            set => Category = value;
-            get => Category;
+            set => BCategory = value;
+            get => BCategory;
         }
 
         public CSectionBuilder SetID(string id)
@@ -31,19 +34,22 @@ namespace Amrv.ConfigurableCompany.API
 
         public CSectionBuilder SetCategory(string categoryId)
         {
-            Category = categoryId;
+            BCategory = categoryId;
             return this;
         }
 
         public CSectionBuilder SetCategory(CCategory category)
         {
-            Category = category.ID;
+            BCategory = category.ID;
             return this;
         }
 
         protected override CSection BuildInstance()
         {
-            Category ??= CCategory.Default;
+            if (Category != null)
+                BCategory ??= Category;
+
+            BCategory ??= CCategory.Default;
 
             return new CSection(this);
         }

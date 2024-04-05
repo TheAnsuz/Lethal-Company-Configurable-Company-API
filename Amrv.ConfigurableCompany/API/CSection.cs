@@ -31,8 +31,8 @@ namespace Amrv.ConfigurableCompany.API
 
             if (_sections.ContainsKey(builder.ID)) throw new BuildingException($"Tried to create a section with an existing ID ({builder.ID})");
 
-            if (builder.Category == null || !CCategory.Storage.TryGetValue(builder.Category, out Category))
-                throw new BuildingException($"Tried to create category within undefined page {builder.Category}");
+            if (builder.BCategory == null || !CCategory.Storage.TryGetValue(builder.BCategory, out Category))
+                throw new BuildingException($"Tried to create category within undefined page {builder.BCategory}");
 
             // Sets
             ID = builder.ID;
