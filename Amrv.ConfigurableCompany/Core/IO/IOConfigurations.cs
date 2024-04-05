@@ -1,6 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.Plugin;
 using Amrv.ConfigurableCompany.Utils.IO;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -47,7 +46,7 @@ namespace Amrv.ConfigurableCompany.Core.IO
 
         internal static void Delete(string file)
         {
-            if (_files.TryGetValue(file, out CCFGFile cfg))
+            if (_files.TryGetValue(file, out CCFGFile _))
             {
                 File.Delete(file);
                 _files.Remove(file);

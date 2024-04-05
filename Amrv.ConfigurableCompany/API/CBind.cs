@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-
-namespace Amrv.ConfigurableCompany.API
+﻿namespace Amrv.ConfigurableCompany.API
 {
     public sealed class CBind<T>
     {

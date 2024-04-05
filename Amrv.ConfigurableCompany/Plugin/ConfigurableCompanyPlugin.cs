@@ -3,7 +3,6 @@ using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core;
-using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Dependency;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
@@ -46,7 +45,7 @@ namespace Amrv.ConfigurableCompany.Plugin
             PluginFolder = Path.GetDirectoryName(base.Info.Location) + Path.DirectorySeparatorChar;
             DataFolder = Path.Combine(Application.persistentDataPath, "Configurable Company", Directory.GetParent(Paths.BepInExRootPath).Name);
             Directory.CreateDirectory(DataFolder);
-            
+
             Info("Initializating Configurable Company");
 
             MenuPrefabs.Ping();

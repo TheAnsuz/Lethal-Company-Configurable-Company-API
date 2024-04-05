@@ -3,7 +3,6 @@ using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Core.Patch;
 using Amrv.ConfigurableCompany.Plugin;
 using HarmonyLib;
-using System;
 
 namespace Amrv.ConfigurableCompany.Core.Dependency
 {

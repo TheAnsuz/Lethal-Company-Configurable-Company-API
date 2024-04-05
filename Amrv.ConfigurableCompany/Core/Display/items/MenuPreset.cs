@@ -1,9 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,10 +25,10 @@ namespace Amrv.ConfigurableCompany.Core.Display.items
             Text = Path.GetFileNameWithoutExtension(file);
             Label.text = Text;
             Button = Object.GetComponent<Button>();
-            Button.onClick.AddListener(onClick);
+            Button.onClick.AddListener(InternalOnClick);
         }
 
-        private void onClick()
+        private void InternalOnClick()
         {
             OnClick?.Invoke(this);
         }

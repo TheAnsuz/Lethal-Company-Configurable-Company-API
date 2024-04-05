@@ -3,7 +3,6 @@ using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Core.IO;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

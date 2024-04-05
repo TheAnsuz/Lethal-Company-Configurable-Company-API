@@ -1,8 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
-using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +16,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         private readonly GameObject Container;
         private readonly RectTransform Container_Rect;
-        private readonly CSection Section;
+        //private readonly CSection _;
         private readonly TextMeshProUGUI Text;
         public readonly GameObject Content;
 
@@ -28,7 +26,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
             Container = container;
             Container_Rect = Container.GetComponent<RectTransform>();
-            Section = section;
+            _ = section;
             container.FindChild("Name").GetComponent<Button>().onClick.AddListener(OnClick);
             Text = container.FindChild("Name/Text").GetComponent<TextMeshProUGUI>();
             Content = container.FindChild("Content");

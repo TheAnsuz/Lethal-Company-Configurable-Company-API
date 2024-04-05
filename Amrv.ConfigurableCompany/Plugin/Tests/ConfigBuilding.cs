@@ -29,7 +29,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
         [HarmonyPostfix]
         private static void SetFileToThis_Postfix()
         {
-            using CConfigBuilder builder = new CConfigBuilder();
+            using CConfigBuilder builder = new();
             builder.CSection = SectionBuilding.Normal;
             builder.ID = "configurable-company-test_config_number-dynamic" + (id++);
             builder.Value = id;

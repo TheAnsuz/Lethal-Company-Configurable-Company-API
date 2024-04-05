@@ -33,7 +33,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             Category = bundle.LoadAsset<GameObject>("Configuration Category.prefab");
             Section = bundle.LoadAsset<GameObject>("Configuration Section.prefab");
             Preset = bundle.LoadAsset<GameObject>("Configuration Preset.prefab");
-            
+
             Config_Input = bundle.LoadAsset<GameObject>("ConfigType Input.prefab");
             Config_LargeInput = bundle.LoadAsset<GameObject>("ConfigType LargeInput.prefab");
             Config_Bool = bundle.LoadAsset<GameObject>("ConfigType Bool.prefab");

@@ -1,14 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
-using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.IO;
-using Amrv.ConfigurableCompany.Plugin;
-using Amrv.ConfigurableCompany.Utils.IO;
 using BepInEx;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security;
-using System.Text;
 
 namespace Amrv.ConfigurableCompany.Core.Config
 {

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Amrv.ConfigurableCompany.Utils.IO
 {
-    public class CCATFile
+    public class CCATFile(string filepath)
     {
         public const int SIZE_KEY_ESTIMATE = 60;
         public const int SIZE_VALUE_ESTIMATE = 6;
@@ -35,13 +35,8 @@ namespace Amrv.ConfigurableCompany.Utils.IO
             return builder.ToString();
         }
 
-        private readonly Dictionary<string, bool> _states = new();
-        public readonly string File;
-
-        public CCATFile(string filepath)
-        {
-            File = filepath;
-        }
+        private readonly Dictionary<string, bool> _states = [];
+        public readonly string File = filepath;
 
         public bool TryGetState(string name, out bool state) => _states.TryGetValue(name, out state);
         public void SetState(string name, bool state) => _states[name] = state;
@@ -96,8 +91,8 @@ namespace Amrv.ConfigurableCompany.Utils.IO
                 }
                 else if (content[i] == TOKEN_VALUE_SEPARATOR)
                 {
-                    string key = content.Substring(startIndex, i - startIndex);
-                    string value = content.Substring(i + 1, endIndex - (i + 1));
+                    string key = content[startIndex..i];
+                    string value = content[(i + 1)..endIndex];
 
                     SetState(RevertDataSafe(key), value.Equals("true"));
                     break;

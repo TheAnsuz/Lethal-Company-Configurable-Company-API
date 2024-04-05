@@ -2,15 +2,11 @@
 using Amrv.ConfigurableCompany.Core.Display.items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
 
 namespace Amrv.ConfigurableCompany.Core.Display.menu
 {

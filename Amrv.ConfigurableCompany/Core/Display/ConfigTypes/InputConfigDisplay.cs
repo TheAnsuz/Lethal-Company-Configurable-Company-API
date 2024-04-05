@@ -20,7 +20,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected abstract TMP_InputField.ContentType ContentType { get; }
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_Input);
+            GameObject container = Object.Instantiate(MenuPrefabs.Config_Input);
 
             InputField = container.FindChild("Input").GetComponent<TMP_InputField>();
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();

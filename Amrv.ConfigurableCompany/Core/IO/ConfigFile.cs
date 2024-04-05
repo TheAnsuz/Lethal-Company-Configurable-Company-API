@@ -1,9 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Utils.IO;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Amrv.ConfigurableCompany.Core.IO
 {
@@ -12,7 +10,7 @@ namespace Amrv.ConfigurableCompany.Core.IO
         public const string METADATA_VERSION = "VERSION";
         public const string FLAG_ENABLED = "enabled";
 
-        private CCFGFile _ccfg;
+        private readonly CCFGFile _ccfg;
 
         public string File => _ccfg.File;
 
