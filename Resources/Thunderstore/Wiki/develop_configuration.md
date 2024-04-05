@@ -127,6 +127,24 @@ string valueString = myConfig.Get<string>();
 // It will try it's best to get the value as your desired type, however this can fail if a type is not convertable, specially with custom configurations.
 // In these cases, I recommend to always set a fallback value
 int[] valueArray = myConfig.Get<int[]>(new int[0]);
+
+```
+
+If you want something easier to access you can use `CBind<T>` wrapper.
+These binds allow you to get/set the value of a configuration without needing to store the config itself or casting the value everytime.
+
+To create a `CBind<T>` you only need to do:
+
+```csharp
+CBind<int> IntValue = myConfig.Bind<int>();
+// Or you can just use the implicit operator
+CBind<float> FloatValue = myConfig;
+
+// You can even get them directly from the builder instead
+CBind<double> DoubleValue = new CConfigBuilder() {
+    ID = "my-mod-name_config_other-number",
+    Value = 12,
+};
 ```
 
 ## Get Existing Configurations
