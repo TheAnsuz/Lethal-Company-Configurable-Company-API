@@ -91,7 +91,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
             Tooltip = "Normal text configuration",
             Value = "hola",
             Synchronized = true,
-            Toogleable = true,
+            Toggleable = true,
         };
 
         public static CConfig Enum = new CConfigBuilder()
@@ -102,7 +102,7 @@ namespace Amrv.ConfigurableCompany.Plugin.Tests
             Tooltip = "Simple integer slider configuration",
             Value = LevelWeatherType.DustClouds,
             Type = CTypes.EnumSinlgeOption<LevelWeatherType>(),
-            Toogleable = true
+            Toggleable = true
         };
 
         public static CConfig SliderDecimal = new CConfigBuilder()
