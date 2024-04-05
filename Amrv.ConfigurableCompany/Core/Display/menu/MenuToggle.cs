@@ -4,6 +4,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
@@ -73,7 +74,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             Bind = bind;
             MenuContainer = container;
 
-            Bind.ShowMenu.AddComponent<NoDrawGraphic>();
+            if (!Bind.ShowMenu.TryGetComponent(out Graphic g))
+                Bind.ShowMenu.AddComponent<NoDrawGraphic>();
             Bind.ShowMenu.AddComponent(out RegionButton button);
 
             button.OnMouseClick += OnClick;

@@ -43,7 +43,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             PipOn = ToggleObject.FindChild("PipOn");
             PipOff = ToggleObject.FindChild("PipOff");
 
-            ToggleObject.AddComponent<NoDrawGraphic>();
+            if (!ToggleObject.TryGetComponent(out Graphic g))
+                ToggleObject.AddComponent<NoDrawGraphic>();
             RegionButton = ToggleObject.AddComponent<RegionButton>();
 
             RegionButton.onClick.AddListener(Switch);
