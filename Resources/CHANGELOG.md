@@ -1,3 +1,21 @@
+# 3.2.0
+
+### Fixed
+
+-   Fixed `DecimalRangeTypes` and `IntegerRangeType` returning minimum value two times as tuple.
+-   Fixed `InputValidator` instantiation warning spam.
+
+### Added
+
+-   Added `CBind<T>` to directly access configuration values as a specific type.
+-   Added `ConfigChangeSingle` to listen for changes on a specific configuration.
+-   Added configuration presets. These presets will be shared with your profile.
+
+### Modified
+
+-   Configuration categories can now be closed from the sidebar.
+-   Configuration sections can now be hidden or shown for better organization.
+
 # 3.1.0
 
 ### Fixed
@@ -13,6 +31,7 @@
 
 -   Accesibility methods for number variables now require to input both arguments
 -   Unnecesary console logs in release version
+
 # 3.0.1
 
 ### Modified
