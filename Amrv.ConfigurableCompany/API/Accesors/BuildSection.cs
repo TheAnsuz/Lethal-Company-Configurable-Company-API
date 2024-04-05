@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Amrv.ConfigurableCompany.API.Accesors
+﻿namespace Amrv.ConfigurableCompany.API.Accesors
 {
     public sealed class BuildSection
     {

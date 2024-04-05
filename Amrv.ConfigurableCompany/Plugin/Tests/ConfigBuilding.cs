@@ -1,9 +1,4 @@
-﻿using Amrv.ConfigurableCompany.API;
-using Amrv.ConfigurableCompany.API.ConfigTypes;
-using GameNetcodeStuff;
-using HarmonyLib;
-
-#if DEBUG
+﻿#if DEBUG
 namespace Amrv.ConfigurableCompany.Plugin.Tests
 {
     [HarmonyPatch(typeof(PlayerControllerB))]

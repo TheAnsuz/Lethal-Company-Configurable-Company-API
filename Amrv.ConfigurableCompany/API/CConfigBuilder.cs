@@ -151,7 +151,7 @@ namespace Amrv.ConfigurableCompany.API
 
             if (Category != null)
                 BCategory ??= Category;
-            
+
             if (Tooltip != null)
                 BTooltip ??= Tooltip;
 

@@ -1,8 +1,4 @@
-﻿using Amrv.ConfigurableCompany.API;
-using HarmonyLib;
-using System;
-
-#if DEBUG
+﻿#if DEBUG
 namespace Amrv.ConfigurableCompany.Plugin.Tests
 {
     [HarmonyPatch(typeof(SaveFileUISlot))]
