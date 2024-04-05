@@ -10,6 +10,8 @@
 -   Added `CBind<T>` to directly access configuration values as a specific type.
 -   Added `ConfigChangeSingle` to listen for changes on a specific configuration.
 -   Added configuration presets. These presets will be shared with your profile.
+-   Added builder accesors for easier creation of `CCategories`, `CSections` and `CConfigs`.
+-   New wiki page for first steps and first config.
 
 ### Modified
 
