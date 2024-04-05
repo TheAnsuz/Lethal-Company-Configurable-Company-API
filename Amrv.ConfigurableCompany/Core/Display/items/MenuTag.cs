@@ -9,7 +9,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
     {
         public static MenuTag CreateTag(Transform parent)
         {
-            return new(Object.Instantiate(MenuPresets.Tag, parent, false));
+            return new(Object.Instantiate(MenuPrefabs.Tag, parent, false));
         }
 
         public readonly TextMeshProUGUI Text;

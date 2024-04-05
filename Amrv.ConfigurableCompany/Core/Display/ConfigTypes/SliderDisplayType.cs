@@ -36,7 +36,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPresets.Config_Slider);
+            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_Slider);
 
             InputField = container.FindChild("Value").GetComponent<TMP_InputField>();
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();

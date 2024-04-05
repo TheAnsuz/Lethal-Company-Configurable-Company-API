@@ -11,7 +11,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
     {
         public static MenuPage CreatePage(Transform parent, CPage page)
         {
-            return new(Object.Instantiate(MenuPresets.Page, parent, false), page);
+            return new(Object.Instantiate(MenuPrefabs.Page, parent, false), page);
         }
 
         private readonly CPage Page;

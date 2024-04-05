@@ -3,6 +3,7 @@ using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core;
+using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Dependency;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
@@ -48,7 +49,7 @@ namespace Amrv.ConfigurableCompany.Plugin
             
             Info("Initializating Configurable Company");
 
-            MenuPresets.Ping();
+            MenuPrefabs.Ping();
             CTypes.Ping();
             Events.Start();
 

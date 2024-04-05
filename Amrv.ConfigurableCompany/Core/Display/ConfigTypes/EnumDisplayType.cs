@@ -49,7 +49,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPresets.Config_Enum);
+            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_Enum);
 
             EnabledObject = container.FindChild("Buttons/Toggle/Dot");
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();

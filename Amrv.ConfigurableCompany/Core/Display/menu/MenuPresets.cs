@@ -1,46 +1,117 @@
-﻿using Amrv.ConfigurableCompany.Plugin;
-using Amrv.ConfigurableCompany.Utils.Unity;
+﻿using Amrv.ConfigurableCompany.Core.Config;
+using Amrv.ConfigurableCompany.Core.Display.items;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
+using Amrv.ConfigurableCompany.Core.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
-namespace Amrv.ConfigurableCompany.Core.Display.Menu
+namespace Amrv.ConfigurableCompany.Core.Display.menu
 {
-    internal static class MenuPresets
+    public class MenuPresets : IMenuPart
     {
-        public static readonly GameObject Menu;
-        public static readonly GameObject Page;
-        public static readonly GameObject Tag;
-        public static readonly GameObject Category;
-        public static readonly GameObject Section;
+        private readonly MenuBind Bind;
+        private readonly GameObject Container;
+        private readonly TMP_InputField InputField;
+        private readonly GameObject Content;
 
-        public static readonly GameObject Config_Input;
-        public static readonly GameObject Config_LargeInput;
-        public static readonly GameObject Config_Bool;
-        public static readonly GameObject Config_Slider;
-        public static readonly GameObject Config_Enum;
-        public static readonly GameObject Config_DoubleSlider;
-        public static readonly GameObject Config_DoubleInput;
+        private string CurrentPresetFile;
+        private readonly Dictionary<string, MenuPreset> Items = [];
 
-        static MenuPresets()
+        internal MenuPresets(MenuBind menuBind)
         {
-            using FastBundle bundle = UnityAsset.GetBundle(ConfigurableCompanyPlugin.PluginFolder, "configuration_menu");
+            Bind = menuBind;
+            Container = menuBind.Menu.FindChild("Presets");
+            InputField = Container.FindChild("Input").GetComponent<TMP_InputField>();
 
-            bundle.Path = "Assets/ConfigurationMenu/";
+            Content = Container.FindChild("List/Viewport/Content");
 
-            Menu = bundle.LoadAsset<GameObject>("Configuration Menu.prefab");
-            Page = bundle.LoadAsset<GameObject>("Configuration Page.prefab");
-            Tag = bundle.LoadAsset<GameObject>("Configuration Tag.prefab");
-            Category = bundle.LoadAsset<GameObject>("Configuration Category.prefab");
-            Section = bundle.LoadAsset<GameObject>("Configuration Section.prefab");
+            Container.FindChild("Buttons/Create").GetComponent<Button>().onClick.AddListener(OnClickCreate);
+            Container.FindChild("Buttons/Load").GetComponent<Button>().onClick.AddListener(OnClickLoad);
+            Container.FindChild("Buttons/Save").GetComponent<Button>().onClick.AddListener(OnClickSave);
+            Container.FindChild("Buttons/Delete").GetComponent<Button>().onClick.AddListener(OnClickDelete);
 
-            Config_Input = bundle.LoadAsset<GameObject>("ConfigType Input.prefab");
-            Config_LargeInput = bundle.LoadAsset<GameObject>("ConfigType LargeInput.prefab");
-            Config_Bool = bundle.LoadAsset<GameObject>("ConfigType Bool.prefab");
-            Config_Slider = bundle.LoadAsset<GameObject>("ConfigType Slider.prefab");
-            Config_Enum = bundle.LoadAsset<GameObject>("ConfigType Enum.prefab");
-            Config_DoubleSlider = bundle.LoadAsset<GameObject>("ConfigType DoubleSlider.prefab");
-            Config_DoubleInput = bundle.LoadAsset<GameObject>("ConfigType DoubleInput.prefab");
+            InputField.onEndEdit.AddListener(UpdateCurrentFile);
         }
 
-        internal static void Ping() { }
+        private void UpdateCurrentFile(string text)
+        {
+            CurrentPresetFile = text + ".ccfg";
+        }
+
+        private void OnClickCreate() => MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile);
+        private void OnClickLoad() => MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile);
+        private void OnClickSave() => MenuEventRouter.OnClick_PresetSave(CurrentPresetFile);
+        private void OnClickDelete() => MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile);
+
+        public void Destroy()
+        {
+
+        }
+
+        public void UpdateContent()
+        {
+            Dictionary<string, MenuPreset> temp = new(Items);
+
+            foreach (var item in Presets.List)
+            {
+                if (temp.TryGetValue(item, out var _))
+                    temp.Remove(item);
+                else
+                    AddItem(item);
+            }
+
+            foreach (var expired in temp)
+                DeleteItem(expired.Key);
+
+            if (Items.Count > 0)
+            {
+                var enumerator = Items.GetEnumerator();
+                for (int i = 0; i < Items.Count; i++)
+                    enumerator.MoveNext();
+                var first = enumerator.Current.Value;
+
+                CurrentPresetFile = first.File;
+                InputField.text = first.Text;
+            }
+            else
+            {
+                CurrentPresetFile = null;
+                InputField.text = null;
+            }
+        }
+
+        private void OnPrefabClick(MenuPreset preset)
+        {
+            CurrentPresetFile = preset.File;
+            InputField.text = preset.Text;
+        }
+
+        public void DeleteItem(string item)
+        {
+            if (Items.TryGetValue(item, out var obj))
+            {
+                obj.Delete();
+                Items.Remove(item);
+            }
+        }
+
+        public void AddItem(string item)
+        {
+            var preset = new MenuPreset(item, Content);
+            Items.Add(item, preset);
+            preset.OnClick += OnPrefabClick;
+        }
+
+        public void UpdateSelf()
+        {
+            InputField.text = Path.GetFileNameWithoutExtension(CurrentPresetFile);
+        }
     }
 }

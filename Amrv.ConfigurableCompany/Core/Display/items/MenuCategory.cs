@@ -15,7 +15,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
     {
         public static MenuCategory CreateCategory(Transform parent, CCategory category)
         {
-            return new(UnityEngine.Object.Instantiate(MenuPresets.Category, parent, false), category);
+            return new(UnityEngine.Object.Instantiate(MenuPrefabs.Category, parent, false), category);
         }
 
         private readonly GameObject Container;
@@ -53,7 +53,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             open &= Content.transform.childCount != 0;
             Content.SetActive(open);
             Shadow.SetActive(!open);
-            Container.SetActive(!open);
+            Container.SetActive(!(Content.transform.childCount == 0 && Category.HideIfEmpty));
         }
 
         public bool IsOpen() => Content.activeSelf;

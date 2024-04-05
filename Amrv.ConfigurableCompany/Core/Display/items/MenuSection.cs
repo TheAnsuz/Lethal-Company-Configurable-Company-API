@@ -13,10 +13,11 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
     {
         public static MenuSection CreateSection(Transform parent, CSection section)
         {
-            return new MenuSection(UnityEngine.Object.Instantiate(MenuPresets.Section, parent, false), section);
+            return new MenuSection(UnityEngine.Object.Instantiate(MenuPrefabs.Section, parent, false), section);
         }
 
         private readonly GameObject Container;
+        private readonly RectTransform Container_Rect;
         private readonly CSection Section;
         private readonly TextMeshProUGUI Text;
         public readonly GameObject Content;
@@ -26,6 +27,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             container.name = $"Section {section.ID}";
 
             Container = container;
+            Container_Rect = Container.GetComponent<RectTransform>();
             Section = section;
             container.FindChild("Name").GetComponent<Button>().onClick.AddListener(OnClick);
             Text = container.FindChild("Name/Text").GetComponent<TextMeshProUGUI>();
@@ -37,6 +39,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         private void OnClick()
         {
             Content.SetActive(!Content.activeSelf);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(Container_Rect);
         }
 
         public void SetName(string name)

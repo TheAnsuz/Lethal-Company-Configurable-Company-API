@@ -24,7 +24,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPresets.Config_DoubleInput);
+            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_DoubleInput);
 
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();
             EnabledObject = container.FindChild("Buttons/Toggle/Dot");

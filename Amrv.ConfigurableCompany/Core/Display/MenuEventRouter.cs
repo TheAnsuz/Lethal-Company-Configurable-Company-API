@@ -80,6 +80,33 @@ namespace Amrv.ConfigurableCompany.Core.Display
             CEvents.MenuEvents.Toggle.Invoke(new(open));
         }
 
+        public static void OnClick_PresetCreate(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset create | name: {name}");
+            Presets.Create(name);
+        }
+
+        public static void OnClick_PresetLoad(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset load | name: {name}");
+            MenuController.LoadConfigs();
+            Presets.Stablish(name);
+        }
+
+        public static void OnClick_PresetSave(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset save | name: {name}");
+            IOController.SetConfigCache();
+            MenuController.SaveConfigs();
+            Presets.Update(name);
+        }
+
+        public static void OnClick_PresetDelete(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset remove | name: {name}");
+            Presets.Delete(name);
+        }
+
         public static void OnAction_VisibleMenu(bool visible)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Visible ({(visible ? "Visible" : "Hidden")})");

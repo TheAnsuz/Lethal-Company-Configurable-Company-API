@@ -1,8 +1,10 @@
-﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
+﻿using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
@@ -17,6 +19,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
         protected readonly GameObject FileName;
         protected readonly TextMeshProUGUI FileText;
+        protected readonly TextMeshProUGUI BetaText;
 
         public readonly MenuToggle Toggler;
         public readonly MenuPages Pages;
@@ -25,6 +28,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         public readonly MenuCategories Categories;
         public readonly MenuSections Sections;
         public readonly MenuConfigs Configs;
+        public readonly MenuPresets Presets;
 
         public string Filename
         {
@@ -56,7 +60,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             MenuEventRouter.OnAction_PrepareMenu();
 
-            Container = UnityEngine.Object.Instantiate(MenuPresets.Menu);
+            Container = Object.Instantiate(MenuPrefabs.Menu);
             Container.name = "Configuration menu";
             Container.transform.SetParent(parent, false);
             LifecycleListener lifecycle = Container.AddComponent<LifecycleListener>();
@@ -70,6 +74,9 @@ namespace Amrv.ConfigurableCompany.Core.Display
             FileName = Menu.FindChild("Info/File name");
             FileText = FileName.FindChild("Area/Text").GetComponent<TextMeshProUGUI>();
 
+            Menu.FindChild("Beta").AddComponent<RegionButton>().OnMouseClick += OnBetaTextClick;
+            BetaText = Menu.FindChild("Beta").GetComponent<TextMeshProUGUI>();
+
             Toggler = new(this, Container);
             Pages = new(this);
             Buttons = new(this);
@@ -77,6 +84,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Categories = new(this);
             Sections = new(this);
             Configs = new(this);
+            Presets = new(this);
 
             // This should not be in the constructor but in the creator
 
@@ -92,7 +100,20 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Configs.UpdateContent();
             Configs.UpdateSelf();
 
+            Presets.UpdateContent();
+            Presets.UpdateSelf();
+
             MenuEventRouter.OnAction_CreateMenu();
+        }
+
+        private void OnBetaTextClick(object sender, PointerEventData e)
+        {
+            int linkIndex = TMP_TextUtilities.FindIntersectingLink(BetaText, e.pointerPressRaycast.worldPosition, null);
+
+            if (linkIndex == -1)
+                return;
+
+            Application.OpenURL("https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API/issues/new/choose");
         }
 
         private void Event_OnDestroy()

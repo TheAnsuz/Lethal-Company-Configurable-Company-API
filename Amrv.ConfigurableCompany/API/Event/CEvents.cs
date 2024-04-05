@@ -49,6 +49,7 @@ namespace Amrv.ConfigurableCompany.API.Event
         {
             public static readonly CEventType<CEventCopyClipboard> CopyToClipboard = new();
             public static readonly CEventType<CEventPasteClipboard> PasteFromClipboard = new();
+            public static readonly CEventType<CEventUpdatePreset> PresetUpdate = new();
         }
     }
 }

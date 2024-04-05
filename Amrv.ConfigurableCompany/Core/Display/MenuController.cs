@@ -115,5 +115,11 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Instance = null;
         }
 
+        public static void RefreshPresets()
+        {
+            if (Instance == null) return;
+
+            Instance.Presets.UpdateContent();
+        }
     }
 }

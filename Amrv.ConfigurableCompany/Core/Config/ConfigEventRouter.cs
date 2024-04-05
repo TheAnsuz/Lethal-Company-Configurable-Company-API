@@ -54,5 +54,33 @@ namespace Amrv.ConfigurableCompany.Core.Config
             MenuController.TriggerToggleConfig(config, enabled);
             CEvents.ConfigEvents.ToggleConfig.Invoke(new(config, enabled));
         }
+
+        public static void OnPreset_Create(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Create ({name})");
+            MenuController.RefreshPresets();
+            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.CREATE));
+        }
+
+        public static void OnPreset_Delete(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Delete ({name})");
+            MenuController.RefreshPresets();
+            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.DELETE));
+        }
+
+        public static void OnPreset_Update(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Update ({name})");
+            //MenuController.RefreshPresets();
+            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.UPDATE));
+        }
+
+        public static void OnPreset_Stablish(string name)
+        {
+            ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Stablish ({name})");
+            //MenuController.RefreshPresets();
+            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.STABLISH));
+        }
     }
 }
