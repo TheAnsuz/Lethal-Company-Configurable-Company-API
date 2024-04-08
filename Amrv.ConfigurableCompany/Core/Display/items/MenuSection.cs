@@ -19,6 +19,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         //private readonly CSection _;
         private readonly TextMeshProUGUI Text;
         public readonly GameObject Content;
+        private readonly GameObject State_Open;
+        private readonly GameObject State_Closed;
 
         private MenuSection(GameObject container, CSection section)
         {
@@ -31,12 +33,24 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             Text = container.FindChild("Name/Text").GetComponent<TextMeshProUGUI>();
             Content = container.FindChild("Content");
 
+            State_Closed = container.FindChild("Name/State_Closed");
+            State_Open = container.FindChild("Name/State_Open");
+
             SetName(section.Name);
         }
 
         private void OnClick()
         {
-            Content.SetActive(!Content.activeSelf);
+            SetVisible(!IsVisible());
+        }
+
+        public bool IsVisible() => Content.activeSelf;
+
+        public void SetVisible(bool visible)
+        {
+            Content.SetActive(visible);
+            State_Open.SetActive(visible);
+            State_Closed.SetActive(!visible);
             LayoutRebuilder.ForceRebuildLayoutImmediate(Container_Rect);
         }
 
