@@ -11,7 +11,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override void OnEditEnd(string text)
         {
-            base.OnEditEnd(text);
             if (double.TryParse(text, out double value))
             {
                 if (value < Min || value > Max)
@@ -23,16 +22,22 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             {
                 InputField.text = Config.Value.ToString();
             }
+            UpdateModifiedState();
         }
 
-        protected internal override void LoadFromConfig(in object config)
+        protected override void LoadFromConfig(in object config)
         {
             InputField.text = config.ToString();
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = InputField.text;
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            return InputField.text.Equals(original.ToString());
         }
     }
 }

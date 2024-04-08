@@ -33,9 +33,11 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             }
         }
 
+        public bool Modified { get; private set; }
+
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = Object.Instantiate(MenuPrefabs.Config_Bool);
+            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_Bool);
 
             EnabledObject = container.FindChild("Buttons/Toggle/Dot");
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();
@@ -62,15 +64,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         private void Switch()
         {
             Active = !Active;
+            UpdateModifiedState();
         }
 
-        protected internal override void LoadFromConfig(in object value)
+        protected override void LoadFromConfig(in object value)
         {
             if (value is bool boolean)
                 Active = boolean;
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = Active;
         }
@@ -79,6 +82,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         {
             RegionButton.interactable = enabled;
             EnabledObject.SetActive(enabled);
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            return original is bool boolean && Active == boolean;
+        }
+
+        protected override void OnModifiedState(bool isModified, bool isDefault)
+        {
+            Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
     }
 }

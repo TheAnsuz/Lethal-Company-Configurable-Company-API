@@ -34,7 +34,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             RightInput.text = RightCurrent.ToString();
         }
 
-        protected internal override void LoadFromConfig(in object value)
+        protected override void LoadFromConfig(in object value)
         {
             if (value is (double, double))
             {
@@ -46,9 +46,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             LeftInput.text = LeftCurrent.ToString();
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = (LeftCurrent, RightCurrent);
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            if (original is (double, double))
+            {
+                (double, double) tuple = ((double, double))original;
+                return LeftCurrent.Equals(tuple.Item1) && RightCurrent.Equals(tuple.Item2);
+            }
+            return false;
         }
     }
 }

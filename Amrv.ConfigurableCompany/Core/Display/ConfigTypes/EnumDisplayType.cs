@@ -25,6 +25,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
                 }
                 InputItemName.SetText(Values[value].ToString());
                 _index = value;
+                UpdateModifiedState();
             }
         }
 
@@ -87,7 +88,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
                 CurrentIndex = 0;
         }
 
-        protected internal override void LoadFromConfig(in object value)
+        protected override void LoadFromConfig(in object value)
         {
             if (value is int vInt)
                 CurrentIndex = vInt;
@@ -104,7 +105,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             }
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = CurrentIndex;
         }
@@ -114,6 +115,20 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             LeftButton.interactable = enabled;
             RightButton.interactable = enabled;
             EnabledObject.SetActive(enabled);
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            if (Config.Type.TryGetAs<int>(original, out var vInt))
+            {
+                return vInt == CurrentIndex;
+            }
+            return false;
+        }
+
+        protected override void OnModifiedState(bool isModified, bool isDefault)
+        {
+            Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
     }
 }

@@ -69,6 +69,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         private void OnSliderChange(float value)
         {
             InputField.text = $"{SliderField.value:0.###}";
+            UpdateModifiedState();
         }
 
         private void OnEditEnd(string text)
@@ -76,6 +77,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             if (float.TryParse(text, out float value))
             {
                 SliderField.value = value;
+                UpdateModifiedState();
             }
             else
             {
@@ -83,7 +85,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             }
         }
 
-        protected internal override void LoadFromConfig(in object value)
+        protected override void LoadFromConfig(in object value)
         {
             if (NumberUtils.IsNumber(value))
             {
@@ -91,7 +93,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             }
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = SliderField.value;
         }
@@ -101,6 +103,20 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             InputField.readOnly = !enabled;
             SliderField.interactable = enabled;
             EnabledObject.SetActive(enabled);
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            if (original is long number)
+            {
+                return SliderField.value == number;
+            }
+            return false;
+        }
+
+        protected override void OnModifiedState(bool isModified, bool isDefault)
+        {
+            Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
     }
 }

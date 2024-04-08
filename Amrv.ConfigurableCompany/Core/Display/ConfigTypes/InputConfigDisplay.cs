@@ -52,5 +52,10 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             InputField.readOnly = !enabled;
             EnabledObject.SetActive(enabled);
         }
+
+        protected override void OnModifiedState(bool isModified, bool isDefault)
+        {
+            Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
+        }
     }
 }

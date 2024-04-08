@@ -17,14 +17,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
             return obj;
         }
 
-        protected internal override void LoadFromConfig(in object value)
+        protected override void LoadFromConfig(in object value)
         {
             InputField.text = value as string;
         }
 
-        protected internal override void SaveToConfig(out object value)
+        protected override void SaveToConfig(out object value)
         {
             value = InputField.text;
+        }
+
+        protected override bool ValueEquals(in object original)
+        {
+            return InputField.text.Equals(original.ToString());
         }
     }
 }

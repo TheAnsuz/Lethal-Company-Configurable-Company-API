@@ -29,6 +29,7 @@ namespace Amrv.ConfigurableCompany.API.Display
             GameObject container = Container;
             LoadFromConfig(config.Value);
             WhenToggled(config.Enabled);
+            UpdateModifiedState();
             return container;
         }
 
@@ -39,17 +40,36 @@ namespace Amrv.ConfigurableCompany.API.Display
         /// <returns>The GameObject containing the panel</returns>
         protected abstract GameObject CreateContainer(CConfig config);
 
+        public void UpdateModifiedState(bool? modified = null, bool? @default = null)
+        {
+            OnModifiedState(modified ?? !ValueEquals(Config.Value), @default ?? ValueEquals(Config.Default));
+        }
+
+        protected virtual bool ValueEquals(in object value) { return false; }
+
+        protected virtual void OnModifiedState(bool isModified, bool isDefault) { }
+
+        public void LoadValue(in object value)
+        {
+            LoadFromConfig(in value);
+            UpdateModifiedState();
+        }
         /// <summary>
         /// This method should adjust the values and information shown in the display from the value that the configuration has.
         /// </summary>
         /// <param name="value">The raw value that the configuration has</param>
-        protected internal abstract void LoadFromConfig(in object value);
+        protected abstract void LoadFromConfig(in object value);
 
+        public void SaveValue(out object value)
+        {
+            SaveToConfig(out value);
+            UpdateModifiedState();
+        }
         /// <summary>
         /// This method should return the converted or convertable value that is being displayed to be stored in the configuration.
         /// </summary>
         /// <param name="value">The value that will be set in the configuration</param>
-        protected internal abstract void SaveToConfig(out object value);
+        protected abstract void SaveToConfig(out object value);
 
         // Functions
 

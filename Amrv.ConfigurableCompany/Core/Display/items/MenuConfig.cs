@@ -52,13 +52,13 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         public void Save()
         {
-            Display.SaveToConfig(out object value);
+            Display.SaveValue(out object value);
             Display.Config.TrySet(value);
         }
 
         public void Load()
         {
-            Display.LoadFromConfig(Display.Config.Value);
+            Display.LoadValue(Display.Config.Value);
         }
 
         private void OnEnter(PointerEventData e)
