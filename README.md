@@ -17,9 +17,11 @@ This API automatically handles real-time synchronization and lets users modify t
 -   Configurations will be synchronized automatically in real-time
 -   Configurations can be modified while in-game and dynamically created
 -   Easy organization for both developers and players
--   Easy implementation for developers
+-   Easy implementation for developers with just 5 lines of code
 -   Robust and optmized abstraction layer to maintain compatibility
 -   Access to configurations created by other mods
+-   Presets to share configurations with your profile or modpack
+-   A event based system for configurations
 
 ## How To Install
 
