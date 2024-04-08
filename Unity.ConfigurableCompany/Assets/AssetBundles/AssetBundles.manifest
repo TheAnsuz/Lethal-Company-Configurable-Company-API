@@ -1,7 +1,0 @@
-ManifestFileVersion: 0
-CRC: 3027750850
-AssetBundleManifest:
-  AssetBundleInfos:
-    Info_0:
-      Name: configuration_menu
-      Dependencies: {}
