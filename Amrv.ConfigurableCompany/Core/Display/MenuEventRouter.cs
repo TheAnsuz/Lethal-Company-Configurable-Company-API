@@ -89,15 +89,14 @@ namespace Amrv.ConfigurableCompany.Core.Display
         public static void OnClick_PresetLoad(string name)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset load | name: {name}");
-            MenuController.LoadConfigs();
             Presets.Stablish(name);
         }
 
         public static void OnClick_PresetSave(string name)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Preset save | name: {name}");
-            IOController.SetConfigCache();
-            MenuController.SaveConfigs();
+            //IOController.SetConfigCache();
+            //MenuController.SaveConfigs();
             Presets.Update(name);
         }
 

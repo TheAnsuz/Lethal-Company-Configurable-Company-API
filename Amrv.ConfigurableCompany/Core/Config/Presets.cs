@@ -51,6 +51,8 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
         public static void Update(string name)
         {
+            Create(name);
+
             var ccfg = new ConfigFile(Folder, name, VERSION, TYPE);
 
             ccfg.Load();

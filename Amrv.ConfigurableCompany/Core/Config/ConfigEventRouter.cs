@@ -80,6 +80,7 @@ namespace Amrv.ConfigurableCompany.Core.Config
         {
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Stablish ({name})");
             //MenuController.RefreshPresets();
+            MenuController.LoadConfigs();
             CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.STABLISH));
         }
     }
