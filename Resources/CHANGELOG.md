@@ -1,3 +1,17 @@
+# 3.3.0
+
+### Fixed (hotfix in previous release)
+
+-   Fixed Configurable company crashing always
+
+### Added
+
+-   Configurations now display their name in _italic_ when they are not saved
+-   Configurations now display their name in **bold** when they do not match their default value.
+-   Added optional override method `OnModifiedState` in `ConfigDisplay` to implement your own actions depending if the configuration matches it's default value or current saved value.
+-   Added optional override method `ValueEquals` tin `ConfigDisplay` to implement your checker for the current value.
+-   Sections now have an arrow to indicate their open state
+
 # 3.2.0
 
 ### Fixed
