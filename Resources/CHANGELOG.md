@@ -3,6 +3,7 @@
 ### Fixed (hotfix in previous release)
 
 -   Fixed Configurable company crashing always
+-   Fixed preset creationg not updating instantly
 
 ### Added
 
@@ -11,6 +12,10 @@
 -   Added optional override method `OnModifiedState` in `ConfigDisplay` to implement your own actions depending if the configuration matches it's default value or current saved value.
 -   Added optional override method `ValueEquals` tin `ConfigDisplay` to implement your checker for the current value.
 -   Sections now have an arrow to indicate their open state
+
+### Modified
+
+-   Presets will now use the saved configurations rather than save the temporal values and use them
 
 # 3.2.0
 
