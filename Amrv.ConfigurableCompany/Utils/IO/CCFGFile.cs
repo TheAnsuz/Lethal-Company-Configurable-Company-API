@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Amrv.ConfigurableCompany.Utils.IO
@@ -151,6 +152,9 @@ namespace Amrv.ConfigurableCompany.Utils.IO
                 builder.Append(TOKEN_ENTRY_END);// [|].......
                 builder.Append(Environment.NewLine); // Just for better visualization of the file content externally
             }
+
+            if (!Directory.Exists(Path.GetDirectoryName(File)))
+                Directory.CreateDirectory(Path.GetDirectoryName(File));
 
             System.IO.File.WriteAllText(File, builder.ToString());
         }
