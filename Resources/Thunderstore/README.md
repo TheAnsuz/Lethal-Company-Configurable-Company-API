@@ -15,7 +15,7 @@ Configurable Company provides an enhanced experience for both players and develo
 
 Using the in-game menu allows you to set a specific setting for your current file, you can have your **first save** with `x10` enemy spawning and your second one with `x0` enemy spawning.
 
-![A image of the in-game menu with some configurations from Lethal Company Variables](https://i.imgur.com/A2zn1vy.png)
+![A image of the in-game menu with some configurations from Lethal Company Variables](https://i.imgur.com/hpoGpFt.png)
 
 As the image shows, configuration are split into pages (_Seen at the top left of the image_) and then into categories.
 
@@ -32,6 +32,12 @@ As the image shows, configuration are split into pages (_Seen at the top left of
 > **INFO**  
 > You don't need to share configurations with your friends, they are automatically synchronized.
 
+### Pages
+
+![A image of the in-game menu showing the pages of LCV](https://i.imgur.com/pC4w4QV.png)
+
+Pages are a form of categorization that split configurations between different panels. These are created by developers to split their configurations but have no functional difference.
+
 ### Tooltip
 
 ![A image of the in-game menu showing how the tooltip is displayed](https://i.imgur.com/jbyo0Jx.png)
@@ -42,6 +48,18 @@ The tooltip shows the configuration name, a description on what it does and some
 -   **Default**: Shows the initial value from the configuration.
 -   **Synchronize with client**: If that configuration needs to be synchronized with other players to work (This means they need the mod, otherwise they don't).
 -   _**Green tag**_: A green text represents what values does the configuration accept.
+
+### Presets
+
+![An image of the in-game menu showing the presets](https://i.imgur.com/Dru4mIk.png)
+
+Presets are the formal way to share configurations with your profile or modpack. You can create as many as you want, load, save or share them with the profile code or file. It contains three buttons:
+
+-   **Load preset**: Overrides all the configurations with values from the selected preset.
+-   **Save preset**: Saves all your changes and creates or updates the selected preset with these values.
+-   **Delete preset**: Remove a preset file from the disk permanently.
+
+_The selected preset appears in orange at the top panel_.
 
 # Developer guide
 
@@ -66,6 +84,7 @@ public static CConfig FloatConfiguration = new CConfigBuilder()
 ```
 
 And you can get the value easily too:
+
 ```csharp
     int intValue = FloatConfiguration<int>Get();
     float floatValue = FloatConfiguration<float>Get();
@@ -85,11 +104,13 @@ The API includes a lot of events you can access and listen to. If you want to se
 Here is an example on how you could listen to configuration changes:
 
 First we need to register the listener (you might want to do this when your plugin starts)
+
 ```csharp
 CEvents.ConfigEvents.ChangeConfig.AddListener(MyListenerMethod);
 ```
 
 Now we need the method to execute
+
 ```csharp
 public static void MyListenerMethod(CEventChangeConfig myEvent) {
     CConfig changedConfig = myEvent.Config;
