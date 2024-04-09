@@ -29,6 +29,9 @@ namespace Amrv.ConfigurableCompany.Core.Config
             if (File.Exists(Path.Combine(Folder, name)))
                 return;
 
+            if (!Directory.Exists(Folder))
+                Directory.CreateDirectory(Folder);
+
             File.Create(Path.Combine(Folder, name)).Close();
             GeneratePrefabList();
 
