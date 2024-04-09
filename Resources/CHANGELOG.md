@@ -1,3 +1,9 @@
+# 3.3.1
+
+### Fixed
+
+-   Fixed a regression causing the mod to soft crash when the preset folder didn't exist
+
 # 3.3.0
 
 ### Fixed (hotfix in previous release)
