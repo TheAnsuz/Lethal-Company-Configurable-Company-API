@@ -1,3 +1,9 @@
+# 3.3.2
+
+### Added
+
+-   `string` and `bool` configurations can now be converted to more types
+
 # 3.3.1
 
 ### Fixed
