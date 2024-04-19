@@ -36,6 +36,15 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code, IFormatProvider formatProvider = null)
         {
+            if (!TryConvert(value, out object parsed, formatProvider) || parsed is not string str)
+                str = value.ToString();
+
+            if (type == typeof(string))
+            {
+                result = (T)(object)str;
+                return true;
+            }
+
             result = default;
             return false;
         }

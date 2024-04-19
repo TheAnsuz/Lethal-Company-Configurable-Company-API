@@ -32,10 +32,18 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override bool TryConvert(object value, out object result, IFormatProvider formatProvider = null)
         {
-            if (value != null && bool.TryParse(value.ToString(), out bool parsed))
+            if (value != null)
             {
-                result = parsed;
-                return true;
+                if (value.ToString().ToLower().Equals("true"))
+                {
+                    result = true;
+                    return true;
+                }
+                else if (value.ToString().ToLower().Equals("false"))
+                {
+                    result = false;
+                    return true;
+                }
             }
 
             result = default;
@@ -44,9 +52,24 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override bool TryGetAs<T>(object value, out T result, Type type, TypeCode code, IFormatProvider formatProvider = null)
         {
+            if (!TryConvert(value, out object parsed, formatProvider) || parsed is not bool boolean)
+            {
+                boolean = false;
+            }
+
             if (value != null && NumberUtils.IsNumber<T>())
             {
-                result = (T)Convert.ChangeType(value.Equals(true) ? 1 : 0, code);
+                result = (T)Convert.ChangeType(boolean ? 1 : 0, code);
+                return true;
+            }
+            else if (type == typeof(bool))
+            {
+                result = (T)(object)boolean;
+                return true;
+            }
+            else if (type == typeof(string))
+            {
+                result = (T)(object)boolean.ToString();
                 return true;
             }
             result = default;
