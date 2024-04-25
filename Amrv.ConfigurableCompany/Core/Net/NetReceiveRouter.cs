@@ -49,7 +49,7 @@ namespace Amrv.ConfigurableCompany.Core.Net
 
         private static void ReadConfigBundle(CConfig config, ConfigBundle.ConfigEntry entry)
         {
-            config.DeserializeValue(entry.Value, ChangeReason.PASTE_FROM_CLIPBOARD);
+            config.DeserializeValue(entry.Value, ChangeReason.SYNCHRONIZATION);
 
             if (entry.Metadata.TryGetValue("enabled", out string enabledString))
                 config.Enabled = enabledString.ToLower().Equals("true");
