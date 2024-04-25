@@ -5,6 +5,7 @@ using Amrv.ConfigurableCompany.Core.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
@@ -74,7 +75,8 @@ namespace Amrv.ConfigurableCompany.Core.Display
             FileName = Menu.FindChild("Info/File name");
             FileText = FileName.FindChild("Area/Text").GetComponent<TextMeshProUGUI>();
 
-            Menu.FindChild("Beta").AddComponent<RegionButton>().OnMouseClick += OnBetaTextClick;
+            Menu.FindChild("Beta").AddComponent<RegionButton>().OnMouseClick += OnIssuesButtonClick;
+            Menu.FindChild("Help").GetComponent<Button>().onClick.AddListener(OnHelpButtonClick);
             BetaText = Menu.FindChild("Beta").GetComponent<TextMeshProUGUI>();
 
             Toggler = new(this, Container);
@@ -106,7 +108,12 @@ namespace Amrv.ConfigurableCompany.Core.Display
             MenuEventRouter.OnAction_CreateMenu();
         }
 
-        private void OnBetaTextClick(object sender, PointerEventData e)
+        private void OnHelpButtonClick()
+        {
+            Application.OpenURL("https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API/wiki/user_usage");
+        }
+
+        private void OnIssuesButtonClick(object sender, PointerEventData e)
         {
             int linkIndex = TMP_TextUtilities.FindIntersectingLink(BetaText, e.pointerPressRaycast.worldPosition, null);
 
