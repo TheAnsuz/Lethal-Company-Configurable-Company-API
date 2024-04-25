@@ -107,15 +107,26 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override bool ValueEquals(in object original)
         {
-            if (original is long number)
+            if (Decimal)
             {
-                return SliderField.value == number;
+                if (original is double dNumber)
+                    return (float)dNumber == SliderField.value;
+                else if (original is float fNumber)
+                    return SliderField.value == fNumber;
+            }
+            else
+            {
+                if (original is long lNumber)
+                    return SliderField.value == lNumber;
+                else if (original is int iNumber)
+                    return SliderField.value == iNumber;
             }
             return false;
         }
 
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
+            Console.WriteLine($"Slider {Config.ID}: modified: {isModified} | default: {isDefault}");
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
     }
