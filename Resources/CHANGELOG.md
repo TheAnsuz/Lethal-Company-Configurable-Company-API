@@ -1,3 +1,19 @@
+# 3.4.0
+
+### Fixed
+
+-   Change reason for synchronization was set to READ_FROM_FILE, now has been changed to SYNCHRONIZATION
+-   Sliders will now display the correct state according to their modification
+
+### Added
+
+-   Configurations can now be randomized, by default it will select a value close to default but you can implement your randomizer for your configurations using the `CRandomizer` class and `RNGProvider` for custom random algorithms.
+-   Added a help button with information about how to use the menu.
+
+### Modified
+
+-   Updated all wikies with the usage of the menu
+
 # 3.3.2
 
 ### Added
