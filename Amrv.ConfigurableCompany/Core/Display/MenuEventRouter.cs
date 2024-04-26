@@ -53,7 +53,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
             foreach (var config in CConfig.Storage.Values)
-                config.Randomize(random,ChangeReason.USER_RANDOMIZED);
+                config.Randomize(random, ChangeReason.USER_RANDOMIZED);
             CEvents.MenuEvents.Randomize.Invoke(new(seed, random));
         }
 

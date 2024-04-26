@@ -1,10 +1,7 @@
 ﻿#if DEBUG
 using Amrv.ConfigurableCompany.API;
-using Amrv.ConfigurableCompany.API.ConfigTypes;
-using GameNetcodeStuff;
 using HarmonyLib;
 using System;
-using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Plugin.Tests
 {
