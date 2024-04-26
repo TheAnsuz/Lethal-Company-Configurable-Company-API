@@ -64,6 +64,8 @@ namespace Amrv.ConfigurableCompany.API
         /// <returns>True if can be accepted as a value, false otherwise</returns>
         public abstract bool IsValidValue(object value);
 
+        public virtual object GetRandomValue(RNGProvider random, CConfig config) => config.Default;
+
         /// <summary>
         /// Tries to convert a value to an accepted value by this configuration type
         /// </summary>

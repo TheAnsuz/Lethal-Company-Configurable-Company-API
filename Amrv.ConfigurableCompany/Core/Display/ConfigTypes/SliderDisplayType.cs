@@ -126,7 +126,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
-            Console.WriteLine($"Slider {Config.ID}: modified: {isModified} | default: {isDefault}");
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
     }

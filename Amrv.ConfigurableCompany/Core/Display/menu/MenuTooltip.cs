@@ -23,6 +23,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         protected readonly MenuTag Tag_Type;
         protected readonly MenuTag Tag_Default;
         protected readonly MenuTag Tag_Synchronized;
+        protected readonly MenuTag Tag_Randomizable;
 
         internal MenuTooltip(MenuBind bind)
         {
@@ -60,6 +61,11 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             Tag_Synchronized.SetVisible(false);
             Tag_Synchronized.SetColor(new Color32(39, 214, 214, 255));
 
+            Tag_Randomizable = MenuTag.CreateTag(TagsPanel.transform);
+            Tag_Randomizable.SetText("Randomizable");
+            Tag_Randomizable.SetVisible(false);
+            Tag_Randomizable.SetColor(new Color32(224, 52, 13, 255));
+
             DisplayedConfig = null;
         }
 
@@ -85,6 +91,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
                 Container.SetActive(true);
                 Tag_Synchronized.SetVisible(value.Synchronized);
                 Tag_Experimental.SetVisible(value.Experimental);
+                Tag_Randomizable.SetVisible(value.Randomizer.Active);
             }
         }
 

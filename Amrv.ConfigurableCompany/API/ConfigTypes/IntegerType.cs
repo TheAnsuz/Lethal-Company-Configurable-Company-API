@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
+using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Globalization;
@@ -90,6 +91,11 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             }
             data = default;
             return false;
+        }
+
+        public override object GetRandomValue(RNGProvider random, CConfig config)
+        {
+            return Math.Round(UseSlider ? random.Double(Min, Max) : random.DistributionNormal(config.GetDefault(0), 2));
         }
     }
 }

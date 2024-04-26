@@ -34,5 +34,13 @@
         /// The configuration was pasted from the user's clipboard
         /// </summary>
         PASTE_FROM_CLIPBOARD = 8,
+        /// <summary>
+        /// Somewhere an external mod decided to randomize the configuration
+        /// </summary>
+        SCRIPT_RANDOMIZED = 9,
+        /// <summary>
+        /// The player requested the configuration to be randomized
+        /// </summary>
+        USER_RANDOMIZED = 10,
     }
 }

@@ -22,6 +22,7 @@ namespace Amrv.ConfigurableCompany.API
         public bool Experimental;
         public bool Synchronized;
         public bool Toggleable;
+        public CRandomizer Randomizer = CRandomizer.Default();
 
         public BuildSection BSection { get; set; }
         public BuildTooltip BTooltip { get; set; }
@@ -141,6 +142,18 @@ namespace Amrv.ConfigurableCompany.API
         public CConfigBuilder SetToggleable(bool toggleable)
         {
             Toggleable = toggleable;
+            return this;
+        }
+
+        public CConfigBuilder SetRandomizer(CRandomizer randomizer)
+        {
+            Randomizer = randomizer;
+            return this;
+        }
+
+        public CConfigBuilder SetRandomizer(Func<RNGProvider, CConfig, object> function)
+        {
+            Randomizer = function;
             return this;
         }
 

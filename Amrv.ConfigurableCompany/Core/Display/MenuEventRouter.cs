@@ -3,6 +3,7 @@ using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
+using System;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
@@ -46,6 +47,14 @@ namespace Amrv.ConfigurableCompany.Core.Display
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Paste");
             Clipboard.PasteFromClipboard();
             CEvents.MenuEvents.Paste.Invoke();
+        }
+
+        public static void OnClick_Randomize(int seed, Random random)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
+            foreach (var config in CConfig.Storage.Values)
+                config.Randomize(random,ChangeReason.USER_RANDOMIZED);
+            CEvents.MenuEvents.Randomize.Invoke(new(seed, random));
         }
 
         public static void OnClick_ShowPage(CPage page)

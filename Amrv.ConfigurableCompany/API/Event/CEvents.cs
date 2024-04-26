@@ -24,6 +24,7 @@ namespace Amrv.ConfigurableCompany.API.Event
             public static readonly CEventType<CEventMenuToggle> Toggle = new();
             public static readonly CEventType<CEventMenuVisible> Visible = new();
             public static readonly CEventType<CEventChangePage> ChangePage = new();
+            public static readonly CEventType<CEventRandomize> Randomize = new();
         }
 
         public static class ConfigEvents

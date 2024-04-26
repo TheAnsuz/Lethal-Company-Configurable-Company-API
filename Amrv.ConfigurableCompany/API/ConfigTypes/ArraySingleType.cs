@@ -136,5 +136,10 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             data = default;
             return false;
         }
+
+        public override object GetRandomValue(RNGProvider random, CConfig config)
+        {
+            return Values[random.Int(Values.Length)];
+        }
     }
 }

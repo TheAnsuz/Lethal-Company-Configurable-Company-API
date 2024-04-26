@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
+using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
@@ -185,6 +186,15 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
         private static ValueTuple<T1, T2> ValueTupleOfTypes<T1, T2>(T1 a, T2 b)
         {
             return ValueTuple.Create(a, b);
+        }
+
+        public override object GetRandomValue(RNGProvider random, CConfig config)
+        {
+            double value = random.DistributionNormal(config.GetDefault(0), 2);
+            double variation = random.DoubleUnit();
+            double first = Math.Round(value - Math.E * variation);
+            double second = Math.Round(value + Math.E * variation);
+            return (first, second);
         }
     }
 }

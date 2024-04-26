@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.Core.Extensions;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         protected readonly GameObject ButtonRestore;
         protected readonly GameObject ButtonCopy;
         protected readonly GameObject ButtonPaste;
+        protected readonly GameObject ButtonRandomize;
+        protected readonly TMP_InputField ButtonRandomize_Input;
 
         internal MenuButtons(MenuBind bind)
         {
@@ -38,6 +41,28 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             ButtonPaste = Bind.Menu.FindChild("Buttons/Paste");
             //ButtonPaste.AddComponent<NoDrawGraphic>();
             ButtonPaste.GetComponent<Button>().onClick.AddListener(OnPaste);
+
+            ButtonRandomize = Bind.Menu.FindChild("Buttons/Randomize");
+            ButtonRandomize_Input = ButtonRandomize.GetComponentInChildren<TMP_InputField>();
+            ButtonRandomize.GetComponent<Button>().onClick.AddListener(OnRandomize);
+        }
+
+        private void OnRandomize()
+        {
+            System.Random random;
+            if (int.TryParse(ButtonRandomize_Input.text, out int seed) && seed != 0)
+            {
+                random = new(Math.Abs(seed));
+            }
+            else
+            {
+                seed = new System.Random().Next();
+                random = new(Math.Abs(seed));
+            }
+
+            ButtonRandomize_Input.text = seed.ToString();
+
+            MenuEventRouter.OnClick_Randomize(seed, random);
         }
 
         private void OnSave(/*object sender, PointerEventData e*/)

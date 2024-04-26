@@ -17,6 +17,7 @@ namespace Amrv.ConfigurableCompany.API
         public readonly CCategory Category;
         public readonly CSection Section;
 
+        public readonly CRandomizer Randomizer;
         public readonly bool Synchronized;
         public readonly bool Experimental;
         public readonly bool Toggleable;
@@ -77,6 +78,8 @@ namespace Amrv.ConfigurableCompany.API
             Experimental = builder.Experimental;
             Toggleable = builder.Toggleable;
 
+            Randomizer = builder.Randomizer ?? CRandomizer.Default();
+
             if (!TrySet(builder.Value ?? Type.Default, ChangeReason.CREATION))
                 throw new BuildingException($"Can't create configuration with default value {builder.Value ?? Type.Default}[{(builder.Value == null ? "Def" : "Val")}] using type {Type.GetType().Name}");
 
@@ -101,6 +104,23 @@ namespace Amrv.ConfigurableCompany.API
         {
             TrySet(Default, reason);
             Enabled = _defaultEnabled;
+        }
+
+        public object GetRandom(RNGProvider random)
+        {
+            return Randomizer.Generate(random, this);
+        }
+
+        public void Randomize(RNGProvider random)
+        {
+            if (Randomizer.Active)
+                TrySet(Randomizer.Generate(random, this), ChangeReason.SCRIPT_RANDOMIZED);
+        }
+
+        internal void Randomize(RNGProvider random, ChangeReason reason)
+        {
+            if (Randomizer.Active)
+                TrySet(Randomizer.Generate(random, this), reason);
         }
 
         public bool TrySet(object value, IFormatProvider format = null) => TrySet(value, ChangeReason.SCRIPT_CHANGE, format);
@@ -132,6 +152,15 @@ namespace Amrv.ConfigurableCompany.API
         public T Get<T>(T @defaut)
         {
             if (Type.TryGetAs(Value, out T result))
+                return result;
+            return @defaut;
+        }
+
+        public bool TryGetDefault<T>(out T result) => Type.TryGetAs(Default, out result);
+        public T GetDefault<T>() => GetDefault(default(T));
+        public T GetDefault<T>(T @defaut)
+        {
+            if (Type.TryGetAs(Default, out T result))
                 return result;
             return @defaut;
         }
