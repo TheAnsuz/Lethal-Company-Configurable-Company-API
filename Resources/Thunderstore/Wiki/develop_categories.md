@@ -34,7 +34,8 @@ These are the values you can modify from pages:
     The name that will be shown in the in-game menu.
 
 -   `string` Page / `CPage` CPage:  
-    The parent page of this category (uses the defaul page if no one is provided).
+    The parent page of this category (uses the defaul page if no one is provided).  
+    _Newer versions of Configurable Company suggest that you use `BPage`. This will allow you to use an **string** or **CPage**_.
 
 -   `Color` Color / `(byte, byte, byte)` ColorRGB:  
     The background color of the category display (defaults to white if no color is provided).

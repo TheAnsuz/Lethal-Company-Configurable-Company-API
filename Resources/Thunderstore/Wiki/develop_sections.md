@@ -44,7 +44,8 @@ These parameters are everything that you can choose to modify for the section.
     The name that will be shown in the in-game menu.
 
 -   `string` Category / `CCategory` CCategory:  
-    The category that this section belongs to (can be set to null to use the default one).
+    The category that this section belongs to (can be set to null to use the default one).  
+    _Newer versions of Configurable Company suggest that you use `BCategory`. This will allow you to use an **string** or **CCategory**_.
 
 ## Get Existing Sections
 

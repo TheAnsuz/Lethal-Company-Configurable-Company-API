@@ -11,55 +11,17 @@ Configurable Company provides an enhanced experience for both players and develo
 
 # Player information
 
-### Menu
+### How to open
+
+To open the menu you must go into the `HOST` panel. There you will be able to see a button at the top-left of the screen. Clicking it will open the menu.
+
+![A image of the game-creation panel with the menu closed](https://i.imgur.com/VT27Y7q.png)
 
 Using the in-game menu allows you to set a specific setting for your current file, you can have your **first save** with `x10` enemy spawning and your second one with `x0` enemy spawning.
 
-![A image of the in-game menu with some configurations from Lethal Company Variables](https://i.imgur.com/hpoGpFt.png)
+If you need detalied information about how to use the menu you should [Check the thunderstore wiki page](https://thunderstore.io/c/lethal-company/p/AMRV/ConfigurableCompany/wiki/1934-user_usage/)
 
-As the image shows, configuration are split into pages (_Seen at the top left of the image_) and then into categories.
-
-### Buttons
-
-![A image of the in-game menu showing the buttons](https://i.imgur.com/FUwQ4zA.png)
-
--   **Save configurations**: Saves the settings you changed.
--   **Reset to default values**: Resets every configuration to the initial value.
--   **Restore saved values**: Reverts back your modifications to the last saved configuration.
--   **Copy to clipboard**: Allows you to share your current configurations by copying them to your clipboard.
--   **Paste from clipboard**: Tries to read your clipboard for configurations and sets them.
-
-> **INFO**  
-> You don't need to share configurations with your friends, they are automatically synchronized.
-
-### Pages
-
-![A image of the in-game menu showing the pages of LCV](https://i.imgur.com/pC4w4QV.png)
-
-Pages are a form of categorization that split configurations between different panels. These are created by developers to split their configurations but have no functional difference.
-
-### Tooltip
-
-![A image of the in-game menu showing how the tooltip is displayed](https://i.imgur.com/jbyo0Jx.png)
-
-The tooltip shows the configuration name, a description on what it does and some tags with extra information. These tags can be:
-
--   **Experimental**: If a configuration maybe produce issues while playing this tag will be shown.
--   **Default**: Shows the initial value from the configuration.
--   **Synchronize with client**: If that configuration needs to be synchronized with other players to work (This means they need the mod, otherwise they don't).
--   _**Green tag**_: A green text represents what values does the configuration accept.
-
-### Presets
-
-![An image of the in-game menu showing the presets](https://i.imgur.com/Dru4mIk.png)
-
-Presets are the formal way to share configurations with your profile or modpack. You can create as many as you want, load, save or share them with the profile code or file. It contains three buttons:
-
--   **Load preset**: Overrides all the configurations with values from the selected preset.
--   **Save preset**: Saves all your changes and creates or updates the selected preset with these values.
--   **Delete preset**: Remove a preset file from the disk permanently.
-
-_The selected preset appears in orange at the top panel_.
+![Short information about what every button does](https://i.imgur.com/yd1E2mU.png)
 
 # Developer guide
 

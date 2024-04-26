@@ -63,13 +63,20 @@ These parameters are everything that you can choose to modify for the configurat
     The name that will be shown in the in-game menu.
 
 -   `string` Section / `CSection` CSection:  
-    The section that this configuration belongs to (can be null if you set a **category**).
+    The section that this configuration belongs to (can be null if you set a **category**).  
+    _Newer versions of Configurable Company suggest that you use `BSection`. This will allow you to use an **string** or **CSection**_.
 
 -   `string` Category / `CCategory` CCategory:  
-    The category ID that this configuration belongs to (can be null).
+    The category ID that this configuration belongs to (can be null).  
+    _Newer versions of Configurable Company suggest that you use `BCategory`. This will allow you to use an **string** or **CCategory**_.
 
 -   `string` Tooltip / `string[]` Tooltips:  
-    A description about what this configuration does. You can use rich text.
+    A description about what this configuration does. You can use rich text.  
+    _Newer versions of Configurable Company suggest that you use `BTooltip`. This will allow you to use an **string** or **string[]**_.
+
+-   `CRandomizer` Randomizer:  
+    The randomizer is the function used to generate a _random value_ when the user requests.  
+    By default a normal randomizer will be used to generate values close to default. You can create your own randomizer using the `CRandomizer` class.
 
 -   `CType` Type:  
     The type of values that this configuration can accept. It will try to be automatically asigned according to the provided value.
@@ -94,7 +101,7 @@ These parameters are everything that you can choose to modify for the configurat
 
 ## Getting Value
 
-To get the current value of the configuration you just need to access the `Get` method of the configuration.
+To get the current value of the configurations you just need to access the `Get` method of the configuration.
 
 ```csharp
 // This is an example configuration
