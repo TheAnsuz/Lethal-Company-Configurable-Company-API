@@ -1,4 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.API;
+using Amrv.ConfigurableCompany.API.Data;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Display
@@ -33,6 +34,13 @@ namespace Amrv.ConfigurableCompany.Core.Display
             if (Instance == null) return;
 
             Instance.Filename = filename;
+        }
+
+        public static void SetRandomizerDetails(InfoProvider info)
+        {
+            if (Instance == null) return;
+
+            Instance.Buttons.SetRandomizerDetails(info);
         }
 
         public static void SetCurrentPage(CPage page)

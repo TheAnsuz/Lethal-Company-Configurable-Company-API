@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.API.Event;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
@@ -106,21 +107,22 @@ namespace Amrv.ConfigurableCompany.API
             Enabled = _defaultEnabled;
         }
 
-        public object GetRandom(RNGProvider random)
-        {
-            return Randomizer.Generate(random, this);
-        }
+        public object GetRandom(RNGProvider random) => Randomizer.Generate(random, this, InfoProvider.Default);
 
-        public void Randomize(RNGProvider random)
+        public object GetRandom(RNGProvider random, InfoProvider info) => Randomizer.Generate(random, this, info);
+
+        public void Randomize(RNGProvider random) => Randomize(random, InfoProvider.Default);
+        public void Randomize(RNGProvider random, InfoProvider info)
         {
             if (Randomizer.Active)
-                TrySet(Randomizer.Generate(random, this), ChangeReason.SCRIPT_RANDOMIZED);
+                TrySet(Randomizer.Generate(random, this, info), ChangeReason.SCRIPT_RANDOMIZED);
         }
 
-        internal void Randomize(RNGProvider random, ChangeReason reason)
+        public void Randomize(RNGProvider random, ChangeReason reason) => Randomize(random, InfoProvider.Default, reason);
+        internal void Randomize(RNGProvider random, InfoProvider info, ChangeReason reason)
         {
             if (Randomizer.Active)
-                TrySet(Randomizer.Generate(random, this), reason);
+                TrySet(Randomizer.Generate(random, this, info), reason);
         }
 
         public bool TrySet(object value, IFormatProvider format = null) => TrySet(value, ChangeReason.SCRIPT_CHANGE, format);

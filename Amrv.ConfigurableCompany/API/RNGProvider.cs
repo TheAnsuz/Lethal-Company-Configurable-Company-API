@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,26 +8,44 @@ namespace Amrv.ConfigurableCompany.API
     {
         public static readonly RNGProvider Static = new();
 
-        public readonly int Seed;
-        public readonly Random Random;
+        private bool _useAlpha = false;
+        public readonly int SeedAlpha;
+        public readonly int SeedBeta;
+        public readonly Random RandomAlpha;
+        public readonly Random RandomBeta;
+
+        private Random Random
+        {
+            get
+            {
+                _useAlpha = !_useAlpha;
+                return _useAlpha ? RandomBeta : RandomAlpha;
+            }
+        }
+
+        public RNGProvider() : this(new Random()) { }
 
         public RNGProvider(Random random)
         {
-            Seed = random.Next();
-            Random = new(Seed);
+            SeedAlpha = random.Next();
+            SeedBeta = random.Next();
+            RandomAlpha = new(SeedAlpha);
+            RandomBeta = new(SeedBeta);
+            _useAlpha = SeedAlpha > SeedBeta;
         }
 
-        public RNGProvider(int seed)
+        public RNGProvider(int alpha, int beta)
         {
-            Seed = seed;
-            Random = new(Seed);
+            SeedAlpha = alpha;
+            SeedBeta = beta;
+            RandomAlpha = new(SeedAlpha);
+            RandomBeta = new(SeedBeta);
+            _useAlpha = SeedAlpha > SeedBeta;
         }
 
-        public RNGProvider()
-        {
-            Seed = new Random().Next();
-            Random = new(Seed);
-        }
+        public RNGProvider(int seed) : this(seed, ~seed) { }
+
+        public RNGProvider(long seed) : this((int)(seed & 0x00000000FFFFFFFF), (int)(seed >> 32)) { }
 
         public string String() => String(Random.Next());
         public string String(IEnumerable<char> posibleChars) => String(posibleChars.ToArray(), Random.Next());

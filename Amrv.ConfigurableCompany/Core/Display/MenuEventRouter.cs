@@ -1,4 +1,4 @@
-﻿using Amrv.ConfigurableCompany.API;
+using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
@@ -49,12 +49,22 @@ namespace Amrv.ConfigurableCompany.Core.Display
             CEvents.MenuEvents.Paste.Invoke();
         }
 
-        public static void OnClick_Randomize(int seed, Random random)
+        public static void OnClick_Randomize(RNGProvider random, string seed)
         {
-            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({random.SeedAlpha}|{random.SeedBeta}|{seed})");
+
+            InfoProvider info;
+
+            if (SpecialSeed.IsSpecialSeed(seed, out var specialSeed))
+                info = new InfoProvider(seed, specialSeed);
+            else
+                info = InfoProvider.Default;
+
             foreach (var config in CConfig.Storage.Values)
-                config.Randomize(random, ChangeReason.USER_RANDOMIZED);
-            CEvents.MenuEvents.Randomize.Invoke(new(seed, random));
+                config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
+
+            MenuController.SetRandomizerDetails(info);
+            CEvents.MenuEvents.Randomize.Invoke(new(random, info));
         }
 
         public static void OnClick_ShowPage(CPage page)
