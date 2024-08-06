@@ -1,3 +1,21 @@
+# 3.5.0
+
+### Fixed
+
+- Presets not working with low monitor resolutions
+- Menu state for categories not saving
+
+### Added
+
+- Menu state for sections now will save among state for categories
+- Added `SpecialSeed` to allow custom seeds that might trigger special effects
+
+### Modified
+
+- Configuration randomization now allows for seeds formed from base 36 characters (all numbers and letters)
+- Configuration randomization now has an extra parameter, InfoProvider which determines what kind of seed is being used
+- The menu will notify the user when used without any other mod that adds configurations
+
 # 3.4.0
 
 ### Fixed
