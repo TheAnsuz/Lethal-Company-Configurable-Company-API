@@ -19,7 +19,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Scripts
 
         public override char Validate(ref string text, ref int pos, char ch)
         {
-            return Validator?.Invoke(ref text, ref pos, ref ch) ?? true ? ch : NO_CHAR;
+            if (Validator?.Invoke(ref text, ref pos, ref ch) ?? true)
+            {
+                text += ch;
+                return ch;
+            }
+            return NO_CHAR;
         }
     }
 }
