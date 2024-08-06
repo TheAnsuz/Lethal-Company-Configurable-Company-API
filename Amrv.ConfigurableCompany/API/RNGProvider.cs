@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -181,10 +181,6 @@ namespace Amrv.ConfigurableCompany.API
         public double DistributionBiased(double min, double max, double normal, double alpha, double beta)
         {
             double scaled = (normal - min) / (max - min);
-            Console.WriteLine($"min: {min}");
-            Console.WriteLine($"max: {max}");
-            Console.WriteLine($"normal: {normal}");
-            Console.WriteLine($"Status: min < max {min < max} | normal > min {normal > min} | normal < max {normal < max} | scale: {normal - Math.Truncate(normal)}");
             double unit = DistributionBetaNoncentral(alpha, beta, scaled, 1 - scaled);
             return unit * (max - min) + min;
         }
