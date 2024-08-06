@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Core.IO;
+using Amrv.ConfigurableCompany.Plugin;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +18,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         private readonly GameObject Container;
         private readonly RectTransform Container_Rect;
-        //private readonly CSection _;
+        private readonly CSection Section;
         private readonly TextMeshProUGUI Text;
         public readonly GameObject Content;
         private readonly GameObject State_Open;
@@ -37,11 +39,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             State_Open = container.FindChild("Name/State_Open");
 
             SetName(section.Name);
+
+            Section = section;
+
+            SetVisible(IOController.GetSectionOpenState(section));
         }
 
         private void OnClick()
         {
             SetVisible(!IsVisible());
+            MenuEventRouter.OnAction_ToggleSection(Section, IsVisible());
         }
 
         public bool IsVisible() => Content.activeSelf;

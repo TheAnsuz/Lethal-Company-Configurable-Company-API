@@ -17,6 +17,7 @@ namespace Amrv.ConfigurableCompany.Core
         {
             ConfigurableCompanyPlugin.Debug($"Creating menu");
             IOController.LoadCategories();
+            IOController.LoadSections();
             IOController.LoadConfigs();
             IOController.GetConfigCache();
             foreach (var canvas in Object.FindObjectsOfType<Canvas>())
@@ -34,6 +35,7 @@ namespace Amrv.ConfigurableCompany.Core
         public static void DestroyMenu()
         {
             IOController.SaveCategories();
+            IOController.SaveSections();
             IOController.SaveConfigs();
             MenuController.Destroy();
         }

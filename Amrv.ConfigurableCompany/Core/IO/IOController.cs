@@ -9,6 +9,8 @@ namespace Amrv.ConfigurableCompany.Core.IO
 
         public static void SaveCategories() => IOCategories.Save();
         public static void LoadCategories() => IOCategories.Load();
+        public static void SaveSections() => IOSections.Save();
+        public static void LoadSections() => IOSections.Load();
 
         public static bool GetCategoryOpenState(CCategory category)
         {
@@ -18,6 +20,16 @@ namespace Amrv.ConfigurableCompany.Core.IO
         public static void SetCategoryOpenState(CCategory category, bool open)
         {
             IOCategories.SetOpenState(category, open);
+        }
+
+        public static bool GetSectionOpenState(CSection section)
+        {
+            return IOSections.GetOpenState(section);
+        }
+
+        public static void SetSectionOpenState(CSection section, bool open)
+        {
+            IOSections.SetOpenState(section, open);
         }
 
         public static void SaveConfigs() => IOConfigurations.Save(IOConfigurations.FileName);

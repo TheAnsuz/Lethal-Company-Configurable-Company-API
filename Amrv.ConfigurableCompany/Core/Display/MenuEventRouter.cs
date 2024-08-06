@@ -136,5 +136,11 @@ namespace Amrv.ConfigurableCompany.Core.Display
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Toggle Category ({category.ID}, {(active ? "Visible" : "Hidden")})");
             IOController.SetCategoryOpenState(category, active);
         }
+
+        public static void OnAction_ToggleSection(CSection section, bool active)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Toggle Section ({section.ID}, {(active ? "Visible" : "Hidden")})");
+            IOController.SetSectionOpenState(section, active);
+        }
     }
 }
