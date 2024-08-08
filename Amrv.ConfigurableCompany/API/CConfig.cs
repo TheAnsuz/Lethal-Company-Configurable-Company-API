@@ -107,10 +107,12 @@ namespace Amrv.ConfigurableCompany.API
             Enabled = _defaultEnabled;
         }
 
+        [Obsolete("Use GetRandom(RNGProvider, InfoProvider)")]
         public object GetRandom(RNGProvider random) => Randomizer.Generate(random, this, InfoProvider.Default);
 
         public object GetRandom(RNGProvider random, InfoProvider info) => Randomizer.Generate(random, this, info);
 
+        [Obsolete("Use Randomize(RNGProvider, InfoProvider)")]
         public void Randomize(RNGProvider random) => Randomize(random, InfoProvider.Default);
         public void Randomize(RNGProvider random, InfoProvider info)
         {
@@ -118,6 +120,7 @@ namespace Amrv.ConfigurableCompany.API
                 TrySet(Randomizer.Generate(random, this, info), ChangeReason.SCRIPT_RANDOMIZED);
         }
 
+        [Obsolete("Use Randomize(RNGProvider, InfoProvider, ChangeReason)")]
         public void Randomize(RNGProvider random, ChangeReason reason) => Randomize(random, InfoProvider.Default, reason);
         internal void Randomize(RNGProvider random, InfoProvider info, ChangeReason reason)
         {
