@@ -151,9 +151,16 @@ namespace Amrv.ConfigurableCompany.API
             return this;
         }
 
-        public CConfigBuilder SetRandomizer(Func<RNGProvider, CConfig, object> function)
+        public CConfigBuilder SetRandomizer(CRandomizer.Randomize function)
         {
             Randomizer = function;
+            return this;
+        }
+
+        [Obsolete("Randomize functions make use of the CRandomizer.Randomize delegate or extend CRandomizer")]
+        public CConfigBuilder SetRandomizer(Func<RNGProvider, CConfig, object> function)
+        {
+            Randomizer = CRandomizer.Create(function);
             return this;
         }
 

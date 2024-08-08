@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.API.Display;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
 using Amrv.ConfigurableCompany.Utils;
 using System;
@@ -187,12 +188,18 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             return ValueTuple.Create(a, b);
         }
 
-        public override object GetRandomValue(RNGProvider random, CConfig config)
+        public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             double value = random.DistributionNormal(config.GetDefault(0), 2);
             double variation = random.DoubleUnit();
-            double first = Math.Round(value - Math.E * variation);
-            double second = Math.Round(value + Math.E * variation);
+            double first = Math.Round(value - (Math.E * variation));
+            double second = Math.Round(value + (Math.E * variation));
             return (first, second);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.API.Display;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
 using System;
 
@@ -14,8 +15,14 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         protected internal override ConfigDisplay CreateDisplay => new StringDisplayType(length);
 
-        public override object GetRandomValue(RNGProvider random, CConfig config)
+        public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             char[] chars = new char[length];
             for (int i = 0; i < length; i++)
             {

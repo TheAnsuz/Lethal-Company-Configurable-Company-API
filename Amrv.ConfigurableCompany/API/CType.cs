@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.API.Display;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.API.Display;
 using System;
 using System.Collections.Generic;
 
@@ -64,7 +65,10 @@ namespace Amrv.ConfigurableCompany.API
         /// <returns>True if can be accepted as a value, false otherwise</returns>
         public abstract bool IsValidValue(object value);
 
+        [Obsolete("Use GetRandomValue(RNGProvider, CConfig, InfoProvider)")]
         public virtual object GetRandomValue(RNGProvider random, CConfig config) => config.Default;
+
+        public virtual object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info) => config.Default;
 
         /// <summary>
         /// Tries to convert a value to an accepted value by this configuration type

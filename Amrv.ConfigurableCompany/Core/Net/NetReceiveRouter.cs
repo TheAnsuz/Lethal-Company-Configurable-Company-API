@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
+using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Plugin;
 using Amrv.ConfigurableCompany.Utils.IO;
+using System;
 using Unity.Netcode;
 
 namespace Amrv.ConfigurableCompany.Core.Net
@@ -38,13 +40,20 @@ namespace Amrv.ConfigurableCompany.Core.Net
                 return;
             }
 
+            CConfig[] received = new CConfig[bundle.Entries().Count];
+            int index = 0;
+
             foreach (var entries in bundle.Entries())
             {
                 if (CConfig.Storage.TryGetValue(entries.Key, out var config) && config.Synchronized)
                 {
                     ReadConfigBundle(config, entries.Value);
+                    received[index++] = config;
                 }
             }
+
+            Array.Resize(ref received, index + 1);
+            CEvents.IOSEvents.Synchronize.Invoke(new(false, received));
         }
 
         private static void ReadConfigBundle(CConfig config, ConfigBundle.ConfigEntry entry)

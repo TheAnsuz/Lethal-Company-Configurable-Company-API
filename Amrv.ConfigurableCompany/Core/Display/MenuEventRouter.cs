@@ -1,9 +1,9 @@
 ﻿using Amrv.ConfigurableCompany.API;
+using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
-using System;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
@@ -49,12 +49,29 @@ namespace Amrv.ConfigurableCompany.Core.Display
             CEvents.MenuEvents.Paste.Invoke();
         }
 
-        public static void OnClick_Randomize(int seed, Random random)
+        public static void OnClick_Randomize(string seed)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
+
+            InfoProvider info;
+            RNGProvider random;
+
+            if (SpecialSeed.IsSpecialSeed(seed, out var specialSeed))
+            {
+                info = new InfoProvider(seed, specialSeed);
+                random = new RNGProvider(info.SpecialSeed.Seed);
+            }
+            else
+            {
+                info = new InfoProvider(seed);
+                random = new RNGProvider(RandomSeedParser.FromSeed(seed));
+            }
+
             foreach (var config in CConfig.Storage.Values)
-                config.Randomize(random, ChangeReason.USER_RANDOMIZED);
-            CEvents.MenuEvents.Randomize.Invoke(new(seed, random));
+                config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
+
+            MenuController.SetRandomizerDetails(info);
+            CEvents.MenuEvents.Randomize.Invoke(new(random, info));
         }
 
         public static void OnClick_ShowPage(CPage page)
@@ -125,6 +142,12 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Toggle Category ({category.ID}, {(active ? "Visible" : "Hidden")})");
             IOController.SetCategoryOpenState(category, active);
+        }
+
+        public static void OnAction_ToggleSection(CSection section, bool active)
+        {
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Toggle Section ({section.ID}, {(active ? "Visible" : "Hidden")})");
+            IOController.SetSectionOpenState(section, active);
         }
     }
 }

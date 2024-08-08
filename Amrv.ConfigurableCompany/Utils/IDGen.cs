@@ -21,12 +21,12 @@ namespace Amrv.ConfigurableCompany.Utils
 
             for (int i = 0; i < inBytes.Length; i++)
             {
-                outBytes[i % outBytes.Length] ^= (byte)(inBytes[i] << 7 ^ inBytes[i] >> 3 | inBytes[i] << 5);
+                outBytes[i % outBytes.Length] ^= (byte)(((inBytes[i] << 7) ^ (inBytes[i] >> 3)) | (inBytes[i] << 5));
             }
 
             for (int outByte = 0; outByte < outBytes.Length; outByte++)
             {
-                hash = hash << 8 | outBytes[outByte];
+                hash = (hash << 8) | outBytes[outByte];
             }
 
             return hash;

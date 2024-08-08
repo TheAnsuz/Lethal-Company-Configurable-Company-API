@@ -1,4 +1,5 @@
-﻿using Amrv.ConfigurableCompany.API.Display;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
 using Amrv.ConfigurableCompany.Utils;
 using System;
@@ -76,11 +77,15 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
             return false;
         }
 
-        public override object GetRandomValue(RNGProvider random, CConfig config)
+        public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
-            bool val = random.Bool();
-            Console.WriteLine($"Generated: {val} for {config.ID}");
-            return val;
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
+            return random.Bool();
         }
     }
 }

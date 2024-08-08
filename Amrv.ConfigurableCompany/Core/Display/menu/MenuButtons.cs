@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.Core.Extensions;
+﻿using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.Core.Display.Scripts;
+using Amrv.ConfigurableCompany.Core.Extensions;
 using System;
 using TMPro;
 using UnityEngine;
@@ -15,8 +17,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         protected readonly GameObject ButtonRestore;
         protected readonly GameObject ButtonCopy;
         protected readonly GameObject ButtonPaste;
-        protected readonly GameObject ButtonRandomize;
+
         protected readonly TMP_InputField ButtonRandomize_Input;
+        protected readonly TextMeshProUGUI ButtonRandomize_Extra;
+        protected readonly Button ButtonRandomize_Clear;
+        protected readonly Button ButtonRandomize_Redo;
+        protected readonly Button ButtonRandomize_Accept;
 
         internal MenuButtons(MenuBind bind)
         {
@@ -42,27 +48,61 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             //ButtonPaste.AddComponent<NoDrawGraphic>();
             ButtonPaste.GetComponent<Button>().onClick.AddListener(OnPaste);
 
-            ButtonRandomize = Bind.Menu.FindChild("Buttons/Randomize");
-            ButtonRandomize_Input = ButtonRandomize.GetComponentInChildren<TMP_InputField>();
-            ButtonRandomize.GetComponent<Button>().onClick.AddListener(OnRandomize);
+            var randomize = Bind.Menu.FindChild("Buttons/Randomize");
+            ButtonRandomize_Extra = randomize.FindChild("Text/Extra").GetComponent<TextMeshProUGUI>();
+            ButtonRandomize_Input = randomize.FindChild("Handler/Input").GetComponent<TMP_InputField>();
+            ButtonRandomize_Redo = randomize.FindChild("Handler/Redo").GetComponent<Button>();
+            ButtonRandomize_Clear = randomize.FindChild("Handler/Clear").GetComponent<Button>();
+            ButtonRandomize_Accept = randomize.FindChild("Handler/Accept").GetComponent<Button>();
+
+            ButtonRandomize_Input.characterLimit = 10;
+            ButtonRandomize_Input.contentType = TMP_InputField.ContentType.Custom;
+            ButtonRandomize_Input.characterValidation = TMP_InputField.CharacterValidation.CustomValidator;
+            ButtonRandomize_Input.inputValidator = CustomCharacterValidator.Create(SeedValidator);
+
+            ButtonRandomize_Extra.text = "";
+
+            ButtonRandomize_Clear.onClick.AddListener(OnRandomize_Clear);
+            ButtonRandomize_Redo.onClick.AddListener(OnRandomize_Redo);
+            ButtonRandomize_Accept.onClick.AddListener(OnRandomize_Accept);
         }
 
-        private void OnRandomize()
+        private void OnRandomize_Accept()
         {
-            System.Random random;
-            if (int.TryParse(ButtonRandomize_Input.text, out int seed) && seed != 0)
+            if (RandomSeedParser.IsValidString(ButtonRandomize_Input.text))
             {
-                random = new(Math.Abs(seed));
+                string seedString = RandomSeedParser.FormalizeString(ButtonRandomize_Input.text);
+                MenuEventRouter.OnClick_Randomize(seedString);
             }
             else
             {
-                seed = new System.Random().Next();
-                random = new(Math.Abs(seed));
+                ButtonRandomize_Input.text = "";
             }
+        }
 
-            ButtonRandomize_Input.text = seed.ToString();
+        private void OnRandomize_Redo()
+        {
+            ButtonRandomize_Input.text = RandomSeedParser.GenerateRandom();
+        }
 
-            MenuEventRouter.OnClick_Randomize(seed, random);
+        private void OnRandomize_Clear()
+        {
+            ButtonRandomize_Input.text = "";
+        }
+
+        private bool SeedValidator(ref string text, ref int pos, ref char ch)
+        {
+            if (text.Length >= 10)
+                return false;
+
+            ch = char.ToUpperInvariant(ch);
+
+            if (RandomSeedParser.IsValidChar(ch))
+            {
+                pos = text.Length + 1;
+                return true;
+            }
+            return false;
         }
 
         private void OnSave(/*object sender, PointerEventData e*/)
@@ -102,6 +142,24 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         public void UpdateSelf()
         {
 
+        }
+
+        internal void SetRandomizerDetails(InfoProvider info)
+        {
+            if (info.IsSpecialSeed)
+            {
+                ButtonRandomize_Extra.text = "Special Seed";
+            }
+            else if (info.IsChallenge)
+            {
+                ButtonRandomize_Extra.text = "Challenge Seed";
+            }
+            else
+            {
+                ButtonRandomize_Extra.text = "";
+            }
+
+            ButtonRandomize_Input.text = info.SeedString;
         }
     }
 }

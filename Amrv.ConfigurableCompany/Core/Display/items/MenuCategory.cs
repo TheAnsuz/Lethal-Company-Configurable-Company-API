@@ -49,7 +49,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         private void SetOpen(bool open)
         {
-            open &= Content.transform.childCount != 0;
             Content.SetActive(open);
             Shadow.SetActive(!open);
             Container.SetActive(!(Content.transform.childCount == 0 && Category.HideIfEmpty));
