@@ -5,6 +5,8 @@ namespace Amrv.ConfigurableCompany.API.Data
 {
     public readonly struct InfoChallenge
     {
+        public static readonly InfoChallenge Default = new(new DateTime(ticks: 1234567890, DateTimeKind.Utc));
+
         public readonly int Week;
         public readonly int Year;
         public readonly int Month;

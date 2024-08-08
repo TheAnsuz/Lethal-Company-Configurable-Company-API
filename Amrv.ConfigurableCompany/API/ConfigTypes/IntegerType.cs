@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.ConfigTypes;
+using Amrv.ConfigurableCompany.Plugin;
 using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Globalization;
@@ -95,6 +96,12 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             return Math.Round(UseSlider ? random.Double(Min, Max) : random.DistributionNormal(config.GetDefault(0), 2));
         }
     }

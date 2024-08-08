@@ -94,6 +94,12 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             return Math.Round(UseSlider ? random.Double(Min, Max) : random.DistributionNormal(config.GetDefault(0), 2), 2);
         }
     }

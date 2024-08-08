@@ -79,9 +79,13 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
-            bool val = random.Bool();
-            Console.WriteLine($"Generated: {val} for {config.ID}");
-            return val;
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
+            return random.Bool();
         }
     }
 }

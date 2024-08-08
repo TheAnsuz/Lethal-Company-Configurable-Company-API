@@ -50,16 +50,23 @@ namespace Amrv.ConfigurableCompany.Core.Display
             CEvents.MenuEvents.Paste.Invoke();
         }
 
-        public static void OnClick_Randomize(RNGProvider random, string seed)
+        public static void OnClick_Randomize(string seed)
         {
-            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({random.SeedAlpha}|{random.SeedBeta}|{seed})");
+            ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
 
             InfoProvider info;
+            RNGProvider random;
 
             if (SpecialSeed.IsSpecialSeed(seed, out var specialSeed))
+            {
                 info = new InfoProvider(seed, specialSeed);
+                random = new RNGProvider(info.SpecialSeed.Seed);
+            }
             else
-                info = InfoProvider.Default;
+            {
+                info = new InfoProvider(seed);
+                random = new RNGProvider(RandomSeedParser.FromSeed(seed));
+            }
 
             foreach (var config in CConfig.Storage.Values)
                 config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);

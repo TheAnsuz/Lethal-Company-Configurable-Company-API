@@ -190,6 +190,12 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             double value = random.DistributionNormal(config.GetDefault(0), 2);
             double variation = random.DoubleUnit();
             double first = Math.Round(value - Math.E * variation);

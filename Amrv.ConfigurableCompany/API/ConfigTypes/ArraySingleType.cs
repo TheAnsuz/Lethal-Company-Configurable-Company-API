@@ -140,6 +140,12 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
         public override object GetRandomValue(RNGProvider random, CConfig config, InfoProvider info)
         {
+            if (info.IsSpecialSeed && info.SpecialSeed.TryGet(config, out var presetValue))
+                return presetValue;
+
+            if (info.UseDefault)
+                return config.Default;
+
             return Values[random.Int(Values.Length)];
         }
     }

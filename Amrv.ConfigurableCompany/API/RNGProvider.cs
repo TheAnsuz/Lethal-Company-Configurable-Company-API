@@ -9,6 +9,7 @@ namespace Amrv.ConfigurableCompany.API
         public static readonly RNGProvider Static = new();
 
         private bool _useAlpha = false;
+        public readonly long SeedLong;
         public readonly int SeedAlpha;
         public readonly int SeedBeta;
         public readonly Random RandomAlpha;
@@ -25,14 +26,11 @@ namespace Amrv.ConfigurableCompany.API
 
         public RNGProvider() : this(new Random()) { }
 
-        public RNGProvider(Random random)
-        {
-            SeedAlpha = random.Next();
-            SeedBeta = random.Next();
-            RandomAlpha = new(SeedAlpha);
-            RandomBeta = new(SeedBeta);
-            _useAlpha = SeedAlpha > SeedBeta;
-        }
+        public RNGProvider(Random random) : this(random.Next(), random.Next()) { }
+
+        public RNGProvider(int seed) : this(seed, ~seed) { }
+
+        public RNGProvider(long seed) : this((int)(seed >> 32), (int)(seed & 0x00000000FFFFFFFF)) { }
 
         public RNGProvider(int alpha, int beta)
         {
@@ -41,11 +39,8 @@ namespace Amrv.ConfigurableCompany.API
             RandomAlpha = new(SeedAlpha);
             RandomBeta = new(SeedBeta);
             _useAlpha = SeedAlpha > SeedBeta;
+            SeedLong = (long)beta << 32 | (long)alpha;
         }
-
-        public RNGProvider(int seed) : this(seed, ~seed) { }
-
-        public RNGProvider(long seed) : this((int)(seed & 0x00000000FFFFFFFF), (int)(seed >> 32)) { }
 
         public string String() => String(Random.Next());
         public string String(IEnumerable<char> posibleChars) => String(posibleChars.ToArray(), Random.Next());

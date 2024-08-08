@@ -72,9 +72,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             if (RandomSeedParser.IsValidString(ButtonRandomize_Input.text))
             {
                 string seedString = RandomSeedParser.FormalizeString(ButtonRandomize_Input.text);
-                long seed = RandomSeedParser.FromSeed(seedString);
-                var provider = new API.RNGProvider(seed);
-                MenuEventRouter.OnClick_Randomize(provider, seedString);
+                MenuEventRouter.OnClick_Randomize(seedString);
             }
             else
             {
@@ -161,7 +159,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
                 ButtonRandomize_Extra.text = "";
             }
 
-            ButtonRandomize_Input.text = info.Seed;
+            ButtonRandomize_Input.text = info.SeedString;
         }
     }
 }
