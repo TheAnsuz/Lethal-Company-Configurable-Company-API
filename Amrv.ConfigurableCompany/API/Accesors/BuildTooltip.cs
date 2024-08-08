@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Amrv.ConfigurableCompany.API.Accesors
@@ -7,14 +8,24 @@ namespace Amrv.ConfigurableCompany.API.Accesors
     {
         private readonly string Value;
 
-        private BuildTooltip(string value)
+        public BuildTooltip(string value)
         {
             Value = value;
         }
 
+        public BuildTooltip(params string[] lines)
+        {
+            Value = string.Join('\n', lines);
+        }
+
         public static BuildTooltip Create(params string[] lines)
         {
-            return lines;
+            return new(lines);
+        }
+
+        public static BuildTooltip Create(IEnumerable<string> lines)
+        {
+            return new(string.Join('\n', lines));
         }
 
         public static implicit operator BuildTooltip(string text)
@@ -24,7 +35,7 @@ namespace Amrv.ConfigurableCompany.API.Accesors
 
         public static implicit operator BuildTooltip(string[] lines)
         {
-            return new BuildTooltip(string.Join("\n", lines));
+            return new(lines);
         }
 
         public static implicit operator string[](BuildTooltip tooltip)
