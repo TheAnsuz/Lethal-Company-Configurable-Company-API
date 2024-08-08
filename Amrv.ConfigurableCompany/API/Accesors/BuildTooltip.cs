@@ -1,4 +1,7 @@
-﻿namespace Amrv.ConfigurableCompany.API.Accesors
+﻿using System;
+using System.Collections.ObjectModel;
+
+namespace Amrv.ConfigurableCompany.API.Accesors
 {
     public sealed class BuildTooltip
     {
@@ -7,6 +10,11 @@
         private BuildTooltip(string value)
         {
             Value = value;
+        }
+
+        public static BuildTooltip Create(params string[] lines)
+        {
+            return lines;
         }
 
         public static implicit operator BuildTooltip(string text)
