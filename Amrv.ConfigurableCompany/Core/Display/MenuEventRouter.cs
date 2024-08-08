@@ -4,7 +4,6 @@ using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
-using System;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {

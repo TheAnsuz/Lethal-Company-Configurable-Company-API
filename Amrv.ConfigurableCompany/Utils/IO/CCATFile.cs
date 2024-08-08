@@ -102,7 +102,7 @@ namespace Amrv.ConfigurableCompany.Utils.IO
 
         public void Write()
         {
-            int estimate = SIZE_KEY_ESTIMATE + SIZE_VALUE_ESTIMATE * _states.Count;
+            int estimate = SIZE_KEY_ESTIMATE + (SIZE_VALUE_ESTIMATE * _states.Count);
             StringBuilder builder = new(estimate);
 
             foreach (var entry in _states)

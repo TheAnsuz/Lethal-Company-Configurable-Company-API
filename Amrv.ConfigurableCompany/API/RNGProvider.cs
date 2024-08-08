@@ -39,7 +39,7 @@ namespace Amrv.ConfigurableCompany.API
             RandomAlpha = new(SeedAlpha);
             RandomBeta = new(SeedBeta);
             _useAlpha = SeedAlpha > SeedBeta;
-            SeedLong = (long)beta << 32 | (long)alpha;
+            SeedLong = ((long)beta << 32) | (long)alpha;
         }
 
         public string String() => String(Random.Next());
@@ -118,7 +118,7 @@ namespace Amrv.ConfigurableCompany.API
             if (range == 0)
                 return min;
 
-            return ULong() % range + min;
+            return (ULong() % range) + min;
         }
 
         public long Long() => BitConverter.ToInt64(Byte(8), 0);
@@ -141,20 +141,20 @@ namespace Amrv.ConfigurableCompany.API
         public float Float() => (float)(Random.NextDouble() * float.MaxValue);
         public float FloatUnit() => (float)Random.NextDouble();
         public float Float(float max) => (float)(Random.NextDouble() * max);
-        public float Float(float min, float max) => (float)(Random.NextDouble() * (max - min) + min);
+        public float Float(float min, float max) => (float)((Random.NextDouble() * (max - min)) + min);
 
         public double Double() => Random.NextDouble() * double.MaxValue;
         public double DoubleUnit() => Random.NextDouble();
         public double Double(double max) => Random.NextDouble() * max;
-        public double Double(double min, double max) => Random.NextDouble() * (max - min) + min;
+        public double Double(double min, double max) => (Random.NextDouble() * (max - min)) + min;
 
         public decimal Decimal() => (decimal)Random.NextDouble() * decimal.MaxValue;
         public decimal DecimalUnit() => (decimal)Random.NextDouble();
         public decimal Decimal(decimal max) => (decimal)Random.NextDouble() * max;
-        public decimal Decimal(decimal min, decimal max) => (decimal)Random.NextDouble() * (max - min) + min;
+        public decimal Decimal(decimal min, decimal max) => ((decimal)Random.NextDouble() * (max - min)) + min;
 
         public double DistributionNormalUnit() => Math.Sqrt(-2.0 * Math.Log(1 - Random.NextDouble())) * Math.Cos(2.0 * Math.PI * Random.NextDouble());
-        public double DistributionNormal(double mean, double deviation) => DistributionNormalUnit() * deviation + mean;
+        public double DistributionNormal(double mean, double deviation) => (DistributionNormalUnit() * deviation) + mean;
 
         public double DistributionBeta(double alpha, double beta)
         {
@@ -177,7 +177,7 @@ namespace Amrv.ConfigurableCompany.API
         {
             double scaled = (normal - min) / (max - min);
             double unit = DistributionBetaNoncentral(alpha, beta, scaled, 1 - scaled);
-            return unit * (max - min) + min;
+            return (unit * (max - min)) + min;
         }
 
         public double DistributionSkewedNormal(double mean, double deviation, double skewness)
@@ -189,7 +189,7 @@ namespace Amrv.ConfigurableCompany.API
             if (skewness != 0)
                 z0 += skewness * (Math.Abs(z0) * z0);
 
-            return mean + deviation * z0;
+            return mean + (deviation * z0);
         }
 
         public static implicit operator RNGProvider(Random random)

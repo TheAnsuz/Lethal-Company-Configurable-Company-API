@@ -38,14 +38,14 @@ namespace Amrv.ConfigurableCompany.Core.Extensions
                 throw new ArgumentOutOfRangeException("Max must be greater than min when inclusiveUpperBound is false, and greater than or equal to when true", "max");
             }
 
-            ulong limit = ulong.MaxValue - ulong.MaxValue % range;
+            ulong limit = ulong.MaxValue - (ulong.MaxValue % range);
             ulong r;
             do
             {
                 r = rng.NextULong();
             } while (r > limit);
 
-            return r % range + min;
+            return (r % range) + min;
         }
 
         //returns a uniformly random long between long.Min inclusive and long.Max inclusive
@@ -82,18 +82,18 @@ namespace Amrv.ConfigurableCompany.Core.Extensions
                 throw new ArgumentOutOfRangeException("Max must be greater than min when inclusiveUpperBound is false, and greater than or equal to when true", "max");
             }
 
-            ulong limit = ulong.MaxValue - ulong.MaxValue % range;
+            ulong limit = ulong.MaxValue - (ulong.MaxValue % range);
             ulong r;
             do
             {
                 r = rng.NextULong();
             } while (r > limit);
-            return (long)(r % range + (ulong)min);
+            return (long)((r % range) + (ulong)min);
         }
 
         public static double NextDouble(this Random random, double minValue, double maxValue)
         {
-            return random.NextDouble() * (maxValue - minValue) + minValue;
+            return (random.NextDouble() * (maxValue - minValue)) + minValue;
         }
 
         public static bool NextBool(this Random random)
@@ -106,7 +106,7 @@ namespace Amrv.ConfigurableCompany.Core.Extensions
             double x1 = 1 - random.NextDouble();
             double x2 = 1 - random.NextDouble();
             double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return (long)(y1 * deviation + expected);
+            return (long)((y1 * deviation) + expected);
         }
 
         public static double Gaussian(this Random random, double expected, double deviation)
@@ -114,7 +114,7 @@ namespace Amrv.ConfigurableCompany.Core.Extensions
             double x1 = 1 - random.NextDouble();
             double x2 = 1 - random.NextDouble();
             double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
-            return y1 * deviation + expected;
+            return (y1 * deviation) + expected;
         }
     }
 }

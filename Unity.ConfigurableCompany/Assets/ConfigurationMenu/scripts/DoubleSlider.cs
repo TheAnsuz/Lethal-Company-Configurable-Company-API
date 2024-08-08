@@ -100,7 +100,7 @@ public class DoubleSlider : MonoBehaviour
 
     private void MinValueChanged(float value)
     {
-        float offset = ((MinValue - _minValue) / (_maxValue - _minValue)) * _fillArea.rect.width;
+        float offset = (MinValue - _minValue) / (_maxValue - _minValue) * _fillArea.rect.width;
 
         _fillRect.offsetMin = new Vector2(offset, _fillRect.offsetMin.y);
 

@@ -198,8 +198,8 @@ namespace Amrv.ConfigurableCompany.API.ConfigTypes
 
             double value = random.DistributionNormal(config.GetDefault(0), 2);
             double variation = random.DoubleUnit();
-            long first = (long)Math.Round(value - Math.E * variation);
-            long second = (long)Math.Round(value + Math.E * variation);
+            long first = (long)Math.Round(value - (Math.E * variation));
+            long second = (long)Math.Round(value + (Math.E * variation));
             return (first, second);
         }
     }

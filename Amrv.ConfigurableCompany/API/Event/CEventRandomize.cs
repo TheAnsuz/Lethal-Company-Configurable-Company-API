@@ -1,5 +1,4 @@
 ﻿using Amrv.ConfigurableCompany.API.Data;
-using System;
 
 namespace Amrv.ConfigurableCompany.API.Event
 {

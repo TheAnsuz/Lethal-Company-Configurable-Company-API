@@ -77,7 +77,7 @@ namespace Amrv.ConfigurableCompany.API.Accesors
 
         public static implicit operator BuildColor(int hex)
         {
-            return new((byte)(hex >> 16 & 0xff), (byte)(hex >> 8 & 0xff), (byte)(hex & 0xff), (byte)(hex >> 24 & 0xff));
+            return new((byte)((hex >> 16) & 0xff), (byte)((hex >> 8) & 0xff), (byte)(hex & 0xff), (byte)((hex >> 24) & 0xff));
         }
 
         public override string ToString()

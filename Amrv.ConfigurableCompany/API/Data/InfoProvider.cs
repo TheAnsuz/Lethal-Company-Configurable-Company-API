@@ -1,9 +1,4 @@
-﻿using Amrv.ConfigurableCompany.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Amrv.ConfigurableCompany.API.Data
+﻿namespace Amrv.ConfigurableCompany.API.Data
 {
     public sealed class InfoProvider
     {
