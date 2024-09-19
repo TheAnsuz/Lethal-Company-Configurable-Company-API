@@ -1,9 +1,10 @@
-﻿#if DEBUG
+#if DEBUG
 using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core;
 using Amrv.ConfigurableCompany.Core.Dependency;
+using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Core.Net;
@@ -85,6 +86,11 @@ namespace Amrv.ConfigurableCompany.Plugin
             IOController.SaveConfigs();
         }
 
+        internal static void Warn(object data)
+        {
+            _plugin.Logger.LogWarning(data);
+        }
+
         internal static void Error(object data)
         {
             _plugin.Logger.LogError(data);
@@ -95,13 +101,12 @@ namespace Amrv.ConfigurableCompany.Plugin
             _plugin.Logger.LogInfo(data);
         }
 
-#if !DEBUG
-        [Obsolete("Only use for debugging purposes")]
-#endif
         internal static void Debug(object data)
         {
 #if DEBUG
             _plugin.Logger.LogFatal(data);
+#else
+            _plugin.Logger.LogDebug(data);
 #endif
         }
     }

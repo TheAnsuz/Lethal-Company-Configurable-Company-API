@@ -1,4 +1,6 @@
-﻿namespace Amrv.ConfigurableCompany.Core.Display.Menu
+﻿using System.Collections;
+
+namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     internal interface IMenuPart
     {
@@ -12,11 +14,11 @@
         /// <summary>
         /// Called to validate the contents of the panel and fill/refill the information that this panel holds
         /// </summary>
-        public void UpdateContent();
+        public IEnumerator UpdateContent();
 
         /// <summary>
         /// Called to validate the container itself and check what state should it display
         /// </summary>
-        public void UpdateSelf();
+        public IEnumerator UpdateSelf();
     }
 }

@@ -1,5 +1,9 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.scripts;
+using DigitalRuby.ThunderAndLightning;
+using System.Collections;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Display
@@ -8,11 +12,40 @@ namespace Amrv.ConfigurableCompany.Core.Display
     {
         private static MenuBind Instance;
 
-        public static void Create(GameObject parent)
+        public static void Create(GameObject parent, MenuManager manager)
         {
-            Instance = MenuBind.Create(parent.transform);
-            SetVisible(false);
+            GameObject creator = new("Configurable company menu creator", typeof(CoroutinePool));
+            CoroutinePool pool = creator.GetComponent<CoroutinePool>();
+
+            pool.StartCoroutine(CreateAsync(parent, manager, pool));
+        }
+
+        private static IEnumerator CreateAsync(GameObject parent, MenuManager manager, CoroutinePool creatorPool)
+        {
+            MenuLoader.GetInstance().Visible = true;
+            MenuLoader.GetInstance().Fill = 0;
+            MenuLoader.GetInstance().Text = "Creating menu";
+            yield return MenuBind.Create(parent.transform);
+
+            Instance = MenuBind.GetInstance();
+
+            MenuLoader.GetInstance().Visible = true;
+            MenuLoader.GetInstance().Fill = 1;
+            MenuLoader.GetInstance().Text = "Activating";
+            yield return null;
+
+            SetVisible(manager.HostSettingsScreen.activeSelf);
             Instance.Toggler.Open = false;
+
+            MenuLoader.GetInstance().Visible = false;
+
+            yield return null;
+            Object.Destroy(creatorPool.gameObject, 5f);
+        }
+
+        public static bool IsLocked()
+        {
+            return Instance?.Toggler.Locked ?? false;
         }
 
         public static void SetLocked(bool locked)

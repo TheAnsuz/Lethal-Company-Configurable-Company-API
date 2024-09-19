@@ -1,5 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Menu
@@ -31,16 +32,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             _sections.Clear();
         }
 
-        public void UpdateContent()
+        public IEnumerator UpdateContent()
         {
             foreach (CSection section in CSection.Storage.Values)
             {
                 AddSection(section);
             }
+
+            yield break;
         }
 
-        public void UpdateSelf()
+        public IEnumerator UpdateSelf()
         {
+            yield break;
         }
     }
 }

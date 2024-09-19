@@ -96,4 +96,8 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="echo %25cd%25&#xD;&#xA;rmdir /S /Q bin\$(ConfigurationName)" />
   </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo current dir is %25cd%25&#xD;&#xA;echo output is $(OutDir)&#xD;&#xA;copy ..\Unity.ConfigurableCompany\Assets\AssetBundles\configuration_menu $(OutDir)" />
+  </Target>
 </Project>
