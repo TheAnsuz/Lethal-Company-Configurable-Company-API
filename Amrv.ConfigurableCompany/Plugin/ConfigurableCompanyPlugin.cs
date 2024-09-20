@@ -1,4 +1,4 @@
-#if DEBUG && false
+﻿#if DEBUG && false
 using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
@@ -21,7 +21,7 @@ namespace Amrv.ConfigurableCompany.Plugin
     {
         public const string PLUGIN_GUID = "dev.amrv.lethalCompany.config";
         public const string PLUGIN_NAME = "Configurable Company";
-        public const string PLUGIN_VERSION = "3.5.0";
+        public const string PLUGIN_VERSION = "3.6.0";
 
         /// <summary>
         /// Plugin folder
