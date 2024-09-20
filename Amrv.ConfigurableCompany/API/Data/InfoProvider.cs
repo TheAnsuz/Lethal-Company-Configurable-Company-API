@@ -1,6 +1,4 @@
-﻿using Amrv.ConfigurableCompany.Core;
-
-namespace Amrv.ConfigurableCompany.API.Data
+﻿namespace Amrv.ConfigurableCompany.API.Data
 {
     public sealed class InfoProvider
     {

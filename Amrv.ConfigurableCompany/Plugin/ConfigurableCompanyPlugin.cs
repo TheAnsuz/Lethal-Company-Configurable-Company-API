@@ -1,10 +1,9 @@
-#if DEBUG
+#if DEBUG && false
 using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core;
 using Amrv.ConfigurableCompany.Core.Dependency;
-using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Core.Net;
@@ -61,7 +60,7 @@ namespace Amrv.ConfigurableCompany.Plugin
 
             DependencyManager.CheckDependencies(Patcher);
 
-#if DEBUG
+#if DEBUG && false
             foreach (var patch in Patcher.GetPatchedMethods())
             {
                 Debug($"Patched {patch.DeclaringType}::{patch.Name}");

@@ -2,7 +2,6 @@
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +24,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             return _instance;
         }
 
-        internal protected static MenuLoader Create()
+        protected internal static MenuLoader Create()
         {
             ConfigurableCompanyPlugin.Debug($"Creating Menu Loader");
 
@@ -59,7 +58,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             return _instance;
         }
 
-        internal static protected void Destroy()
+        protected internal static void Destroy()
         {
             _instance?.DestroyInstance();
             _instance = null;

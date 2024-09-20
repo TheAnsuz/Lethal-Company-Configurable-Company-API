@@ -3,8 +3,6 @@ using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Display.scripts;
 using Amrv.ConfigurableCompany.Plugin;
-using DigitalRuby.ThunderAndLightning;
-using System;
 using System.Collections;
 using UnityEngine;
 

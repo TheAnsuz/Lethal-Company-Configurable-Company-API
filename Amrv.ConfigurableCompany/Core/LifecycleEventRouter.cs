@@ -1,9 +1,7 @@
-﻿using Amrv.ConfigurableCompany.API.Data;
-using Amrv.ConfigurableCompany.API.Event;
+﻿using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Display;
 using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.IO;
-using Amrv.ConfigurableCompany.Plugin;
 using System.Collections;
 using UnityEngine;
 

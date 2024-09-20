@@ -1,13 +1,10 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Display.menu;
-using Amrv.ConfigurableCompany.Core.Display.scripts;
 using Amrv.ConfigurableCompany.Plugin;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
@@ -98,7 +95,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
                     ConfigurableCompanyPlugin.Debug($"Configuration loading took more than 2s, delayed by one update");
                     loader.Text = $"Populating menu<br>Updating Configs ({(float)actual / CConfig.Storage.Count:P0})...";
                 }
-                
+
                 if (totalTime.ElapsedMilliseconds > lastUpdateMs + 150)
                 {
                     lastUpdateMs = totalTime.ElapsedMilliseconds;

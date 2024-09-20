@@ -1,7 +1,4 @@
 ﻿using Amrv.ConfigurableCompany.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Amrv.ConfigurableCompany.Core
 {

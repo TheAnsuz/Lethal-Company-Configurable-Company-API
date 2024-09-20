@@ -11,7 +11,7 @@ namespace Amrv.ConfigurableCompany.API.Event
         protected internal CEventType() { }
 
         protected internal IEnumerator Invoke(T args)
-        {       
+        {
             Listeners?.Invoke(args);
             yield break;
         }

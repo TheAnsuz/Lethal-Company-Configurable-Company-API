@@ -5,7 +5,6 @@ using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
 using System.Collections;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -130,17 +129,17 @@ namespace Amrv.ConfigurableCompany.Core.Display
             loader.Fill = 0.33f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Categories'");
             Categories = new(this);
-            
+
             loader.Text = "Creating menu<br>Creating Sections...";
             loader.Fill = 0.38f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Sections'");
             Sections = new(this);
-            
+
             loader.Text = "Creating menu<br>Creating Configs...";
             loader.Fill = 0.42f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Configs'");
             Configs = new(this);
-            
+
             loader.Text = "Creating menu<br>Creating Presets...";
             loader.Fill = 0.49f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Presets'");

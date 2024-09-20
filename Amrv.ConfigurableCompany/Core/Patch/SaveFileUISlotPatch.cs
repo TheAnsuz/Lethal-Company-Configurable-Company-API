@@ -1,6 +1,4 @@
-﻿using Amrv.ConfigurableCompany.API;
-using Amrv.ConfigurableCompany.API.Data;
-using Amrv.ConfigurableCompany.Core.Display;
+﻿using Amrv.ConfigurableCompany.Core.Display;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
 using HarmonyLib;
