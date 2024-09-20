@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.Core.Display;
+﻿using Amrv.ConfigurableCompany.API;
+using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.Core.Display;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
 using HarmonyLib;
@@ -23,6 +25,8 @@ namespace Amrv.ConfigurableCompany.Core.Patch
 
             IOController.LoadConfigs();
             IOController.GetConfigCache();
+            MenuController.UpdateSeedFromCache();
+
             MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
         }
 

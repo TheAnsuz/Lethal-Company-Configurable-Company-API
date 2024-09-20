@@ -1,4 +1,6 @@
-﻿namespace Amrv.ConfigurableCompany.API.Data
+﻿using Amrv.ConfigurableCompany.Core;
+
+namespace Amrv.ConfigurableCompany.API.Data
 {
     public sealed class InfoProvider
     {
@@ -16,7 +18,7 @@
 
         private InfoProvider()
         {
-            SeedString = "DEFAULT";
+            SeedString = "";
             IsSpecialSeed = false;
             IsChallenge = false;
             SpecialSeed = null;
@@ -52,6 +54,18 @@
             Challenge = challenge;
             SpecialSeed = null;
             UseDefault = false;
+        }
+
+        public static InfoProvider Create(string seed, SpecialSeed special = null, InfoChallenge? challenge = null)
+        {
+            if (special != null)
+            {
+                return new InfoProvider(seed, special);
+            }
+            else
+            {
+                return new InfoProvider(seed);
+            }
         }
 
         /*

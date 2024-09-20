@@ -10,6 +10,13 @@ namespace Amrv.ConfigurableCompany.API.Data
 
         public static bool IsSpecialSeed(string seed, out SpecialSeed specialSeed) => Seeds.TryGetValue(seed, out specialSeed);
 
+        public static SpecialSeed GetSpecialSeed(string seed)
+        {
+            if (Seeds.TryGetValue(seed, out var specialSeed))
+                return specialSeed;
+            return null;
+        }
+
         public static SpecialSeed Define(string name, int seed) => new(name, seed);
 
         public readonly int Index;

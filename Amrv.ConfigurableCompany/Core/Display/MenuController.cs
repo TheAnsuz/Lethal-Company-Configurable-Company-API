@@ -2,7 +2,9 @@
 using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Display.scripts;
+using Amrv.ConfigurableCompany.Plugin;
 using DigitalRuby.ThunderAndLightning;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +12,12 @@ namespace Amrv.ConfigurableCompany.Core.Display
 {
     internal static class MenuController
     {
+        public delegate IEnumerator AfterCreationProcess(MenuManager manager);
+
         private static MenuBind Instance;
+
+        private static AfterCreationProcess _afterCreation;
+        public static void AfterCreation(AfterCreationProcess action) => _afterCreation += action;
 
         public static void Create(GameObject parent, MenuManager manager)
         {
@@ -39,8 +46,11 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
             MenuLoader.GetInstance().Visible = false;
 
+            if (_afterCreation != null)
+                yield return _afterCreation.Invoke(manager);
+
             yield return null;
-            Object.Destroy(creatorPool.gameObject, 5f);
+            UnityEngine.Object.Destroy(creatorPool.gameObject, 5f);
         }
 
         public static bool IsLocked()
@@ -161,6 +171,22 @@ namespace Amrv.ConfigurableCompany.Core.Display
             if (Instance == null) return;
 
             Instance.Presets.UpdateContent();
+        }
+
+        public static void UpdateSeedFromCache()
+        {
+            ConfigurableCompanyPlugin.Debug($"Trying to update seed info with cached seed");
+
+            if (Instance == null) return;
+
+            if (CCache.UsedSeed == null)
+                ConfigurableCompanyPlugin.Debug($"Invalid cached seed for update: {CCache.UsedSeed}");
+            else
+            {
+                InfoProvider info = InfoProvider.Create(CCache.UsedSeed, SpecialSeed.GetSpecialSeed(CCache.UsedSeed));
+                SetRandomizerDetails(info);
+                ConfigurableCompanyPlugin.Debug($"Updated seed from {(info.IsSpecialSeed ? "Special seed" : info.IsChallenge ? "Challenge seed" : "Normal seed")}: {info.SeedString}");
+            }
         }
     }
 }

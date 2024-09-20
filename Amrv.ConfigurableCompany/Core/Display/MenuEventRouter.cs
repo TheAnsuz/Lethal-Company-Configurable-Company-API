@@ -53,23 +53,25 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Randomize ({seed})");
 
-            InfoProvider info;
-            RNGProvider random;
+            if (seed == null || seed == "")
+            {
+                foreach (var config in CConfig.Storage.Values)
+                    config.Reset(ChangeReason.USER_RANDOMIZED);
 
-            if (SpecialSeed.IsSpecialSeed(seed, out var specialSeed))
-            {
-                info = new InfoProvider(seed, specialSeed);
-                random = new RNGProvider(info.SpecialSeed.Seed);
+                CEvents.MenuEvents.Randomize.Invoke(new(RNGProvider.Static, InfoProvider.Default));
+
+                CCache.UsedSeed = "";
+                MenuController.SetRandomizerDetails(InfoProvider.Default);
+                return;
             }
-            else
-            {
-                info = new InfoProvider(seed);
-                random = new RNGProvider(RandomSeedParser.FromSeed(seed));
-            }
+
+            InfoProvider info = InfoProvider.Create(seed, SpecialSeed.GetSpecialSeed(seed));
+            RNGProvider random = info.IsSpecialSeed ? new RNGProvider(info.SpecialSeed.Seed) : new RNGProvider(RandomSeedParser.FromSeed(seed));
 
             foreach (var config in CConfig.Storage.Values)
                 config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
 
+            CCache.UsedSeed = info.SeedString;
             MenuController.SetRandomizerDetails(info);
             CEvents.MenuEvents.Randomize.Invoke(new(random, info));
         }

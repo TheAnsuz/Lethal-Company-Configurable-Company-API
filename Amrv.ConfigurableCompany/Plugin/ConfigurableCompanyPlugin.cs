@@ -81,6 +81,7 @@ namespace Amrv.ConfigurableCompany.Plugin
 
         private static void OnQuit()
         {
+            IOController.SetConfigMetadata();
             IOController.SaveCategories();
             IOController.SaveSections();
             IOController.SaveConfigs();

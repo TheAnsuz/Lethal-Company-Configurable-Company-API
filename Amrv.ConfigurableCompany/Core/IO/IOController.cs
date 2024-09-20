@@ -6,6 +6,7 @@ namespace Amrv.ConfigurableCompany.Core.IO
     public static class IOController
     {
         public const string VERSION = "2";
+        public const string FIELD_CUSTOM_SEED = "Seed";
 
         public static void SaveCategories() => IOCategories.Save();
         public static void LoadCategories() => IOCategories.Load();
@@ -39,7 +40,8 @@ namespace Amrv.ConfigurableCompany.Core.IO
         public static void SetConfigCache(CConfig config)
         {
             IOConfigurations.GetOrCreate(IOConfigurations.FileName, out CCFGFile cfg);
-            cfg.AddMetadata(nameof(VERSION), VERSION);
+
+            ApplyMetadata(cfg);
 
             WriteConfigEntryCache(config, cfg);
         }
@@ -56,10 +58,17 @@ namespace Amrv.ConfigurableCompany.Core.IO
             return false;
         }
 
+        public static void SetConfigMetadata()
+        {
+            IOConfigurations.GetOrCreate(IOConfigurations.FileName, out CCFGFile cfg);
+            ApplyMetadata(cfg);
+        }
+
         public static void SetConfigCache()
         {
             IOConfigurations.GetOrCreate(IOConfigurations.FileName, out CCFGFile cfg);
-            cfg.AddMetadata(nameof(VERSION), VERSION);
+
+            ApplyMetadata(cfg);
 
             foreach (CConfig config in CConfig.Storage.Values)
                 WriteConfigEntryCache(config, cfg);
@@ -69,6 +78,11 @@ namespace Amrv.ConfigurableCompany.Core.IO
         {
             if (IOConfigurations.TryGetFile(IOConfigurations.FileName, out CCFGFile cfg))
             {
+                if (cfg.TryGetMetadata(FIELD_CUSTOM_SEED, out string seed) && seed != null)
+                    CCache.UsedSeed = seed;
+                else
+                    CCache.UsedSeed = "";
+
                 foreach (CConfig config in CConfig.Storage.Values)
                 {
                     if (cfg.TryGetEntry(config.ID, out CCFGFile.CCFGEntry entry))
@@ -84,6 +98,14 @@ namespace Amrv.ConfigurableCompany.Core.IO
                 foreach (CConfig config in CConfig.Storage.Values)
                     config.Reset(ChangeReason.READ_FROM_FILE);
             }
+        }
+
+        private static void ApplyMetadata(CCFGFile cfg)
+        {
+            cfg.AddMetadata(nameof(VERSION), VERSION);
+
+            if (CCache.UsedSeed != null)
+                cfg.AddMetadata(FIELD_CUSTOM_SEED, CCache.UsedSeed);
         }
 
         private static void ReadConfigEntryCache(CConfig config, CCFGFile.CCFGEntry entry)
