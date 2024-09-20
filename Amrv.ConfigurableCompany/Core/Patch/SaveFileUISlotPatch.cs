@@ -23,6 +23,8 @@ namespace Amrv.ConfigurableCompany.Core.Patch
 
             IOController.LoadConfigs();
             IOController.GetConfigCache();
+            MenuController.UpdateSeedFromCache();
+
             MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
         }
 

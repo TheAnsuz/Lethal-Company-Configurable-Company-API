@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,17 +48,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         }
 
-        public void UpdateContent()
+        public IEnumerator UpdateContent()
         {
             foreach (CCategory page in CCategory.Storage.Values)
             {
                 AddCategory(page);
             }
+
+            yield break;
         }
 
-        public void UpdateSelf()
+        public IEnumerator UpdateSelf()
         {
-
+            yield break;
         }
     }
 }

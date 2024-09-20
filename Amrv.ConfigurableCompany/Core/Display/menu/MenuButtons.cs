@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -133,15 +134,15 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         }
 
         [Obsolete("Does nothing on this class")]
-        public void UpdateContent()
+        public IEnumerator UpdateContent()
         {
-
+            yield break;
         }
 
         [Obsolete("Does nothing on this class")]
-        public void UpdateSelf()
+        public IEnumerator UpdateSelf()
         {
-
+            yield break;
         }
 
         internal void SetRandomizerDetails(InfoProvider info)

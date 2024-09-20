@@ -1,4 +1,4 @@
-﻿#if DEBUG
+﻿#if DEBUG && false
 using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
@@ -21,7 +21,7 @@ namespace Amrv.ConfigurableCompany.Plugin
     {
         public const string PLUGIN_GUID = "dev.amrv.lethalCompany.config";
         public const string PLUGIN_NAME = "Configurable Company";
-        public const string PLUGIN_VERSION = "3.5.0";
+        public const string PLUGIN_VERSION = "3.6.0";
 
         /// <summary>
         /// Plugin folder
@@ -60,7 +60,7 @@ namespace Amrv.ConfigurableCompany.Plugin
 
             DependencyManager.CheckDependencies(Patcher);
 
-#if DEBUG
+#if DEBUG && false
             foreach (var patch in Patcher.GetPatchedMethods())
             {
                 Debug($"Patched {patch.DeclaringType}::{patch.Name}");
@@ -80,9 +80,15 @@ namespace Amrv.ConfigurableCompany.Plugin
 
         private static void OnQuit()
         {
+            IOController.SetConfigMetadata();
             IOController.SaveCategories();
             IOController.SaveSections();
             IOController.SaveConfigs();
+        }
+
+        internal static void Warn(object data)
+        {
+            _plugin.Logger.LogWarning(data);
         }
 
         internal static void Error(object data)
@@ -95,13 +101,12 @@ namespace Amrv.ConfigurableCompany.Plugin
             _plugin.Logger.LogInfo(data);
         }
 
-#if !DEBUG
-        [Obsolete("Only use for debugging purposes")]
-#endif
         internal static void Debug(object data)
         {
 #if DEBUG
             _plugin.Logger.LogFatal(data);
+#else
+            _plugin.Logger.LogDebug(data);
 #endif
         }
     }

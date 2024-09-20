@@ -1,4 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.Core.Display;
+using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
 using HarmonyLib;
@@ -17,10 +18,10 @@ namespace Amrv.ConfigurableCompany.Core.Patch
             if (!__instance.isInitScene)
             {
                 //CategoryIO.Load();
-                LifecycleEventRouter.CreateMenu();
+                MenuLoader.Create();
+                LifecycleEventRouter.CreateMenu(__instance);
                 __instance.HostSettingsScreen.FindChild("HostSettingsContainer/Back").GetComponent<Button>().onClick.AddListener(ClickBackButton_Event);
             }
-
         }
 
         private static void ClickBackButton_Event()

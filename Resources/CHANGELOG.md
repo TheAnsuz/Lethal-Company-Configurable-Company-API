@@ -1,3 +1,18 @@
+# 3.6.0
+
+### Fixed
+
+-   Added a loading screen to represent the progress loading the mod and menu
+-   Added code optimizations to load 10 times faster
+
+### Added
+
+-   Seeds now will be saved with the configurations
+
+### Modified
+
+-   Presets will not default to any specific preset, rather it will remain empty until one is selected
+
 # 3.5.0
 
 ### Fixed

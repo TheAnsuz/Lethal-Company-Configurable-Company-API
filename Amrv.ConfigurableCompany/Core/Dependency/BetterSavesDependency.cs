@@ -35,6 +35,9 @@ namespace Amrv.ConfigurableCompany.Core.Dependency
                 IOController.LoadConfigs();
 
             IOController.GetConfigCache();
+
+            MenuController.UpdateSeedFromCache();
+
             MenuController.SetCurrentFileName(__instance.fileString);
         }
 
@@ -51,6 +54,9 @@ namespace Amrv.ConfigurableCompany.Core.Dependency
                 IOController.LoadConfigs();
 
             IOController.GetConfigCache();
+
+            MenuController.UpdateSeedFromCache();
+
             MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
         }
 
@@ -67,6 +73,9 @@ namespace Amrv.ConfigurableCompany.Core.Dependency
                 IOController.LoadConfigs();
 
             IOController.GetConfigCache();
+
+            MenuController.UpdateSeedFromCache();
+
             MenuController.SetCurrentFileName(GameNetworkManager.Instance.currentSaveFileName);
         }
     }

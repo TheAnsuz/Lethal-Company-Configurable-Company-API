@@ -1,4 +1,6 @@
-﻿namespace Amrv.ConfigurableCompany.API.Event
+﻿using System.Collections;
+
+namespace Amrv.ConfigurableCompany.API.Event
 {
     public delegate void CEventHandler<T>(T @event) where T : CEvent;
 
@@ -8,9 +10,10 @@
 
         protected internal CEventType() { }
 
-        protected internal void Invoke(T args)
+        protected internal IEnumerator Invoke(T args)
         {
             Listeners?.Invoke(args);
+            yield break;
         }
 
         public void AddListener(CEventHandler<T> Listener)

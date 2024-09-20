@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -54,18 +55,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             Pages.Clear();
         }
 
-        public void UpdateContent()
+        public IEnumerator UpdateContent()
         {
             foreach (CPage page in CPage.Storage.Values)
             {
                 AddPage(page);
                 CurrentPage ??= page;
             }
+            yield break;
         }
 
-        public void UpdateSelf()
+        public IEnumerator UpdateSelf()
         {
-
+            yield break;
         }
     }
 }

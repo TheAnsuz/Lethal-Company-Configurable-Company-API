@@ -1,18 +1,59 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.scripts;
+using Amrv.ConfigurableCompany.Plugin;
+using System.Collections;
 using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
     internal static class MenuController
     {
+        public delegate IEnumerator AfterCreationProcess(MenuManager manager);
+
         private static MenuBind Instance;
 
-        public static void Create(GameObject parent)
+        private static AfterCreationProcess _afterCreation;
+        public static void AfterCreation(AfterCreationProcess action) => _afterCreation += action;
+
+        public static void Create(GameObject parent, MenuManager manager)
         {
-            Instance = MenuBind.Create(parent.transform);
-            SetVisible(false);
+            GameObject creator = new("Configurable company menu creator", typeof(CoroutinePool));
+            CoroutinePool pool = creator.GetComponent<CoroutinePool>();
+
+            pool.StartCoroutine(CreateAsync(parent, manager, pool));
+        }
+
+        private static IEnumerator CreateAsync(GameObject parent, MenuManager manager, CoroutinePool creatorPool)
+        {
+            MenuLoader.GetInstance().Visible = true;
+            MenuLoader.GetInstance().Fill = 0;
+            MenuLoader.GetInstance().Text = "Creating menu";
+            yield return MenuBind.Create(parent.transform);
+
+            Instance = MenuBind.GetInstance();
+
+            MenuLoader.GetInstance().Visible = true;
+            MenuLoader.GetInstance().Fill = 1;
+            MenuLoader.GetInstance().Text = "Activating";
+            yield return null;
+
+            SetVisible(manager.HostSettingsScreen.activeSelf);
             Instance.Toggler.Open = false;
+
+            MenuLoader.GetInstance().Visible = false;
+
+            if (_afterCreation != null)
+                yield return _afterCreation.Invoke(manager);
+
+            yield return null;
+            UnityEngine.Object.Destroy(creatorPool.gameObject, 5f);
+        }
+
+        public static bool IsLocked()
+        {
+            return Instance?.Toggler.Locked ?? false;
         }
 
         public static void SetLocked(bool locked)
@@ -128,6 +169,22 @@ namespace Amrv.ConfigurableCompany.Core.Display
             if (Instance == null) return;
 
             Instance.Presets.UpdateContent();
+        }
+
+        public static void UpdateSeedFromCache()
+        {
+            ConfigurableCompanyPlugin.Debug($"Trying to update seed info with cached seed");
+
+            if (Instance == null) return;
+
+            if (CCache.UsedSeed == null)
+                ConfigurableCompanyPlugin.Debug($"Invalid cached seed for update: {CCache.UsedSeed}");
+            else
+            {
+                InfoProvider info = InfoProvider.Create(CCache.UsedSeed, SpecialSeed.GetSpecialSeed(CCache.UsedSeed));
+                SetRandomizerDetails(info);
+                ConfigurableCompanyPlugin.Debug($"Updated seed from {(info.IsSpecialSeed ? "Special seed" : info.IsChallenge ? "Challenge seed" : "Normal seed")}: {info.SeedString}");
+            }
         }
     }
 }

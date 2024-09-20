@@ -32,14 +32,18 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
         public static void OnCreate_Config(CConfig config)
         {
+#if DEBUG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Config ({config.ID})");
+#endif
             MenuController.AddConfig(config);
             CEvents.ConfigEvents.CreateConfig.Invoke(new(config));
         }
 
         public static void OnChange_Config(CConfig config, ChangeReason reason, object oldValue, object requestedValue, bool succeded, bool converted)
         {
+#if DEBUG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnChange | Config ({config.ID}, {(succeded ? "Accepted" : "Denied")})");
+#endif
             MenuController.UpdateConfig(config, reason);
             CEventChangeConfig @event = new(config, reason, oldValue, requestedValue, succeded, converted);
             CEvents.ConfigEvents.ConfigChangeSingle[config]?.Invoke(@event);

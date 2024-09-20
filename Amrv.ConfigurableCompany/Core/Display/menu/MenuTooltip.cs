@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -103,14 +105,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             UnityEngine.Object.Destroy(TagsPanel);
         }
 
-        public void UpdateContent()
+        [Obsolete("Does nothing on this class")]
+        public IEnumerator UpdateContent()
         {
-
+            yield break;
         }
 
-        public void UpdateSelf()
+        [Obsolete("Does nothing on this class")]
+        public IEnumerator UpdateSelf()
         {
-
+            yield break;
         }
     }
 }

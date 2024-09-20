@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.Core.Display.items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -51,7 +52,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
 
         }
 
-        public void UpdateContent()
+        public IEnumerator UpdateContent()
         {
             Dictionary<string, MenuPreset> temp = new(Items);
 
@@ -66,6 +67,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             foreach (var expired in temp)
                 DeleteItem(expired.Key);
 
+            /*
             if (Items.Count > 0)
             {
                 var enumerator = Items.GetEnumerator();
@@ -81,6 +83,11 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
                 CurrentPresetFile = null;
                 InputField.text = null;
             }
+            */
+            CurrentPresetFile = null;
+            InputField.text = null;
+
+            yield break;
         }
 
         private void OnPrefabClick(MenuPreset preset)
@@ -105,9 +112,10 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             preset.OnClick += OnPrefabClick;
         }
 
-        public void UpdateSelf()
+        public IEnumerator UpdateSelf()
         {
             InputField.text = Path.GetFileNameWithoutExtension(CurrentPresetFile);
+            yield break;
         }
     }
 }
