@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,13 +12,13 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     internal class MenuPages : IMenuPart
     {
-        protected readonly MenuBind Bind;
+        protected Reference<MenuBind> Bind;
 
-        protected readonly GameObject PageContainer;
-        protected readonly GameObject PageName;
-        protected readonly TextMeshProUGUI PageName_Text;
+        protected GameObject PageContainer;
+        protected GameObject PageName;
+        protected TextMeshProUGUI PageName_Text;
 
-        protected readonly Dictionary<CPage, MenuPage> Pages = [];
+        protected readonly Dictionary<CPage, MenuPage> Pages = new(CPage.Storage.Count);
 
         private CPage _currentPage;
         public CPage CurrentPage
@@ -28,17 +30,17 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
                 PageName.SetActive(!string.IsNullOrEmpty(value?.Name ?? null));
                 PageName_Text.SetText(value?.Name ?? null);
-                Bind.Categories.DisplayPage(value);
+                Bind.Item.Categories.Item.DisplayPage(value);
                 _currentPage = value;
             }
         }
 
-        internal MenuPages(MenuBind bind)
+        internal MenuPages(Reference<MenuBind> bind)
         {
             Bind = bind;
 
-            PageContainer = Bind.Menu.FindChild("Pages/Scroll View/Viewport/Content");
-            PageName = Bind.Menu.FindChild("Info/Page name");
+            PageContainer = Bind.Item.Menu.FindChild("Pages/Scroll View/Viewport/Content");
+            PageName = Bind.Item.Menu.FindChild("Info/Page name");
             PageName_Text = PageName.FindChild("Area/Text").GetComponent<TextMeshProUGUI>();
         }
 
@@ -48,11 +50,22 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPages deletion in progress ({Pages.Count} pages)");
+
+            Bind = null;
+
             foreach (MenuPage page in Pages.Values)
             {
                 page.Destroy();
             }
             Pages.Clear();
+
+            Object.Destroy(PageContainer);
+            Object.Destroy(PageName);
+
+            PageContainer = null;
+            PageName = null;
+            PageName_Text = null;
         }
 
         public IEnumerator UpdateContent()
@@ -69,5 +82,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         {
             yield break;
         }
+
+#if DEBUG
+        ~MenuPages()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPages deleted");
+        }
+#endif
     }
 }

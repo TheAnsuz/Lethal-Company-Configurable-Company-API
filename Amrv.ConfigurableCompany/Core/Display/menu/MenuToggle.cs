@@ -1,5 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
 using TMPro;
@@ -14,12 +16,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         protected const string TEXT_SHOW_MENU = "Show menu";
         protected const string TEXT_HIDE_MENU = "Hide menu";
 
-        protected readonly MenuBind Bind;
+        protected Reference<MenuBind> Bind;
 
-        protected readonly GameObject MenuContainer;
-        protected readonly GameObject HandleClosed;
-        protected readonly GameObject HandleOpen;
-        protected readonly TextMeshProUGUI Text;
+        protected GameObject MenuContainer { get; private set; }
+        protected GameObject HandleClosed { get; private set; }
+        protected GameObject HandleOpen { get; private set; }
+        protected TextMeshProUGUI Text { get; private set; }
 
         private bool _open = true;
         public bool Open
@@ -31,8 +33,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
                 HandleClosed.SetActive(!value);
                 HandleOpen.SetActive(value);
-                Bind.Menu.SetActive(value);
-                Bind.Overlay.SetActive(value);
+                Bind.Item.Menu.SetActive(value);
+                Bind.Item.Overlay.SetActive(value);
                 Text.SetText(value ? TEXT_HIDE_MENU : TEXT_SHOW_MENU);
                 _open = value;
 
@@ -65,26 +67,26 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
                 {
                     Open = false;
                 }
-                Bind.ShowMenu.SetActive(!value);
+                Bind.Item.ShowMenu.SetActive(!value);
                 _locked = value;
             }
         }
 
-        internal MenuToggle(MenuBind bind, GameObject container)
+        internal MenuToggle(Reference<MenuBind> bind, GameObject container)
         {
             Bind = bind;
             MenuContainer = container;
 
-            if (!Bind.ShowMenu.TryGetComponent(out Graphic g))
-                Bind.ShowMenu.AddComponent<NoDrawGraphic>();
-            Bind.ShowMenu.AddComponent(out RegionButton button);
+            if (!Bind.Item.ShowMenu.TryGetComponent(out Graphic g))
+                Bind.Item.ShowMenu.AddComponent<NoDrawGraphic>();
+            Bind.Item.ShowMenu.AddComponent(out RegionButton button);
 
             button.OnMouseClick += OnClick;
 
-            HandleClosed = bind.ShowMenu.FindChild("HandleArea/Closed");
-            HandleOpen = bind.ShowMenu.FindChild("HandleArea/Open");
+            HandleClosed = bind.Item.ShowMenu.FindChild("HandleArea/Closed");
+            HandleOpen = bind.Item.ShowMenu.FindChild("HandleArea/Open");
 
-            Text = bind.ShowMenu.FindChild("TextArea/Text").GetComponent<TextMeshProUGUI>();
+            Text = bind.Item.ShowMenu.FindChild("TextArea/Text").GetComponent<TextMeshProUGUI>();
         }
 
         private void OnClick(object sender, PointerEventData e)
@@ -93,21 +95,40 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
                 Open = !Open;
         }
 
-        [Obsolete("Does nothing on this class")]
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuToggle deletion in progress");
+            Bind = null;
+
+            UnityEngine.Object.Destroy(MenuContainer);
+            UnityEngine.Object.Destroy(HandleClosed);
+            UnityEngine.Object.Destroy(HandleOpen);
+
+            MenuContainer = null;
+            HandleClosed = null;
+            HandleOpen = null;
+            Text = null;
         }
 
         [Obsolete("Does nothing on this class")]
         public IEnumerator UpdateContent()
         {
+            // Content is updated automatically
             yield break;
         }
 
         [Obsolete("Does nothing on this class")]
         public IEnumerator UpdateSelf()
         {
+            // Self is updated automatically
             yield break;
         }
+
+#if DEBUG
+        ~MenuToggle()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuToggle deleted");
+        }
+#endif
     }
 }

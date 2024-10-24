@@ -1,7 +1,9 @@
 ﻿using Amrv.ConfigurableCompany.Core.Config;
-using Amrv.ConfigurableCompany.Core.Display.items;
+using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,18 +15,18 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
 {
     public class MenuPresets : IMenuPart
     {
-        private readonly MenuBind Bind;
-        private readonly GameObject Container;
-        private readonly TMP_InputField InputField;
-        private readonly GameObject Content;
+        private Reference<MenuBind> Bind;
+        private GameObject Container;
+        private TMP_InputField InputField;
+        private GameObject Content;
 
         private string CurrentPresetFile;
-        private readonly Dictionary<string, MenuPreset> Items = [];
+        private Dictionary<string, MenuPreset> Items = [];
 
-        internal MenuPresets(MenuBind menuBind)
+        internal MenuPresets(Reference<MenuBind> menuBind)
         {
             Bind = menuBind;
-            Container = menuBind.Menu.FindChild("Presets");
+            Container = menuBind.Item.Menu.FindChild("Presets");
             InputField = Container.FindChild("Input").GetComponent<TMP_InputField>();
 
             Content = Container.FindChild("List/Viewport/Content");
@@ -49,7 +51,22 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
 
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPresets deletion in progress ({Items.Count} presets)");
+            foreach (MenuPreset preset in Items.Values)
+            {
+                preset.Destroy();
+            }
+            Items.Clear();
 
+            Items = null;
+            Bind = null;
+
+            Object.Destroy(Content);
+            Object.Destroy(Container);
+
+            Container = null;
+            InputField = null;
+            Content = null;
         }
 
         public IEnumerator UpdateContent()
@@ -100,7 +117,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
         {
             if (Items.TryGetValue(item, out var obj))
             {
-                obj.Delete();
+                obj.Destroy();
                 Items.Remove(item);
             }
         }
@@ -117,5 +134,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             InputField.text = Path.GetFileNameWithoutExtension(CurrentPresetFile);
             yield break;
         }
+
+#if DEBUG
+        ~MenuPresets()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPresets deleted");
+        }
+#endif
     }
 }

@@ -18,6 +18,9 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected TextMeshProUGUI Name;
 
         protected abstract TMP_InputField.ContentType ContentType { get; }
+
+        public InputConfigDisplay() : base() { }
+
         protected override GameObject CreateContainer(CConfig config)
         {
             GameObject container = Object.Instantiate(MenuPrefabs.Config_Input);
@@ -56,6 +59,15 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
+        }
+
+        protected internal override void Destroy()
+        {
+            Object.Destroy(EnabledObject);
+            EnabledObject = null;
+            InputField = null;
+            Name = null;
+            base.Destroy();
         }
     }
 }

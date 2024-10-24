@@ -1,6 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +15,10 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             return new(Object.Instantiate(MenuPrefabs.Page, parent, false), page);
         }
 
-        private readonly CPage Page;
-        private readonly GameObject PageObject;
-        private readonly TextMeshProUGUI Title;
-        private readonly TextMeshProUGUI Description;
+        private CPage Page { get; set; }
+        private GameObject PageObject { get; set; }
+        private TextMeshProUGUI Title { get; set; }
+        private TextMeshProUGUI Description { get; set; }
 
         private MenuPage(GameObject pageObject, CPage page)
         {
@@ -51,7 +52,18 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         internal void Destroy()
         {
-
+            Object.Destroy(PageObject);
+            PageObject = null;
+            Page = null;
+            Title = null;
+            Description = null;
         }
+
+#if DEBUG
+        ~MenuPage()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPage deleted");
+        }
+#endif
     }
 }

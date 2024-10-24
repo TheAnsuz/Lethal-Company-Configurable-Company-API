@@ -2,6 +2,7 @@
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Core.IO;
+using Amrv.ConfigurableCompany.Plugin;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,16 +13,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
     {
         public static MenuSection CreateSection(Transform parent, CSection section)
         {
-            return new MenuSection(UnityEngine.Object.Instantiate(MenuPrefabs.Section, parent, false), section);
+            return new MenuSection(Object.Instantiate(MenuPrefabs.Section, parent, false), section);
         }
 
-        private readonly GameObject Container;
-        private readonly RectTransform Container_Rect;
-        private readonly CSection Section;
-        private readonly TextMeshProUGUI Text;
-        public readonly GameObject Content;
-        private readonly GameObject State_Open;
-        private readonly GameObject State_Closed;
+        private GameObject Container;
+        private RectTransform Container_Rect;
+        private CSection Section;
+        private TextMeshProUGUI Text;
+        public GameObject Content { get; private set; }
+        private GameObject State_Open;
+        private GameObject State_Closed;
 
         private MenuSection(GameObject container, CSection section)
         {
@@ -64,5 +65,28 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         {
             Text.SetText(name);
         }
+
+        internal void Destroy()
+        {
+            Object.Destroy(Container);
+            Object.Destroy(Content);
+            Object.Destroy(State_Closed);
+            Object.Destroy(State_Open);
+
+            Container = null;
+            Container_Rect = null;
+            Section = null;
+            Text = null;
+            Content = null;
+            State_Open = null;
+            State_Closed = null;
+        }
+
+#if DEBUG
+        ~MenuSection()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuSection deleted");
+        }
+#endif
     }
 }

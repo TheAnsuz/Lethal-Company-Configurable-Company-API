@@ -3,6 +3,7 @@ using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Utils.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +38,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_Bool);
+            GameObject container = Object.Instantiate(MenuPrefabs.Config_Bool);
 
             EnabledObject = container.FindChild("Buttons/Toggle/Dot");
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();
@@ -92,6 +93,22 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
+        }
+
+        protected internal override void Destroy()
+        {
+            Object.Destroy(EnabledObject);
+            EnabledObject = null;
+            Object.Destroy(ToggleObject);
+            ToggleObject = null;
+            Object.Destroy(PipOn);
+            PipOn = null;
+            Object.Destroy(PipOff);
+            PipOff = null;
+
+            Name = null;
+            RegionButton = null;
+            base.Destroy();
         }
     }
 }

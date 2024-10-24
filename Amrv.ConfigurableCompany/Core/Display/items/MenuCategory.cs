@@ -3,6 +3,8 @@ using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Core.IO;
+using Amrv.ConfigurableCompany.Plugin;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,15 +19,15 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             return new(UnityEngine.Object.Instantiate(MenuPrefabs.Category, parent, false), category);
         }
 
-        private readonly GameObject Container;
-        public readonly CCategory Category;
-        public readonly GameObject Content;
-        private readonly GameObject NameArea;
-        private readonly GameObject Shadow;
+        private GameObject Container { get; set; }
+        public CCategory Category { get; private set; }
+        public GameObject Content { get; private set; }
+        private GameObject NameArea { get; set; }
+        private GameObject Shadow { get; set; }
 
-        public readonly Image Sidebar_Image;
-        public readonly TextMeshProUGUI Name_Text;
-        public readonly Image Name_Background;
+        public Image Sidebar_Image { get; private set; }
+        public TextMeshProUGUI Name_Text { get; private set; }
+        public Image Name_Background { get; private set; }
 
         private MenuCategory(GameObject container, CCategory category)
         {
@@ -78,5 +80,30 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         {
             Container.SetActive(visible);
         }
+
+        internal void Destroy()
+        {
+            UnityEngine.Object.Destroy(Container);
+            UnityEngine.Object.Destroy(Content);
+            UnityEngine.Object.Destroy(NameArea);
+            UnityEngine.Object.Destroy(Shadow);
+
+            Container = null;
+            Category = null;
+            Content = null;
+            NameArea = null;
+            Shadow = null;
+
+            Sidebar_Image = null;
+            Name_Background = null;
+            Name_Text = null;
+        }
+
+#if DEBUG
+        ~MenuCategory()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuCategory deleted");
+        }
+#endif
     }
 }

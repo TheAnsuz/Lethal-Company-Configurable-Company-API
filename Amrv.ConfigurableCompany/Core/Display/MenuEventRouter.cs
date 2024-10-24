@@ -98,7 +98,6 @@ namespace Amrv.ConfigurableCompany.Core.Display
         public static void OnAction_DestroyMenu()
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Destroy");
-            MenuController.Destroy();
             CEvents.MenuEvents.Destroy.Invoke();
         }
 

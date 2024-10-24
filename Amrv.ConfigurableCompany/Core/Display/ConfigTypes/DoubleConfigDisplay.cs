@@ -24,7 +24,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 
         protected override GameObject CreateContainer(CConfig config)
         {
-            GameObject container = UnityEngine.Object.Instantiate(MenuPrefabs.Config_DoubleInput);
+            GameObject container = Object.Instantiate(MenuPrefabs.Config_DoubleInput);
 
             Name = container.FindChild("Name").GetComponent<TextMeshProUGUI>();
             EnabledObject = container.FindChild("Buttons/Toggle/Dot");
@@ -68,6 +68,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
+        }
+
+        protected internal override void Destroy()
+        {
+            Object.Destroy(EnabledObject);
+            EnabledObject = null;
+            RightInput = null;
+            LeftInput = null;
+            Name = null;
+            base.Destroy();
         }
     }
 }

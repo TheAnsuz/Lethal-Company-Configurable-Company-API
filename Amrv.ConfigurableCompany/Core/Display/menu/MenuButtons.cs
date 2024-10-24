@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
 using TMPro;
@@ -11,45 +13,45 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     internal class MenuButtons : IMenuPart
     {
-        private readonly MenuBind Bind;
+        private Reference<MenuBind> Bind;
 
-        protected readonly GameObject ButtonSave;
-        protected readonly GameObject ButtonReset;
-        protected readonly GameObject ButtonRestore;
-        protected readonly GameObject ButtonCopy;
-        protected readonly GameObject ButtonPaste;
+        protected GameObject ButtonSave { get; private set; }
+        protected GameObject ButtonReset { get; private set; }
+        protected GameObject ButtonRestore { get; private set; }
+        protected GameObject ButtonCopy { get; private set; }
+        protected GameObject ButtonPaste { get; private set; }
 
-        protected readonly TMP_InputField ButtonRandomize_Input;
-        protected readonly TextMeshProUGUI ButtonRandomize_Extra;
-        protected readonly Button ButtonRandomize_Clear;
-        protected readonly Button ButtonRandomize_Redo;
-        protected readonly Button ButtonRandomize_Accept;
+        protected TMP_InputField ButtonRandomize_Input { get; private set; }
+        protected TextMeshProUGUI ButtonRandomize_Extra { get; private set; }
+        protected Button ButtonRandomize_Clear { get; private set; }
+        protected Button ButtonRandomize_Redo { get; private set; }
+        protected Button ButtonRandomize_Accept { get; private set; }
 
-        internal MenuButtons(MenuBind bind)
+        internal MenuButtons(Reference<MenuBind> bind)
         {
             Bind = bind;
 
-            ButtonSave = Bind.Menu.FindChild("Buttons/Save");
+            ButtonSave = Bind.Item.Menu.FindChild("Buttons/Save");
             //ButtonSave.AddComponent<NoDrawGraphic>();
             ButtonSave.GetComponent<Button>().onClick.AddListener(OnSave);
 
-            ButtonReset = Bind.Menu.FindChild("Buttons/Reset");
+            ButtonReset = Bind.Item.Menu.FindChild("Buttons/Reset");
             //ButtonReset.AddComponent<NoDrawGraphic>();
             ButtonReset.GetComponent<Button>().onClick.AddListener(OnReset);
 
-            ButtonRestore = Bind.Menu.FindChild("Buttons/Restore");
+            ButtonRestore = Bind.Item.Menu.FindChild("Buttons/Restore");
             //ButtonRestore.AddComponent<NoDrawGraphic>();
             ButtonRestore.GetComponent<Button>().onClick.AddListener(OnRestore);
 
-            ButtonCopy = Bind.Menu.FindChild("Buttons/Copy");
+            ButtonCopy = Bind.Item.Menu.FindChild("Buttons/Copy");
             //ButtonCopy.AddComponent<NoDrawGraphic>();
             ButtonCopy.GetComponent<Button>().onClick.AddListener(OnCopy);
 
-            ButtonPaste = Bind.Menu.FindChild("Buttons/Paste");
+            ButtonPaste = Bind.Item.Menu.FindChild("Buttons/Paste");
             //ButtonPaste.AddComponent<NoDrawGraphic>();
             ButtonPaste.GetComponent<Button>().onClick.AddListener(OnPaste);
 
-            var randomize = Bind.Menu.FindChild("Buttons/Randomize");
+            var randomize = Bind.Item.Menu.FindChild("Buttons/Randomize");
             ButtonRandomize_Extra = randomize.FindChild("Text/Extra").GetComponent<TextMeshProUGUI>();
             ButtonRandomize_Input = randomize.FindChild("Handler/Input").GetComponent<TMP_InputField>();
             ButtonRandomize_Redo = randomize.FindChild("Handler/Redo").GetComponent<Button>();
@@ -128,9 +130,26 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         }
 
 
-        [Obsolete("Does nothing on this class")]
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuButtons deletion in progress");
+            Bind = null;
+            UnityEngine.Object.Destroy(ButtonSave);
+            UnityEngine.Object.Destroy(ButtonReset);
+            UnityEngine.Object.Destroy(ButtonRestore);
+            UnityEngine.Object.Destroy(ButtonCopy);
+            UnityEngine.Object.Destroy(ButtonPaste);
+
+            ButtonSave = null;
+            ButtonReset = null;
+            ButtonRestore = null;
+            ButtonCopy = null;
+            ButtonPaste = null;
+            ButtonRandomize_Input = null;
+            ButtonRandomize_Extra = null;
+            ButtonRandomize_Clear = null;
+            ButtonRandomize_Redo = null;
+            ButtonRandomize_Accept = null;
         }
 
         [Obsolete("Does nothing on this class")]
@@ -162,5 +181,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
             ButtonRandomize_Input.text = info.SeedString;
         }
+
+#if DEBUG
+        ~MenuButtons()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuButtons deleted");
+        }
+#endif
     }
 }

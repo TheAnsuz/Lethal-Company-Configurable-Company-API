@@ -1,9 +1,12 @@
-﻿using Amrv.ConfigurableCompany.Core.Display.menu;
+﻿using Amrv.ConfigurableCompany.API.Display;
+using Amrv.ConfigurableCompany.Core.Display.Items;
+using Amrv.ConfigurableCompany.Core.Display.menu;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
-using Amrv.ConfigurableCompany.Core.Display.scripts;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -14,37 +17,6 @@ namespace Amrv.ConfigurableCompany.Core.Display
 {
     internal class MenuBind
     {
-        // The game object that contains all the menu
-        protected readonly GameObject Container;
-
-        public readonly GameObject Overlay;
-        public readonly GameObject ShowMenu;
-        public readonly GameObject Menu;
-
-        protected readonly CoroutinePool ThreadPool;
-        protected readonly GameObject FileName;
-        protected readonly TextMeshProUGUI FileText;
-        protected readonly TextMeshProUGUI BetaText;
-
-        public readonly MenuToggle Toggler;
-        public readonly MenuPages Pages;
-        public readonly MenuButtons Buttons;
-        public readonly MenuTooltip Tooltip;
-        public readonly MenuCategories Categories;
-        public readonly MenuSections Sections;
-        public readonly MenuConfigs Configs;
-        public readonly MenuPresets Presets;
-
-        public string Filename
-        {
-            get => FileText.text;
-            set
-            {
-                FileName.SetActive(!string.IsNullOrEmpty(value));
-                FileText.SetText(value);
-            }
-        }
-
         private static MenuBind _instance;
         public static IEnumerator Create(Transform parent)
         {
@@ -60,14 +32,46 @@ namespace Amrv.ConfigurableCompany.Core.Display
             }
 
             // Setters
-            _instance.Toggler.Open = false;
-            _instance.Toggler.Visible = false;
+            _instance.Toggler.Item.Open = false;
+            _instance.Toggler.Item.Visible = false;
             _instance.Filename = GameNetworkManager.Instance.currentSaveFileName;
             MenuLoader.GetInstance().Fill = 1;
 
         }
 
         public static MenuBind GetInstance() => _instance;
+
+        // The game object that contains all the menu
+        protected GameObject Container { get; private set; }
+
+        public GameObject Overlay { get; private set; }
+        public GameObject ShowMenu { get; private set; }
+        public GameObject Menu { get; private set; }
+
+        protected GameObject FileName { get; private set; }
+        protected TextMeshProUGUI FileText { get; private set; }
+        protected TextMeshProUGUI BetaText { get; private set; }
+
+        private readonly Reference<MenuBind> CurrentBind = new();
+
+        public readonly Reference<MenuToggle> Toggler = new();
+        public readonly Reference<MenuPages> Pages = new();
+        public readonly Reference<MenuButtons> Buttons = new();
+        public readonly Reference<MenuTooltip> Tooltip = new();
+        public readonly Reference<MenuCategories> Categories = new();
+        public readonly Reference<MenuSections> Sections = new();
+        public readonly Reference<MenuConfigs> Configs = new();
+        public readonly Reference<MenuPresets> Presets = new();
+
+        public string Filename
+        {
+            get => FileText.text;
+            set
+            {
+                FileName.SetActive(!string.IsNullOrEmpty(value));
+                FileText.SetText(value);
+            }
+        }
 
         private MenuBind(Transform parent)
         {
@@ -83,7 +87,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
             loader.Text = "Creating menu<br>Instantiating container...";
             loader.Fill = 0.05f;
-            Container = Object.Instantiate(MenuPrefabs.Menu);
+            Container = UnityEngine.Object.Instantiate(MenuPrefabs.Menu);
             Container.SetActive(false);
             Container.name = "Configuration menu";
             Container.transform.SetParent(parent, false);
@@ -105,45 +109,47 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Menu.FindChild("Help").GetComponent<Button>().onClick.AddListener(OnHelpButtonClick);
             BetaText = Menu.FindChild("Beta").GetComponent<TextMeshProUGUI>();
 
+            CurrentBind.Item = this;
+
             loader.Text = "Creating menu<br>Creating Toggler...";
             loader.Fill = 0.15f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Toggler'");
-            Toggler = new(this, Container);
+            Toggler.Item = new(CurrentBind, Container);
 
             loader.Text = "Creating menu<br>Creating Pages...";
             loader.Fill = 0.20f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Pages'");
-            Pages = new(this);
+            Pages.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Buttons...";
             loader.Fill = 0.24f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Buttons'");
-            Buttons = new(this);
+            Buttons.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Tooltip...";
             loader.Fill = 0.29f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Tooltip'");
-            Tooltip = new(this);
+            Tooltip.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Categories...";
             loader.Fill = 0.33f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Categories'");
-            Categories = new(this);
+            Categories.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Sections...";
             loader.Fill = 0.38f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Sections'");
-            Sections = new(this);
+            Sections.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Configs...";
             loader.Fill = 0.42f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Configs'");
-            Configs = new(this);
+            Configs.Item = new(CurrentBind);
 
             loader.Text = "Creating menu<br>Creating Presets...";
             loader.Fill = 0.49f;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Creating 'Presets'");
-            Presets = new(this);
+            Presets.Item = new(CurrentBind);
 
         }
 
@@ -155,48 +161,48 @@ namespace Amrv.ConfigurableCompany.Core.Display
             loader.Fill = 0.5f;
             yield return null;
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Pages'");
-            yield return Pages.UpdateContent();
+            yield return Pages.Item.UpdateContent();
             loader.Fill = 0.54f;
             yield return null;
-            yield return Pages.UpdateSelf();
+            yield return Pages.Item.UpdateSelf();
             loader.Fill = 0.59f;
             yield return null;
 
             loader.Text = "Populating menu<br>Updating Categories...";
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Categories'");
-            yield return Categories.UpdateContent();
+            yield return Categories.Item.UpdateContent();
             loader.Fill = 0.62f;
             yield return null;
-            yield return Categories.UpdateSelf();
+            yield return Categories.Item.UpdateSelf();
             loader.Fill = 0.66f;
             yield return null;
 
             loader.Text = "Populating menu<br>Updating Sections...";
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Sections'");
-            yield return Sections.UpdateContent();
+            yield return Sections.Item.UpdateContent();
             loader.Fill = 0.7f;
             yield return null;
-            yield return Sections.UpdateSelf();
+            yield return Sections.Item.UpdateSelf();
             loader.Fill = 0.74f;
             yield return null;
 
             loader.Text = "Populating menu<br>Updating Configs (0%)...";
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Configs' 1/2");
-            yield return Configs.UpdateContent();
+            yield return Configs.Item.UpdateContent();
             loader.Fill = 0.85f;
             yield return null;
             loader.Text = "Populating menu<br>Updating Config holder...";
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Configs' 2/2");
-            yield return Configs.UpdateSelf();
+            yield return Configs.Item.UpdateSelf();
             loader.Fill = 0.89f;
             yield return null;
 
             loader.Text = "Populating menu<br>Updating Presets...";
             ConfigurableCompanyPlugin.Debug($"[MenuBind] Updating 'Presets'");
-            yield return Presets.UpdateContent();
+            yield return Presets.Item.UpdateContent();
             loader.Fill = 0.92f;
             yield return null;
-            yield return Presets.UpdateSelf();
+            yield return Presets.Item.UpdateSelf();
             loader.Fill = 0.96f;
             yield return null;
 
@@ -222,17 +228,59 @@ namespace Amrv.ConfigurableCompany.Core.Display
             Application.OpenURL("https://github.com/TheAnsuz/Lethal-Company-Configurable-Company-API/issues/new/choose");
         }
 
-        private void Event_OnDestroy()
-        {
-            Pages.Destroy();
-            Tooltip.Destroy();
-            _instance = null;
-            MenuEventRouter.OnAction_DestroyMenu();
-        }
+        private void Event_OnDestroy() => MenuEventRouter.OnAction_DestroyMenu();
 
         internal void Destroy()
         {
+            // Menu bind not deleting
+            // Menu buttons not deleting
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuBind deletion in progress");
+            Toggler.Item.Destroy(); // Deletes OK
+            Toggler.Break();
+            Pages.Item.Destroy(); // Deletes OK
+            Pages.Break();
+            Buttons.Item.Destroy();
+            Buttons.Break();
+            Tooltip.Item.Destroy(); // Deletes OK
+            Tooltip.Break();
+            Categories.Item.Destroy(); // Deletes OK (childs OK)
+            Categories.Break();
+            Sections.Item.Destroy(); // Deletes OK (childs OK)
+            Sections.Break();
+#if DEBUG
+            ConfigurableCompanyPlugin.Debug($"[Destroy] Attempting to remove {ConfigDisplay.instances} config displays");
+            ConfigurableCompanyPlugin.Debug($"[Destroy] Attempting to remove {MenuConfig.instances} config entries");
+#endif
+            Configs.Item.Destroy(); // Deletes OK (childs MID)
+            Configs.Break();
+#if DEBUG
+            ConfigurableCompanyPlugin.Debug($"[Destroy] Remaining to remove {ConfigDisplay.instances} config displays");
+            ConfigurableCompanyPlugin.Debug($"[Destroy] Remaining to remove {MenuConfig.instances} config entries");
+#endif
+            Presets.Item.Destroy(); // Deletes OK (childs OK)
+            Presets.Break();
+
+            FileText = null;
+            BetaText = null;
+
+            UnityEngine.Object.Destroy(Overlay);
+            Overlay = null;
+            UnityEngine.Object.Destroy(ShowMenu);
+            ShowMenu = null;
+            UnityEngine.Object.Destroy(Menu);
+            Menu = null;
+            UnityEngine.Object.Destroy(FileName);
+            FileName = null;
             UnityEngine.Object.Destroy(Container);
+            Container = null;
+
+            CurrentBind.Break();
+            _instance = null;
+        }
+
+        ~MenuBind()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuBind deleted");
         }
     }
 }
