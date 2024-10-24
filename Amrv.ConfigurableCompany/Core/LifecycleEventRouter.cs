@@ -40,6 +40,8 @@ namespace Amrv.ConfigurableCompany.Core
             MenuController.SetLocked(GameNetworkManager.Instance?.currentSaveFileName == "LCChallengeFile");
             MenuController.UpdateSeedFromCache();
             yield return null;
+            MenuLoader.Destroy();
+            yield return null;
         }
 
         public static void DestroyMenu()

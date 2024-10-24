@@ -1,4 +1,6 @@
-﻿using Amrv.ConfigurableCompany.Plugin;
+﻿using Amrv.ConfigurableCompany.Core.Display;
+using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Plugin;
 
 namespace Amrv.ConfigurableCompany.Core.Net
 {
@@ -45,6 +47,10 @@ namespace Amrv.ConfigurableCompany.Core.Net
         public static void Client_Connect()
         {
             ConfigurableCompanyPlugin.Debug($"NetEventRouter > Client :: Connect");
+
+            MenuController.DestroyIfCreating();
+            LifecycleEventRouter.DestroyMenu();
+
             NetReceiveRouter.RegisterClientMessages();
         }
 

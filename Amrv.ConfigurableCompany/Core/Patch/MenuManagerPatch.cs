@@ -33,6 +33,8 @@ namespace Amrv.ConfigurableCompany.Core.Patch
         [HarmonyPostfix]
         private static void ClickHostButton_Postfix()
         {
+            ConfigurableCompanyPlugin.Debug($"MenuManager::ClickHostButton [Postfix]");
+
             MenuController.SetVisible(true);
         }
 
@@ -40,6 +42,9 @@ namespace Amrv.ConfigurableCompany.Core.Patch
         [HarmonyPostfix]
         private static void ConfirmHostButton_Postfix()
         {
+            ConfigurableCompanyPlugin.Debug($"MenuManager::ConfirmHostButton [Postfix]");
+            
+            MenuController.DestroyIfCreating();
             LifecycleEventRouter.DestroyMenu();
         }
     }
