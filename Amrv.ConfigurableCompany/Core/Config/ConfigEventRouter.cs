@@ -10,7 +10,9 @@ namespace Amrv.ConfigurableCompany.Core.Config
     {
         public static void OnCreate_Page(CPage page)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Page ({page.ID})");
+#endif
             MenuController.AddPage(page);
             //MenuController.SetCurrentPage(page);
             CEvents.ConfigEvents.CreatePage.Invoke(new(page));
@@ -18,21 +20,25 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
         public static void OnCreate_Category(CCategory category)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Category ({category.ID})");
+#endif
             MenuController.AddCategory(category);
             CEvents.ConfigEvents.CreateCategory.Invoke(new(category));
         }
 
         public static void OnCreate_Section(CSection section)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Section ({section.ID})");
+#endif
             MenuController.AddSection(section);
             CEvents.ConfigEvents.CreateSection.Invoke(new(section));
         }
 
         public static void OnCreate_Config(CConfig config)
         {
-#if DEBUG
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Config ({config.ID})");
 #endif
             MenuController.AddConfig(config);
@@ -41,7 +47,7 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
         public static void OnChange_Config(CConfig config, ChangeReason reason, object oldValue, object requestedValue, bool succeded, bool converted)
         {
-#if DEBUG
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnChange | Config ({config.ID}, {(succeded ? "Accepted" : "Denied")})");
 #endif
             MenuController.UpdateConfig(config, reason);
@@ -54,7 +60,9 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
         public static void OnToggle_Config(CConfig config, bool enabled)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnToggle | Config ({config.ID}, {(enabled ? "Enabled" : "Disabled")})");
+#endif
             MenuController.TriggerToggleConfig(config, enabled);
             CEvents.ConfigEvents.ToggleConfig.Invoke(new(config, enabled));
         }

@@ -1,4 +1,4 @@
-﻿#if DEBUG && false
+﻿#if CONFIGS
 using Amrv.ConfigurableCompany.API;
 using HarmonyLib;
 using System;

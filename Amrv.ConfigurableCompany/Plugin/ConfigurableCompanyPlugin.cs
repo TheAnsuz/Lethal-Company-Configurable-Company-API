@@ -1,4 +1,4 @@
-﻿#if DEBUG && false
+﻿#if CONFIGS
 using Amrv.ConfigurableCompany.Plugin.Tests;
 #endif
 using Amrv.ConfigurableCompany.API;
@@ -15,6 +15,7 @@ using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Plugin
 {
+
     [BepInPlugin(PLUGIN_GUID, PLUGIN_NAME, PLUGIN_VERSION)]
     [BepInDependency(BetterSavesDependency.GUID, BetterSavesDependency.DependencyType)]
     internal sealed class ConfigurableCompanyPlugin : BaseUnityPlugin
@@ -60,7 +61,7 @@ namespace Amrv.ConfigurableCompany.Plugin
 
             DependencyManager.CheckDependencies(Patcher);
 
-#if DEBUG && false
+#if CONFIGS
             foreach (var patch in Patcher.GetPatchedMethods())
             {
                 Debug($"Patched {patch.DeclaringType}::{patch.Name}");
