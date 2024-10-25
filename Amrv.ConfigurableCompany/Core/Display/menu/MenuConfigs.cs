@@ -94,8 +94,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             var loader = MenuLoader.GetInstance();
             long lastMs = 0;
             long lastUpdateMs = 0;
-#if DEBUG
             int count = CConfig.Storage.Count;
+#if DEBUG
             int notify = count / 10;
             Stopwatch stopwatch = Stopwatch.StartNew();
 #endif
