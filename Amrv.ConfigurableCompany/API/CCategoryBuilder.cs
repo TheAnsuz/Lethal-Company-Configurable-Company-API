@@ -7,6 +7,7 @@ namespace Amrv.ConfigurableCompany.API
 {
     public sealed class CCategoryBuilder : InstanceBuilder<CCategory>
     {
+#pragma warning disable
         public string ID;
         public string Name;
         [Obsolete("Use BColor")]
@@ -90,5 +91,6 @@ namespace Amrv.ConfigurableCompany.API
         {
             return CCategory.Storage.TryGetValue(ID, out item);
         }
+#pragma warning enable
     }
 }

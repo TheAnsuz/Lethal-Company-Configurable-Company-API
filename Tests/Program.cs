@@ -4,17 +4,18 @@ namespace Tests
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             int a = 0b1111_1100_1010;
             int b = 0b0000_0011_0101;
-            RNGProvider provider = new RNGProvider(a, b);
+            RNGProvider provider = new(a, b);
             Console.WriteLine(provider.SeedLong);
+            Console.WriteLine(Join(a, b));
         }
 
-        private static long join(int a, int b)
+        private static long Join(int a, int b)
         {
-            return ((long)a << 32) | b;
+            return ((long)a << 32) | (long)b;
         }
     }
 }

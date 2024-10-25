@@ -15,7 +15,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
 {
     public class MenuPresets : IMenuPart
     {
-        private Reference<MenuBind> Bind;
         private GameObject Container;
         private TMP_InputField InputField;
         private GameObject Content;
@@ -25,7 +24,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
 
         internal MenuPresets(Reference<MenuBind> menuBind)
         {
-            Bind = menuBind;
             Container = menuBind.Item.Menu.FindChild("Presets");
             InputField = Container.FindChild("Input").GetComponent<TMP_InputField>();
 
@@ -59,7 +57,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             Items.Clear();
 
             Items = null;
-            Bind = null;
 
             Object.Destroy(Content);
             Object.Destroy(Container);

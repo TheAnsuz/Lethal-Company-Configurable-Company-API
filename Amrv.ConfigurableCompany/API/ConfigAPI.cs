@@ -50,8 +50,8 @@ namespace Amrv.ConfigurableCompany.API
         {
             using CCategoryBuilder builder = new();
             builder.Name = name;
-            builder.CPage = page;
-            builder.Color = color ?? Color.white;
+            builder.BPage = page;
+            builder.BColor = color ?? Color.white;
             IDGen gen = new(AUTOGEN_BYTES);
             gen.AddDeterminant(name);
             gen.AddDeterminant(page.ID);
@@ -63,8 +63,8 @@ namespace Amrv.ConfigurableCompany.API
         {
             using CCategoryBuilder builder = new();
             builder.Name = name;
-            builder.CPage = page;
-            builder.Color = color ?? Color.white;
+            builder.BPage = page;
+            builder.BColor = color ?? Color.white;
             IDGen gen = new(AUTOGEN_BYTES);
             gen.AddDeterminant(name);
             gen.AddDeterminant(page.ID);
@@ -76,7 +76,7 @@ namespace Amrv.ConfigurableCompany.API
         {
             using CSectionBuilder builder = new();
             builder.Name = name;
-            builder.CCategory = category;
+            builder.BCategory = category;
             IDGen gen = new(AUTOGEN_BYTES);
             gen.AddDeterminant(name);
             gen.AddDeterminant(category.ID);
@@ -88,7 +88,7 @@ namespace Amrv.ConfigurableCompany.API
         {
             using CSectionBuilder builder = new();
             builder.Name = name;
-            builder.CCategory = category;
+            builder.BCategory = category;
             IDGen gen = new(AUTOGEN_BYTES);
             gen.AddDeterminant(name);
             gen.AddDeterminant(category.ID);
@@ -129,9 +129,9 @@ namespace Amrv.ConfigurableCompany.API
             builder.Name = entry.Definition.Key;
 
             if (section != null)
-                builder.CSection = section;
+                builder.BSection = section;
             else
-                builder.CCategory = category;
+                builder.BCategory = category;
 
             // Adjust custom tags to make the config have my own tags
             foreach (object tag in entry.Description.Tags)
