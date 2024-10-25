@@ -37,7 +37,7 @@ namespace Amrv.ConfigurableCompany.Core.Net
             NetSynchronizer.Messaging.Send(CONFIGS_SYNC, writer, NetworkDelivery.ReliableFragmentedSequenced, client);
 
             Array.Resize(ref configs, index + 1);
-            CEvents.IOSEvents.Synchronize.Invoke(new(true, configs));
+            CEvents.IOSEvents.Synchronize.InvokeFull(new(true, configs));
         }
 
         public static void SendConfig(params CConfig[] configs)
@@ -63,7 +63,7 @@ namespace Amrv.ConfigurableCompany.Core.Net
             NetSynchronizer.Messaging.Send(CONFIGS_SYNC, writer);
 
             Array.Resize(ref configs, index + 1);
-            CEvents.IOSEvents.Synchronize.Invoke(new(true, configs));
+            CEvents.IOSEvents.Synchronize.InvokeFull(new(true, configs));
         }
 
         private static void WriteConfigBundle(CConfig config, ConfigBundle bundle)

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
@@ -20,5 +21,27 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         /// Called to validate the container itself and check what state should it display
         /// </summary>
         public IEnumerator UpdateSelf();
+    }
+
+    internal static class IMenuPartExtension
+    {
+
+        /// <summary>
+        /// Executes the UpdateContent IEnumerator as a full function, allows for function calling of the mentioned method
+        /// </summary>
+        public static void UpdateContentFull(this IMenuPart part)
+        {
+            IEnumerator enumerator = part.UpdateContent();
+            while (enumerator.MoveNext()) { }
+        }
+
+        /// <summary>
+        /// Executes the UpdateSelf IEnumerator as a full function, allows for function calling of the mentioned method
+        /// </summary>
+        public static void UpdateSelfFull(this IMenuPart part)
+        {
+            IEnumerator enumerator = part.UpdateSelf();
+            while (enumerator.MoveNext()) { }
+        }
     }
 }

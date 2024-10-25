@@ -1,4 +1,6 @@
-﻿namespace Amrv.ConfigurableCompany.API.Event
+﻿using System.Collections;
+
+namespace Amrv.ConfigurableCompany.API.Event
 {
     public class CEvent
     {
@@ -9,9 +11,14 @@
 
     public static class CEventTypeEmpty
     {
-        internal static void Invoke(this CEventType<CEvent> instance)
+        public static void InvokeFull(this CEventType<CEvent> instance)
         {
-            instance.Invoke(CEvent.Empty);
+            instance.InvokeFull(CEvent.Empty);
+        }
+
+        internal static IEnumerator Invoke(this CEventType<CEvent> instance)
+        {
+            return instance.Invoke(CEvent.Empty);
         }
     }
 }

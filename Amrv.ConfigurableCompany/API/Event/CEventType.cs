@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Amrv.ConfigurableCompany.Plugin;
+using System;
+using System.Collections;
 
 namespace Amrv.ConfigurableCompany.API.Event
 {
@@ -10,9 +12,32 @@ namespace Amrv.ConfigurableCompany.API.Event
 
         protected internal CEventType() { }
 
+        protected internal void InvokeFull(T args)
+        {
+            IEnumerator enumerator = Invoke(args);
+            while (enumerator.MoveNext())
+            {
+            }
+        }
+
         protected internal IEnumerator Invoke(T args)
         {
-            Listeners?.Invoke(args);
+            if (Listeners == null)
+                yield break;
+
+            foreach (var listener in Listeners.GetInvocationList())
+            {
+                try
+                {
+                    listener.DynamicInvoke(args);
+                }
+                catch (Exception e)
+                {
+                    ConfigurableCompanyPlugin.Error(e);
+                }
+                yield return null;
+            }
+
             yield break;
         }
 

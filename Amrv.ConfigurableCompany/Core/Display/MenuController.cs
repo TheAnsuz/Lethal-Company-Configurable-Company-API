@@ -180,7 +180,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             if (Instance == null) return;
 
-            Instance.Presets.Item.UpdateContent();
+            Instance.Presets.Item.UpdateContentFull();
         }
 
         public static void UpdateSeedFromCache()
