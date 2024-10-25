@@ -1,6 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Display;
-using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
 using System.Collections;
 using UnityEngine;

@@ -1,5 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.Core.Display;
-using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Plugin;
 
 namespace Amrv.ConfigurableCompany.Core.Net

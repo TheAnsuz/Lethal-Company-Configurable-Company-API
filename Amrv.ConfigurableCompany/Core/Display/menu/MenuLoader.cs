@@ -1,4 +1,4 @@
-﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Amrv.ConfigurableCompany.Core.Display.menu
+namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     public class MenuLoader
     {

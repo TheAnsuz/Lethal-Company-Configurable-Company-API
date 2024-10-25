@@ -1,4 +1,4 @@
-﻿using Amrv.ConfigurableCompany.Core.Config;
+using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
@@ -11,7 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Amrv.ConfigurableCompany.Core.Display.menu
+namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     public class MenuPresets : IMenuPart
     {
