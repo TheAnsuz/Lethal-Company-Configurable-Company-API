@@ -1,4 +1,4 @@
-using Amrv.ConfigurableCompany.API;
+﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
@@ -74,7 +74,24 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
             CCache.UsedSeed = info.SeedString;
             MenuController.SetRandomizerDetails(info);
-            CEvents.MenuEvents.Randomize.Invoke(new(random, info));
+            CEvents.MenuEvents.Randomize.InvokeFull(new(random, info));
+
+            List<CConfig> errors = [];
+            foreach (var config in CConfig.Storage.Values)
+            {
+                try
+                {
+                    config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
+                }
+                catch (Exception e)
+                {
+                    errors.Add(config);
+                    ConfigurableCompanyPlugin.Error(e);
+                }
+            }
+
+            if (errors.Count > 0)
+                MenuPopup.Show("ERROR", $"Unable to randomize all configs ({errors.Count} errors)", MenuPopup.NO_ACTION, null);
         }
 
         public static void OnClick_ShowPage(CPage page)

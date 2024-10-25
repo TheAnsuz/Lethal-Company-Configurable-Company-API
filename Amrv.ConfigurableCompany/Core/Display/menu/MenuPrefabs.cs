@@ -13,6 +13,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         public static readonly GameObject Section;
         public static readonly GameObject Preset;
         public static readonly GameObject Loader;
+        public static readonly GameObject Popup;
 
         public static readonly GameObject Config_Input;
         public static readonly GameObject Config_LargeInput;
@@ -35,6 +36,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             Section = bundle.LoadAsset<GameObject>("Configuration Section.prefab");
             Preset = bundle.LoadAsset<GameObject>("Configuration Preset.prefab");
             Loader = bundle.LoadAsset<GameObject>("Configuration Loading.prefab");
+            Popup = bundle.LoadAsset<GameObject>("Configuration Popup.prefab");
 
             Config_Input = bundle.LoadAsset<GameObject>("ConfigType Input.prefab");
             Config_LargeInput = bundle.LoadAsset<GameObject>("ConfigType LargeInput.prefab");

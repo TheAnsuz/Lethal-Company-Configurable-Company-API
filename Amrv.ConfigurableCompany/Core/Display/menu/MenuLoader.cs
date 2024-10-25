@@ -1,4 +1,4 @@
-using Amrv.ConfigurableCompany.Core.Display.Menu;
+﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
@@ -10,10 +10,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     public class MenuLoader
     {
-        private static GameObject _canvasObject;
-        private static Canvas _canvas;
-        private static CanvasScaler _canvasScaler;
-
         private static MenuLoader _instance;
 
         public static MenuLoader GetInstance()
@@ -31,26 +27,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             if (_instance != null)
                 return _instance;
 
-            ConfigurableCompanyPlugin.Debug($"Created Menu Loader");
-
-            _canvasObject = new GameObject("ConfigurableCompanyCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(LifecycleListener));
-
-            UnityEngine.Object.DontDestroyOnLoad(_canvasObject);
-
-            _canvas = _canvasObject.GetComponent<Canvas>();
-            _canvasScaler = _canvasObject.GetComponent<CanvasScaler>();
-
-            _canvasObject.GetComponent<LifecycleListener>().DestroyEvent += Destroy;
-
-            _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            _canvas.pixelPerfect = true;
-            _canvas.sortingOrder = 1;
-
-            _canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
-            _canvasScaler.scaleFactor = 1.55f;
-            _canvasScaler.referencePixelsPerUnit = 1;
-
-            _instance = new MenuLoader(UnityEngine.Object.Instantiate(MenuPrefabs.Loader, _canvas.transform, false))
+            _instance = new MenuLoader(UnityEngine.Object.Instantiate(MenuPrefabs.Loader, GlobalCanvas.Instance.transform, false))
             {
                 Visible = false
             };
@@ -62,10 +39,6 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         {
             _instance?.DestroyInstance();
             _instance = null;
-            UnityEngine.Object.Destroy(_canvasObject);
-            _canvas = null;
-            _canvasObject = null;
-            _canvasScaler = null;
         }
 
         protected readonly GameObject Object;

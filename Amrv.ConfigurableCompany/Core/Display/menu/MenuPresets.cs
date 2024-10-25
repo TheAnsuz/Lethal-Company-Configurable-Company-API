@@ -1,4 +1,4 @@
-using Amrv.ConfigurableCompany.Core.Config;
+﻿using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
@@ -42,10 +42,34 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             CurrentPresetFile = text + ".ccfg";
         }
 
-        private void OnClickCreate() => MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile);
-        private void OnClickLoad() => MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile);
-        private void OnClickSave() => MenuEventRouter.OnClick_PresetSave(CurrentPresetFile);
-        private void OnClickDelete() => MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile);
+        private void OnClickCreate()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Create preset with name \"{CurrentPresetFile}\"?\nSaved configuration values will be used (make sure you saved your current configs)", () => MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickLoad()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to load preset \"{CurrentPresetFile}\"?\nYour current settings will be overwriten", () => MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickSave()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetSave(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to save your current configuration to preset \"{CurrentPresetFile}\"?\nFile will be overwriten", () => MenuEventRouter.OnClick_PresetSave(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickDelete()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to delete \"{CurrentPresetFile}\"?\nYou can't undo this action", () => MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
 
         public void Destroy()
         {
@@ -68,19 +92,26 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         public IEnumerator UpdateContent()
         {
+            ConfigurableCompanyPlugin.Debug($"MenuPresets > UpdateContent start");
+
             Dictionary<string, MenuPreset> temp = new(Items);
 
             foreach (var item in Presets.List)
             {
                 if (temp.TryGetValue(item, out var _))
+                {
                     temp.Remove(item);
+                }
                 else
+                {
                     AddItem(item);
+                }
             }
 
             foreach (var expired in temp)
                 DeleteItem(expired.Key);
 
+            ConfigurableCompanyPlugin.Debug($"MenuPresets > UpdateContent | deletions: {temp.Count} | total: {Presets.List.Count}");
             /*
             if (Items.Count > 0)
             {

@@ -72,6 +72,14 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         private void OnRandomize_Accept()
         {
+            if (MenuPopup.IsAdvancedInput)
+                OnRandomize_Accept_Action();
+            else
+                MenuPopup.Show("Randomizer", "Are you sure you want to randomize configurations?\n\nCurrent configurations will be lost\n<color=#c90a0a>WARNING </color>gameplay might not be balanced", OnRandomize_Accept_Action, MenuPopup.NO_ACTION);
+        }
+
+        private void OnRandomize_Accept_Action()
+        {
             if (RandomSeedParser.IsValidString(ButtonRandomize_Input.text))
             {
                 string seedString = RandomSeedParser.FormalizeString(ButtonRandomize_Input.text);
@@ -110,15 +118,24 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         private void OnSave(/*object sender, PointerEventData e*/)
         {
-            MenuEventRouter.OnClick_Save();
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_Save();
+            else
+                MenuPopup.Show("Information", "Are you sure you want to save?\n\nPreviously saved configurations will be overwriten", MenuEventRouter.OnClick_Save, MenuPopup.NO_ACTION);
         }
         private void OnReset(/*object sender, PointerEventData e*/)
         {
-            MenuEventRouter.OnClick_Reset();
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_Reset();
+            else
+                MenuPopup.Show("Information", "Are you sure you want to reset?\n\nYour saved configurations will be lost and every setting will be set to it's default value", MenuEventRouter.OnClick_Reset, MenuPopup.NO_ACTION);
         }
         private void OnRestore(/*object sender, PointerEventData e*/)
         {
-            MenuEventRouter.OnClick_Restore();
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_Restore();
+            else
+                MenuPopup.Show("Information", "Are you sure you want to restore?\n\nYour modifications will be lost and settings will be set from the last saved values", MenuEventRouter.OnClick_Restore, MenuPopup.NO_ACTION);
         }
         private void OnCopy(/*object sender, PointerEventData e*/)
         {

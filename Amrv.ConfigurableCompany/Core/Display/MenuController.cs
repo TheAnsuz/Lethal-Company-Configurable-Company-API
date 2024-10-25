@@ -1,5 +1,6 @@
-using Amrv.ConfigurableCompany.API;
+﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Data;
+using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
@@ -31,8 +32,11 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
         public static void DestroyIfCreating()
         {
-            _pool?.StopAllCoroutines();
-            _pool = null;
+            if (_pool != null)
+            {
+                _pool.StopAllCoroutines();
+                _pool = null;
+            }
             Object.Destroy(_creator);
             _creator = null;
         }
