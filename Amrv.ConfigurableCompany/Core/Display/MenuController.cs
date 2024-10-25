@@ -1,7 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Data;
-using Amrv.ConfigurableCompany.Core.Display.menu;
-using Amrv.ConfigurableCompany.Core.Display.scripts;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
+using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Plugin;
 using System.Collections;
 using UnityEngine;
@@ -14,15 +14,29 @@ namespace Amrv.ConfigurableCompany.Core.Display
 
         private static MenuBind Instance;
 
+        private static GameObject _creator;
+        private static CoroutinePool _pool;
+
         private static AfterCreationProcess _afterCreation;
         public static void AfterCreation(AfterCreationProcess action) => _afterCreation += action;
 
         public static void Create(GameObject parent, MenuManager manager)
         {
-            GameObject creator = new("Configurable company menu creator", typeof(CoroutinePool));
-            CoroutinePool pool = creator.GetComponent<CoroutinePool>();
+            _creator = new("Configurable company menu creator", typeof(CoroutinePool));
+            _pool = _creator.GetComponent<CoroutinePool>();
 
-            pool.StartCoroutine(CreateAsync(parent, manager, pool));
+            _pool.StartCoroutine(CreateAsync(parent, manager, _pool));
+        }
+
+        public static void DestroyIfCreating()
+        {
+            if (_pool != null)
+            {
+                _pool.StopAllCoroutines();
+                _pool = null;
+            }
+            Object.Destroy(_creator);
+            _creator = null;
         }
 
         private static IEnumerator CreateAsync(GameObject parent, MenuManager manager, CoroutinePool creatorPool)
@@ -40,7 +54,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
             yield return null;
 
             SetVisible(manager.HostSettingsScreen.activeSelf);
-            Instance.Toggler.Open = false;
+            Instance.Toggler.Item.Open = false;
 
             MenuLoader.GetInstance().Visible = false;
 
@@ -48,26 +62,26 @@ namespace Amrv.ConfigurableCompany.Core.Display
                 yield return _afterCreation.Invoke(manager);
 
             yield return null;
-            UnityEngine.Object.Destroy(creatorPool.gameObject, 5f);
+            Object.Destroy(creatorPool.gameObject, 5f);
         }
 
         public static bool IsLocked()
         {
-            return Instance?.Toggler.Locked ?? false;
+            return Instance?.Toggler.Item.Locked ?? false;
         }
 
         public static void SetLocked(bool locked)
         {
             if (Instance == null) return;
 
-            Instance.Toggler.Locked = locked;
+            Instance.Toggler.Item.Locked = locked;
         }
 
         public static void SetVisible(bool visible)
         {
             if (Instance == null) return;
 
-            Instance.Toggler.Visible = visible;
+            Instance.Toggler.Item.Visible = visible;
         }
 
         public static void SetCurrentFileName(string filename)
@@ -81,63 +95,63 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             if (Instance == null) return;
 
-            Instance.Buttons.SetRandomizerDetails(info);
+            Instance.Buttons.Item.SetRandomizerDetails(info);
         }
 
         public static void SetCurrentPage(CPage page)
         {
             if (Instance == null) return;
 
-            Instance.Pages.CurrentPage = page;
+            Instance.Pages.Item.CurrentPage = page;
         }
 
         public static void AddPage(CPage page)
         {
             if (Instance == null) return;
 
-            Instance.Pages.AddPage(page);
+            Instance.Pages.Item.AddPage(page);
         }
 
         public static void AddCategory(CCategory category)
         {
             if (Instance == null) return;
 
-            Instance.Categories.AddCategory(category);
+            Instance.Categories.Item.AddCategory(category);
         }
 
         public static void AddSection(CSection section)
         {
             if (Instance == null) return;
 
-            Instance.Sections.AddSection(section);
+            Instance.Sections.Item.AddSection(section);
         }
 
         public static void AddConfig(CConfig config)
         {
             if (Instance == null) return;
 
-            Instance.Configs.AddConfig(config);
+            Instance.Configs.Item.AddConfig(config);
         }
 
         public static void RefreshConfig(CConfig config)
         {
             if (Instance == null) return;
 
-            Instance.Configs.Refresh(config);
+            Instance.Configs.Item.Refresh(config);
         }
 
         public static void SaveConfigs()
         {
             if (Instance == null) return;
 
-            Instance.Configs.SaveToConfig();
+            Instance.Configs.Item.SaveToConfig();
         }
 
         public static void LoadConfigs()
         {
             if (Instance == null) return;
 
-            Instance.Configs.LoadFromConfig();
+            Instance.Configs.Item.LoadFromConfig();
         }
 
         public static void UpdateConfig(CConfig config, ChangeReason reason)
@@ -145,15 +159,15 @@ namespace Amrv.ConfigurableCompany.Core.Display
             if (Instance == null) return;
 
             if (reason == ChangeReason.USER_RESET || reason == ChangeReason.SCRIPT_RESET)
-                Instance.Configs.ReceiveReset(config);
+                Instance.Configs.Item.ReceiveReset(config);
             else
-                Instance.Configs.Refresh(config);
+                Instance.Configs.Item.Refresh(config);
         }
 
         public static void TriggerToggleConfig(CConfig config, bool enabled)
         {
             if (Instance == null) return;
-            Instance.Configs.ReceiveToggle(config, enabled);
+            Instance.Configs.Item.ReceiveToggle(config, enabled);
         }
 
         public static void Destroy()
@@ -168,7 +182,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         {
             if (Instance == null) return;
 
-            Instance.Presets.UpdateContent();
+            Instance.Presets.Item.UpdateContentFull();
         }
 
         public static void UpdateSeedFromCache()

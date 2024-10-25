@@ -12,7 +12,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
 {
     public class EnumDisplayType : ConfigDisplay
     {
-        public readonly object[] Values;
+        public object[] Values { get; private set; }
         private int _index;
         public int CurrentIndex
         {
@@ -129,6 +129,21 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         protected override void OnModifiedState(bool isModified, bool isDefault)
         {
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
+        }
+
+        protected internal override void Destroy()
+        {
+            UnityEngine.Object.Destroy(EnabledObject);
+            UnityEngine.Object.Destroy(ToggleObject);
+
+            InputItemName = null;
+            Name = null;
+
+            LeftButton = null;
+            RightButton = null;
+
+            Values = null;
+            base.Destroy();
         }
     }
 }

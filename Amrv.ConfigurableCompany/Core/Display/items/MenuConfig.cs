@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +12,11 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 {
     internal class MenuConfig
     {
-        public static MenuConfig CreateConfig(Transform parent, CConfig config, MenuBind bind, bool first)
+#if DEBUG
+        internal static int instances = 0;
+        private readonly string configId;
+#endif
+        public static MenuConfig CreateConfig(Transform parent, CConfig config, Reference<MenuBind> bind, bool first)
         {
             try
             {
@@ -28,13 +34,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             }
         }
 
-        private readonly ConfigDisplay Display;
-        private readonly MenuBind Bind;
+        protected internal ConfigDisplay Display { get; private set; }
+        protected internal readonly Reference<MenuBind> Bind;
 
-        private MenuConfig(ConfigDisplay display, MenuBind bind)
+        private MenuConfig(ConfigDisplay display, Reference<MenuBind> bind)
         {
             Bind = bind;
-
+#if DEBUG
+            instances++;
+            configId = display.Config.ID;
+#endif
             // Generate click callback
             if (!display.Container.TryGetComponent(out Graphic g))
                 g = display.Container.AddComponent<NoDrawGraphic>();
@@ -63,13 +72,13 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
 
         private void OnEnter(PointerEventData e)
         {
-            Bind.Tooltip.DisplayedConfig = Display.Config;
+            Bind.Item.Tooltip.Item.DisplayedConfig = Display.Config;
         }
 
         private void OnExit(PointerEventData e)
         {
-            if (Bind.Tooltip.DisplayedConfig?.Equals(Display.Config) ?? false)
-                Bind.Tooltip.DisplayedConfig = null;
+            if (Bind.Item.Tooltip.Item.DisplayedConfig?.Equals(Display.Config) ?? false)
+                Bind.Item.Tooltip.Item.DisplayedConfig = null;
         }
 
         internal void ReceiveToggle(bool enabled)
@@ -98,5 +107,19 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             Load();
             Display.WhenRestored();
         }
+
+        internal void Destroy()
+        {
+            Display.Destroy();
+            Display = null;
+        }
+
+#if DEBUG
+        ~MenuConfig()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuConfig deleted {configId}");
+            instances--;
+        }
+#endif
     }
 }

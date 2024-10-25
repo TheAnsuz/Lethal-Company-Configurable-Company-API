@@ -1,6 +1,6 @@
 ﻿using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Display;
-using Amrv.ConfigurableCompany.Core.Display.menu;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
 using System.Collections;
 using UnityEngine;
@@ -40,6 +40,8 @@ namespace Amrv.ConfigurableCompany.Core
             MenuController.SetLocked(GameNetworkManager.Instance?.currentSaveFileName == "LCChallengeFile");
             MenuController.UpdateSeedFromCache();
             yield return null;
+            MenuLoader.Destroy();
+            yield return null;
         }
 
         public static void DestroyMenu()
@@ -49,6 +51,7 @@ namespace Amrv.ConfigurableCompany.Core
             IOController.SaveConfigs();
             MenuController.Destroy();
             MenuLoader.Destroy();
+            MenuPopup.Destroy();
         }
     }
 }

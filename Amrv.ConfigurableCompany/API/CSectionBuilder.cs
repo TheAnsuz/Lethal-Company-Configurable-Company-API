@@ -46,8 +46,10 @@ namespace Amrv.ConfigurableCompany.API
 
         protected override CSection BuildInstance()
         {
+#pragma warning disable
             if (Category != null)
                 BCategory ??= Category;
+#pragma warning enable
 
             BCategory ??= CCategory.Default;
 

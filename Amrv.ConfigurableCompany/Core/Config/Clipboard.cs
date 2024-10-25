@@ -20,7 +20,7 @@ namespace Amrv.ConfigurableCompany.Core.Config
                 WriteConfigBundle(config, bundle);
             }
 
-            CEvents.IOSEvents.CopyToClipboard?.Invoke(new CEventCopyClipboard(bundle));
+            CEvents.IOSEvents.CopyToClipboard?.InvokeFull(new CEventCopyClipboard(bundle));
 
             bundle.Write(out string data);
             GUIUtility.systemCopyBuffer = data;
@@ -38,13 +38,13 @@ namespace Amrv.ConfigurableCompany.Core.Config
 
                 if (!bundle.TryGetMetadata(nameof(VERSION), out string version) || !version.Equals(VERSION))
                 {
-                    CEvents.IOSEvents.PasteFromClipboard?.Invoke(new CEventPasteClipboard(bundle, false, new IOException("Bundle was not of the correct version")));
+                    CEvents.IOSEvents.PasteFromClipboard?.InvokeFull(new CEventPasteClipboard(bundle, false, new IOException("Bundle was not of the correct version")));
                     return;
                 }
             }
             catch (Exception e)
             {
-                CEvents.IOSEvents.PasteFromClipboard?.Invoke(new CEventPasteClipboard(bundle, false, e));
+                CEvents.IOSEvents.PasteFromClipboard?.InvokeFull(new CEventPasteClipboard(bundle, false, e));
                 return;
             }
 

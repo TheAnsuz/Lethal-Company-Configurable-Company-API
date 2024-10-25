@@ -1,5 +1,7 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,18 +9,18 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     internal class MenuSections : IMenuPart
     {
-        protected readonly MenuBind Bind;
+        protected Reference<MenuBind> Bind;
 
-        protected readonly Dictionary<CSection, MenuSection> _sections = [];
+        protected Dictionary<CSection, MenuSection> _sections = [];
 
-        internal MenuSections(MenuBind bind)
+        internal MenuSections(Reference<MenuBind> bind)
         {
             Bind = bind;
         }
 
         public void AddSection(CSection section)
         {
-            MenuSection menuSection = MenuSection.CreateSection(Bind.Categories.GetCategory(section.Category).Content.transform, section);
+            MenuSection menuSection = MenuSection.CreateSection(Bind.Item.Categories.Item.GetCategory(section.Category).Content.transform, section);
             _sections[section] = menuSection;
         }
 
@@ -29,7 +31,14 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuSections deletion in progress ({_sections.Count} sections)");
+            Bind = null;
+            foreach (MenuSection section in _sections.Values)
+            {
+                section.Destroy();
+            }
             _sections.Clear();
+            _sections = null;
         }
 
         public IEnumerator UpdateContent()
@@ -46,5 +55,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         {
             yield break;
         }
+
+#if DEBUG
+        ~MenuSections()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuSections deleted");
+        }
+#endif
     }
 }

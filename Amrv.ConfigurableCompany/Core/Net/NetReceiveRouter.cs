@@ -53,7 +53,7 @@ namespace Amrv.ConfigurableCompany.Core.Net
             }
 
             Array.Resize(ref received, index + 1);
-            CEvents.IOSEvents.Synchronize.Invoke(new(false, received));
+            CEvents.IOSEvents.Synchronize.InvokeFull(new(false, received));
         }
 
         private static void ReadConfigBundle(CConfig config, ConfigBundle.ConfigEntry entry)

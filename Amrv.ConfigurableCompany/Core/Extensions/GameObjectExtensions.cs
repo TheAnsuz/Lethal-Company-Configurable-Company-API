@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Amrv.ConfigurableCompany.Core.Extensions
 {
     public static class GameObjectExtensions
     {
-        [Obsolete("Use GetChild")]
+        //[Obsolete("Use GetChild")]
         public static GameObject FindChild(this GameObject gameObject, string child)
         {
             return gameObject.transform.Find(child)?.gameObject ?? null;

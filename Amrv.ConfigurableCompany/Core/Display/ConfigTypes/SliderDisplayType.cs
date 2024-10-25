@@ -128,5 +128,16 @@ namespace Amrv.ConfigurableCompany.Core.Display.ConfigTypes
         {
             Name.fontStyle = (isModified ? FontStyles.Italic : FontStyles.Normal) | (isDefault ? FontStyles.Normal : FontStyles.Bold);
         }
+
+        protected internal override void Destroy()
+        {
+            UnityEngine.Object.Destroy(EnabledObject);
+            EnabledObject = null;
+            InputField = null;
+            Name = null;
+            SliderField = null;
+
+            base.Destroy();
+        }
     }
 }

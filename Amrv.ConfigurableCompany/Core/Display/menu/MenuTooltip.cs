@@ -1,6 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.API;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System;
 using System.Collections;
 using TMPro;
@@ -10,28 +12,28 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     internal class MenuTooltip : IMenuPart
     {
-        private readonly MenuBind Bind;
+        private Reference<MenuBind> Bind;
 
-        private readonly GameObject Container;
+        private GameObject Container;
 
-        protected readonly GameObject Headline;
-        protected readonly TextMeshProUGUI Headline_Text;
-        protected readonly GameObject Information;
-        protected readonly TextMeshProUGUI Information_Text;
-        protected readonly GameObject Tags;
-        protected readonly GameObject TagsPanel;
+        protected GameObject Headline;
+        protected TextMeshProUGUI Headline_Text;
+        protected GameObject Information;
+        protected TextMeshProUGUI Information_Text;
+        protected GameObject Tags;
+        protected GameObject TagsPanel;
 
-        protected readonly MenuTag Tag_Experimental;
-        protected readonly MenuTag Tag_Type;
-        protected readonly MenuTag Tag_Default;
-        protected readonly MenuTag Tag_Synchronized;
-        protected readonly MenuTag Tag_Randomizable;
+        protected MenuTag Tag_Experimental;
+        protected MenuTag Tag_Type;
+        protected MenuTag Tag_Default;
+        protected MenuTag Tag_Synchronized;
+        protected MenuTag Tag_Randomizable;
 
-        internal MenuTooltip(MenuBind bind)
+        internal MenuTooltip(Reference<MenuBind> bind)
         {
             Bind = bind;
 
-            Container = Bind.Menu.FindChild("Tooltip");
+            Container = Bind.Item.Menu.FindChild("Tooltip");
 
             Headline = Container.FindChild("Headline");
             Information = Container.FindChild("Information");
@@ -99,10 +101,36 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
 
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuTooltip deletion in progress");
+
+            Bind = null;
+
+            UnityEngine.Object.Destroy(Container);
             UnityEngine.Object.Destroy(Headline);
             UnityEngine.Object.Destroy(Information);
             UnityEngine.Object.Destroy(Tags);
             UnityEngine.Object.Destroy(TagsPanel);
+
+            Tag_Experimental.Destroy();
+            Tag_Type.Destroy();
+            Tag_Default.Destroy();
+            Tag_Synchronized.Destroy();
+            Tag_Randomizable.Destroy();
+
+            Container = null;
+            Headline = null;
+            Headline_Text = null;
+            Information = null;
+            Information_Text = null;
+            Tags = null;
+            TagsPanel = null;
+            Tag_Experimental = null;
+            Tag_Type = null;
+            Tag_Default = null;
+            Tag_Synchronized = null;
+            Tag_Randomizable = null;
+
+            _displayedConfig = null;
         }
 
         [Obsolete("Does nothing on this class")]
@@ -116,5 +144,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
         {
             yield break;
         }
+
+#if DEBUG
+        ~MenuTooltip()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuTooltip deleted");
+        }
+#endif
     }
 }

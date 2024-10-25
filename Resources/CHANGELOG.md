@@ -1,3 +1,21 @@
+# 3.7.0
+
+### Fixed
+
+-   Event invocation not working under certain circumstances
+-   Presets list not updating after adding/removing a preset
+-   Memory optimizations and memory freeing at the start of the game
+-   Updated mod to v65
+-   Fixed menu loader appearing on clients after joining a game
+
+### Added
+
+-   New popup menu to confirm important actions (saving, deleting or modifying saves)
+
+### Removed
+
+-   Disabled some redundant debug logs (only on release version)
+
 # 3.6.0
 
 ### Fixed

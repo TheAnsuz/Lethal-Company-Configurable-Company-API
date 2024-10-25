@@ -37,5 +37,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
         }
 
         public bool IsVisible() => Tag.activeSelf;
+
+        internal void Destroy() => Object.Destroy(Tag);
     }
 }

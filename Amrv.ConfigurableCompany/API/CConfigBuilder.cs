@@ -7,6 +7,7 @@ namespace Amrv.ConfigurableCompany.API
 {
     public sealed class CConfigBuilder : InstanceBuilder<CConfig>
     {
+#pragma warning disable
         public string ID;
         public string Name;
         [Obsolete("Use BSection")]
@@ -187,5 +188,6 @@ namespace Amrv.ConfigurableCompany.API
         {
             return CConfig.Storage.TryGetValue(ID, out item);
         }
+#pragma warning enable
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Amrv.ConfigurableCompany.Core.Display.scripts
+namespace Amrv.ConfigurableCompany.Core.Display.Scripts
 {
     internal sealed class CoroutinePool : MonoBehaviour
     {

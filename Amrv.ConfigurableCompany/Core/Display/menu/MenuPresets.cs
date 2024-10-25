@@ -1,7 +1,8 @@
 ﻿using Amrv.ConfigurableCompany.Core.Config;
-using Amrv.ConfigurableCompany.Core.Display.items;
-using Amrv.ConfigurableCompany.Core.Display.Menu;
+using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
+using Amrv.ConfigurableCompany.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -9,22 +10,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Amrv.ConfigurableCompany.Core.Display.menu
+namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
     public class MenuPresets : IMenuPart
     {
-        private readonly MenuBind Bind;
-        private readonly GameObject Container;
-        private readonly TMP_InputField InputField;
-        private readonly GameObject Content;
+        private GameObject Container;
+        private TMP_InputField InputField;
+        private GameObject Content;
 
         private string CurrentPresetFile;
-        private readonly Dictionary<string, MenuPreset> Items = [];
+        private Dictionary<string, MenuPreset> Items = [];
 
-        internal MenuPresets(MenuBind menuBind)
+        internal MenuPresets(Reference<MenuBind> menuBind)
         {
-            Bind = menuBind;
-            Container = menuBind.Menu.FindChild("Presets");
+            Container = menuBind.Item.Menu.FindChild("Presets");
             InputField = Container.FindChild("Input").GetComponent<TMP_InputField>();
 
             Content = Container.FindChild("List/Viewport/Content");
@@ -42,31 +41,76 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             CurrentPresetFile = text + ".ccfg";
         }
 
-        private void OnClickCreate() => MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile);
-        private void OnClickLoad() => MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile);
-        private void OnClickSave() => MenuEventRouter.OnClick_PresetSave(CurrentPresetFile);
-        private void OnClickDelete() => MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile);
+        private void OnClickCreate()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Create preset with name \"{CurrentPresetFile}\"?\nSaved configuration values will be used (make sure you saved your current configs)", () => MenuEventRouter.OnClick_PresetCreate(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickLoad()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to load preset \"{CurrentPresetFile}\"?\nYour current settings will be overwriten", () => MenuEventRouter.OnClick_PresetLoad(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickSave()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetSave(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to save your current configuration to preset \"{CurrentPresetFile}\"?\nFile will be overwriten", () => MenuEventRouter.OnClick_PresetSave(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
+        private void OnClickDelete()
+        {
+            if (MenuPopup.IsAdvancedInput)
+                MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile);
+            else
+                MenuPopup.Show("Config Presets", $"Are you sure you want to delete \"{CurrentPresetFile}\"?\nYou can't undo this action", () => MenuEventRouter.OnClick_PresetDelete(CurrentPresetFile), MenuPopup.NO_ACTION);
+        }
 
         public void Destroy()
         {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPresets deletion in progress ({Items.Count} presets)");
+            foreach (MenuPreset preset in Items.Values)
+            {
+                preset.Destroy();
+            }
+            Items.Clear();
 
+            Items = null;
+
+            Object.Destroy(Content);
+            Object.Destroy(Container);
+
+            Container = null;
+            InputField = null;
+            Content = null;
         }
 
         public IEnumerator UpdateContent()
         {
+            ConfigurableCompanyPlugin.Debug($"MenuPresets > UpdateContent start");
+
             Dictionary<string, MenuPreset> temp = new(Items);
 
             foreach (var item in Presets.List)
             {
                 if (temp.TryGetValue(item, out var _))
+                {
                     temp.Remove(item);
+                }
                 else
+                {
                     AddItem(item);
+                }
             }
 
             foreach (var expired in temp)
                 DeleteItem(expired.Key);
 
+            ConfigurableCompanyPlugin.Debug($"MenuPresets > UpdateContent | deletions: {temp.Count} | total: {Presets.List.Count}");
             /*
             if (Items.Count > 0)
             {
@@ -100,7 +144,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
         {
             if (Items.TryGetValue(item, out var obj))
             {
-                obj.Delete();
+                obj.Destroy();
                 Items.Remove(item);
             }
         }
@@ -117,5 +161,12 @@ namespace Amrv.ConfigurableCompany.Core.Display.menu
             InputField.text = Path.GetFileNameWithoutExtension(CurrentPresetFile);
             yield break;
         }
+
+#if DEBUG
+        ~MenuPresets()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPresets deleted");
+        }
+#endif
     }
 }

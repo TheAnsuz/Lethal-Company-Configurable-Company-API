@@ -2,8 +2,11 @@
 using Amrv.ConfigurableCompany.API.Data;
 using Amrv.ConfigurableCompany.API.Event;
 using Amrv.ConfigurableCompany.Core.Config;
+using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
+using System;
+using System.Collections.Generic;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {
@@ -58,7 +61,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
                 foreach (var config in CConfig.Storage.Values)
                     config.Reset(ChangeReason.USER_RANDOMIZED);
 
-                CEvents.MenuEvents.Randomize.Invoke(new(RNGProvider.Static, InfoProvider.Default));
+                CEvents.MenuEvents.Randomize.InvokeFull(new(RNGProvider.Static, InfoProvider.Default));
 
                 CCache.UsedSeed = "";
                 MenuController.SetRandomizerDetails(InfoProvider.Default);
@@ -68,44 +71,57 @@ namespace Amrv.ConfigurableCompany.Core.Display
             InfoProvider info = InfoProvider.Create(seed, SpecialSeed.GetSpecialSeed(seed));
             RNGProvider random = info.IsSpecialSeed ? new RNGProvider(info.SpecialSeed.Seed) : new RNGProvider(RandomSeedParser.FromSeed(seed));
 
-            foreach (var config in CConfig.Storage.Values)
-                config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
-
             CCache.UsedSeed = info.SeedString;
             MenuController.SetRandomizerDetails(info);
-            CEvents.MenuEvents.Randomize.Invoke(new(random, info));
+            CEvents.MenuEvents.Randomize.InvokeFull(new(random, info));
+
+            List<CConfig> errors = [];
+            foreach (var config in CConfig.Storage.Values)
+            {
+                try
+                {
+                    config.Randomize(random, info, ChangeReason.USER_RANDOMIZED);
+                }
+                catch (Exception e)
+                {
+                    errors.Add(config);
+                    ConfigurableCompanyPlugin.Error(e);
+                }
+            }
+
+            if (errors.Count > 0)
+                MenuPopup.Show("ERROR", $"Unable to randomize all configs ({errors.Count} errors)", MenuPopup.NO_ACTION, null);
         }
 
         public static void OnClick_ShowPage(CPage page)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | ShowPage ({page.Name})");
             MenuController.SetCurrentPage(page);
-            CEvents.MenuEvents.ChangePage.Invoke(new(page));
+            CEvents.MenuEvents.ChangePage.InvokeFull(new(page));
         }
 
         public static void OnAction_PrepareMenu()
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Prepare");
-            CEvents.MenuEvents.Prepare.Invoke();
+            CEvents.MenuEvents.Prepare.InvokeFull();
         }
 
         public static void OnAction_CreateMenu()
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Create");
-            CEvents.MenuEvents.Create.Invoke();
+            CEvents.MenuEvents.Create.InvokeFull();
         }
 
         public static void OnAction_DestroyMenu()
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Destroy");
-            MenuController.Destroy();
-            CEvents.MenuEvents.Destroy.Invoke();
+            CEvents.MenuEvents.Destroy.InvokeFull();
         }
 
         public static void OnClick_ToggleMenu(bool open)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnClick | Toggle ({(open ? "Open" : "Close")})");
-            CEvents.MenuEvents.Toggle.Invoke(new(open));
+            CEvents.MenuEvents.Toggle.InvokeFull(new(open));
         }
 
         public static void OnClick_PresetCreate(string name)
@@ -137,7 +153,7 @@ namespace Amrv.ConfigurableCompany.Core.Display
         public static void OnAction_VisibleMenu(bool visible)
         {
             ConfigurableCompanyPlugin.Debug($"MenuEventRouter > OnAction | Visible ({(visible ? "Visible" : "Hidden")})");
-            CEvents.MenuEvents.Visible.Invoke(new(visible));
+            CEvents.MenuEvents.Visible.InvokeFull(new(visible));
         }
 
         public static void OnAction_ToggleCategory(CCategory category, bool active)

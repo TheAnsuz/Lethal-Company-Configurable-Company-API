@@ -1,20 +1,21 @@
 ﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
+using Amrv.ConfigurableCompany.Plugin;
 using System;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Amrv.ConfigurableCompany.Core.Display.items
+namespace Amrv.ConfigurableCompany.Core.Display.Items
 {
     public class MenuPreset
     {
         public readonly string File;
         public readonly string Text;
-        public readonly GameObject Object;
-        public readonly TextMeshProUGUI Label;
-        public readonly Button Button;
+        public GameObject Object { get; private set; }
+        public TextMeshProUGUI Label { get; private set; }
+        public Button Button { get; private set; }
         public event Action<MenuPreset> OnClick;
 
         public MenuPreset(string file, GameObject container)
@@ -33,9 +34,20 @@ namespace Amrv.ConfigurableCompany.Core.Display.items
             OnClick?.Invoke(this);
         }
 
-        public void Delete()
+        public void Destroy()
         {
             UnityEngine.Object.Destroy(Object);
+            Object = null;
+            Label = null;
+            Button = null;
+            OnClick = null;
         }
+
+#if DEBUG
+        ~MenuPreset()
+        {
+            ConfigurableCompanyPlugin.Debug($"[Destroy] MenuPreset deleted");
+        }
+#endif
     }
 }

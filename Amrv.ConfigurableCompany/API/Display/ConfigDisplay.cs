@@ -5,6 +5,16 @@ namespace Amrv.ConfigurableCompany.API.Display
 {
     public abstract class ConfigDisplay
     {
+#if DEBUG
+        internal static int instances = 0;
+#endif
+        public ConfigDisplay()
+        {
+#if DEBUG
+            instances++;
+#endif
+        }
+
         private GameObject _container;
         /// <summary>
         /// The GameObject that acts as a panel and container of the display entry
@@ -132,5 +142,19 @@ namespace Amrv.ConfigurableCompany.API.Display
         {
             _toggleCallback?.Invoke(enabled);
         }
+
+        protected internal virtual void Destroy()
+        {
+            UnityEngine.Object.Destroy(_container);
+            _container = null;
+            Config = null;
+        }
+
+#if DEBUG
+        ~ConfigDisplay()
+        {
+            instances--;
+        }
+#endif
     }
 }

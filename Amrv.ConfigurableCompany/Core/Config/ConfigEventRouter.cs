@@ -10,74 +10,82 @@ namespace Amrv.ConfigurableCompany.Core.Config
     {
         public static void OnCreate_Page(CPage page)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Page ({page.ID})");
+#endif
             MenuController.AddPage(page);
             //MenuController.SetCurrentPage(page);
-            CEvents.ConfigEvents.CreatePage.Invoke(new(page));
+            CEvents.ConfigEvents.CreatePage.InvokeFull(new(page));
         }
 
         public static void OnCreate_Category(CCategory category)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Category ({category.ID})");
+#endif
             MenuController.AddCategory(category);
-            CEvents.ConfigEvents.CreateCategory.Invoke(new(category));
+            CEvents.ConfigEvents.CreateCategory.InvokeFull(new(category));
         }
 
         public static void OnCreate_Section(CSection section)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Section ({section.ID})");
+#endif
             MenuController.AddSection(section);
-            CEvents.ConfigEvents.CreateSection.Invoke(new(section));
+            CEvents.ConfigEvents.CreateSection.InvokeFull(new(section));
         }
 
         public static void OnCreate_Config(CConfig config)
         {
-#if DEBUG
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnCreate | Config ({config.ID})");
 #endif
             MenuController.AddConfig(config);
-            CEvents.ConfigEvents.CreateConfig.Invoke(new(config));
+            CEvents.ConfigEvents.CreateConfig.InvokeFull(new(config));
         }
 
         public static void OnChange_Config(CConfig config, ChangeReason reason, object oldValue, object requestedValue, bool succeded, bool converted)
         {
-#if DEBUG
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnChange | Config ({config.ID}, {(succeded ? "Accepted" : "Denied")})");
 #endif
             MenuController.UpdateConfig(config, reason);
             CEventChangeConfig @event = new(config, reason, oldValue, requestedValue, succeded, converted);
-            CEvents.ConfigEvents.ConfigChangeSingle[config]?.Invoke(@event);
-            CEvents.ConfigEvents.ChangeConfig.Invoke(@event);
+            CEvents.ConfigEvents.ConfigChangeSingle[config]?.InvokeFull(@event);
+            CEvents.ConfigEvents.ChangeConfig.InvokeFull(@event);
             if (succeded && NetSynchronizer.IsServer)
                 NetController.SendConfig(config);
         }
 
         public static void OnToggle_Config(CConfig config, bool enabled)
         {
+#if EXTENDED_LOG
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnToggle | Config ({config.ID}, {(enabled ? "Enabled" : "Disabled")})");
+#endif
             MenuController.TriggerToggleConfig(config, enabled);
-            CEvents.ConfigEvents.ToggleConfig.Invoke(new(config, enabled));
+            CEvents.ConfigEvents.ToggleConfig.InvokeFull(new(config, enabled));
         }
 
         public static void OnPreset_Create(string name)
         {
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Create ({name})");
             MenuController.RefreshPresets();
-            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.CREATE));
+            CEvents.IOSEvents.PresetUpdate.InvokeFull(new(name, CEventUpdatePreset.PresetAction.CREATE));
         }
 
         public static void OnPreset_Delete(string name)
         {
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Delete ({name})");
             MenuController.RefreshPresets();
-            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.DELETE));
+            CEvents.IOSEvents.PresetUpdate.InvokeFull(new(name, CEventUpdatePreset.PresetAction.DELETE));
         }
 
         public static void OnPreset_Update(string name)
         {
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Update ({name})");
             //MenuController.RefreshPresets();
-            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.UPDATE));
+            CEvents.IOSEvents.PresetUpdate.InvokeFull(new(name, CEventUpdatePreset.PresetAction.UPDATE));
         }
 
         public static void OnPreset_Stablish(string name)
@@ -85,7 +93,7 @@ namespace Amrv.ConfigurableCompany.Core.Config
             ConfigurableCompanyPlugin.Debug($"ConfigEventRouter > OnPreset | Stablish ({name})");
             //MenuController.RefreshPresets();
             MenuController.LoadConfigs();
-            CEvents.IOSEvents.PresetUpdate.Invoke(new(name, CEventUpdatePreset.PresetAction.STABLISH));
+            CEvents.IOSEvents.PresetUpdate.InvokeFull(new(name, CEventUpdatePreset.PresetAction.STABLISH));
         }
     }
 }
