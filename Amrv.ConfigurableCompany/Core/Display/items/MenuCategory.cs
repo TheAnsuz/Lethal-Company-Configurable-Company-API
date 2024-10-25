@@ -4,7 +4,6 @@ using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Core.IO;
 using Amrv.ConfigurableCompany.Plugin;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

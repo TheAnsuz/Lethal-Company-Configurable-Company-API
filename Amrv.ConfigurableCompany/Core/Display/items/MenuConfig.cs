@@ -34,8 +34,8 @@ namespace Amrv.ConfigurableCompany.Core.Display.Items
             }
         }
 
-        internal protected ConfigDisplay Display { get; private set; }
-        internal protected readonly Reference<MenuBind> Bind;
+        protected internal ConfigDisplay Display { get; private set; }
+        protected internal readonly Reference<MenuBind> Bind;
 
         private MenuConfig(ConfigDisplay display, Reference<MenuBind> bind)
         {

@@ -1,12 +1,10 @@
 ﻿using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.Items;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
-using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
 using Amrv.ConfigurableCompany.Utils;
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine.UI;
+﻿using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using UnityEngine;
-using Amrv.ConfigurableCompany.Core.Display.Scripts;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display
 {

@@ -1,13 +1,10 @@
-﻿using Amrv.ConfigurableCompany.Core.Display.Menu;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine.UI;
-using UnityEngine;
+﻿using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
+using System;
 using TMPro;
-using Amrv.ConfigurableCompany.Core.Extensions;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Amrv.ConfigurableCompany.Core.Display.Menu
 {
@@ -48,7 +45,7 @@ namespace Amrv.ConfigurableCompany.Core.Display.Menu
             return _instance;
         }
 
-        protected static internal void Destroy()
+        protected internal static void Destroy()
         {
             _instance?.DestroyInstance();
             _instance = null;

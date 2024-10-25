@@ -1,6 +1,5 @@
 ﻿using Amrv.ConfigurableCompany.Core.Config;
 using Amrv.ConfigurableCompany.Core.Display.Items;
-using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
 using Amrv.ConfigurableCompany.Plugin;
 using Amrv.ConfigurableCompany.Utils;

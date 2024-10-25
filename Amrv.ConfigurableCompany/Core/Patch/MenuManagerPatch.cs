@@ -43,7 +43,7 @@ namespace Amrv.ConfigurableCompany.Core.Patch
         private static void ConfirmHostButton_Postfix()
         {
             ConfigurableCompanyPlugin.Debug($"MenuManager::ConfirmHostButton [Postfix]");
-            
+
             MenuController.DestroyIfCreating();
             LifecycleEventRouter.DestroyMenu();
         }

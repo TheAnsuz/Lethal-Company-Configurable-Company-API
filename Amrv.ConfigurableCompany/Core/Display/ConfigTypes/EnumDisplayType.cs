@@ -2,7 +2,6 @@
 using Amrv.ConfigurableCompany.API.Display;
 using Amrv.ConfigurableCompany.Core.Display.Menu;
 using Amrv.ConfigurableCompany.Core.Extensions;
-using Amrv.ConfigurableCompany.Utils.Unity;
 using System;
 using System.Collections;
 using TMPro;
