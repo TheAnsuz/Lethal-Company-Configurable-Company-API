@@ -51,6 +51,7 @@ namespace Amrv.ConfigurableCompany.Core
             IOController.SaveConfigs();
             MenuController.Destroy();
             MenuLoader.Destroy();
+            MenuPopup.Destroy();
         }
     }
 }
